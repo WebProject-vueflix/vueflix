@@ -17,12 +17,12 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre, related_name='genre_movies')
     actors = models.ManyToManyField(Actor, related_name='actor_movies')
     title = models.CharField(max_length=100)
-    release_date = models.DateTimeField()
+    release_date = models.CharField(max_length=200)
     popularity = models.FloatField()
     vote_average = models.FloatField()
     overview = models.TextField()
-    backdrop_path = models.CharField(max_length=200)
-    poster_path = models.CharField(max_length=200)
+    backdrop_path = models.CharField(max_length=200, null=True)
+    poster_path = models.CharField(max_length=200, null=True)
 
 class Review(models.Model):
     title = models.CharField(max_length=100)
