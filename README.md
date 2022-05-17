@@ -12,7 +12,7 @@
 
 ### 3. 데이터베이스 모델링 (ERD)
 
-
+![ERD.drawio](image/ERD.drawio.png)
 
 ### 4. 필수 기능에 대한 설명
 
