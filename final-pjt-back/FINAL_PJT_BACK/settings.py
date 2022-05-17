@@ -33,6 +33,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 SITE_ID = 1
 
+# social login 바로 넘어가기
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',        
@@ -58,7 +61,10 @@ INSTALLED_APPS = [
 
     'allauth',
     'allauth.account',
-    'django.contrib.sites',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.naver',
 
     # django natvie app
     'django.contrib.admin',
@@ -67,6 +73,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 MIDDLEWARE = [
