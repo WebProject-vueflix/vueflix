@@ -24,8 +24,8 @@ def index(request):
     data = Movie()
 
     movies = []
-    for page in range(68,69):
-        url = "https://api.themoviedb.org/3/movie/now_playing?api_key=1084b2e96727cbe4bd9c2a0e2fd99168&language=ko&page="
+    for page in range(21,51):
+        url = "https://api.themoviedb.org/3/movie/top_rated?api_key=1084b2e96727cbe4bd9c2a0e2fd99168&language=ko&page="
         pageurl= url + str(page)
 
         response = requests.get(pageurl)
@@ -34,15 +34,16 @@ def index(request):
         movielist = data.get('results')
         # print(len(movielist))
         for i in range(20):
-            data = Movie.objects.create(
-            title = movielist[i].get('title'),
-            release_date = movielist[i].get('release_date'),
-            popularity = movielist[i].get('popularity'),
-            vote_average = movielist[i].get('vote_average'),
-            overview = movielist[i].get('overview'),
-            backdrop_path = movielist[i].get('backdrop_path'),
-            poster_path = movielist[i].get('poster_path'),
-            )
+            if movielist[i].get('release_date'):
+                data = Movie.objects.create(
+                title = movielist[i].get('title'),
+                release_date = movielist[i].get('release_date'),
+                popularity = movielist[i].get('popularity'),
+                vote_average = movielist[i].get('vote_average'),
+                overview = movielist[i].get('overview'),
+                backdrop_path = movielist[i].get('backdrop_path'),
+                poster_path = movielist[i].get('poster_path'),
+                )
             print(data.release_date)
             # data.save()
 

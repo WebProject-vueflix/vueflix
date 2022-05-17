@@ -1,3 +1,4 @@
+import string
 from django.db import models
 from django.forms import CharField, DateTimeField
 from django.conf import settings
@@ -17,7 +18,7 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre, related_name='genre_movies')
     actors = models.ManyToManyField(Actor, related_name='actor_movies')
     title = models.CharField(max_length=100)
-    release_date = models.CharField(max_length=200)
+    release_date = models.DateField()
     popularity = models.FloatField()
     vote_average = models.FloatField()
     overview = models.TextField()
