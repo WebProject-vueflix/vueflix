@@ -7,14 +7,14 @@ from django.conf import settings
 class Actor(models.Model):
     name = models.CharField(max_length=100)
 
-class Videos(models.Model):
+class Video(models.Model):
     key = models.CharField(max_length=100)
 
 class Genre(models.Model):
     name = models.CharField(max_length=50)
 
 class Movie(models.Model):
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles')
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
     genres = models.ManyToManyField(Genre, related_name='genre_movies')
     actors = models.ManyToManyField(Actor, related_name='actor_movies')
     title = models.CharField(max_length=100)
@@ -26,6 +26,7 @@ class Movie(models.Model):
     poster_path = models.CharField(max_length=200, null=True)
 
 class Review(models.Model):
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews')
     title = models.CharField(max_length=100)
     content = models.TextField()
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE,)
@@ -35,3 +36,4 @@ class Review(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+

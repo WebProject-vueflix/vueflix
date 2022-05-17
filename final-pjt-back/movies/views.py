@@ -24,7 +24,7 @@ def index(request):
     data = Movie()
 
     movies = []
-    for page in range(21,51):
+    for page in range(1,51):
         url = "https://api.themoviedb.org/3/movie/top_rated?api_key=1084b2e96727cbe4bd9c2a0e2fd99168&language=ko&page="
         pageurl= url + str(page)
 
@@ -43,6 +43,7 @@ def index(request):
                 overview = movielist[i].get('overview'),
                 backdrop_path = movielist[i].get('backdrop_path'),
                 poster_path = movielist[i].get('poster_path'),
+                id = movielist[i].get('id'),
                 )
             print(data.release_date)
             # data.save()
