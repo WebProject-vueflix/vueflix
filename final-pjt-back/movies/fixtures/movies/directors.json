@@ -1,0 +1,178 @@
+[
+    {
+        "pk": 93364,
+        "model": "movies.director",
+        "fields": {
+            "name": "Jeff Fowler",
+            "profile_path": "/wExdubFgeBkEUP8MojKPKoOcgdZ.jpg"
+        }
+    },
+    {
+        "pk": 91268,
+        "model": "movies.director",
+        "fields": {
+            "name": "Ruben Fleischer",
+            "profile_path": "/3JLxOPFTLigSy8FjFjDyMwD9GIp.jpg"
+        }
+    },
+    {
+        "pk": 174313,
+        "model": "movies.director",
+        "fields": {
+            "name": "Adam Nee",
+            "profile_path": "/x2UdCvS0j3QL5NlebV6571xwIpt.jpg"
+        }
+    },
+    {
+        "pk": 931525,
+        "model": "movies.director",
+        "fields": {
+            "name": "Aaron Nee",
+            "profile_path": "/q4ru70Opo26mvv9pkbyqtXE5rxL.jpg"
+        }
+    },
+    {
+        "pk": 32278,
+        "model": "movies.director",
+        "fields": {
+            "name": "Matt Reeves",
+            "profile_path": "/5rA459xpMt6IeJG7ZqvhLbSozEH.jpg"
+        }
+    },
+    {
+        "pk": 1293994,
+        "model": "movies.director",
+        "fields": {
+            "name": "Jon Watts",
+            "profile_path": "/fkXChMX6CUXY1yOxBehAzvaTCl7.jpg"
+        }
+    },
+    {
+        "pk": 7623,
+        "model": "movies.director",
+        "fields": {
+            "name": "Sam Raimi",
+            "profile_path": "/8gssvwiPrFRuFRlr5ruKx68k1Jl.jpg"
+        }
+    },
+    {
+        "pk": 1261455,
+        "model": "movies.director",
+        "fields": {
+            "name": "Pierre Perifel",
+            "profile_path": null
+        }
+    },
+    {
+        "pk": 2009739,
+        "model": "movies.director",
+        "fields": {
+            "name": "Domee Shi",
+            "profile_path": "/qswD23e2Hx91SiaxyiLZHz8glNu.jpg"
+        }
+    },
+    {
+        "pk": 138781,
+        "model": "movies.director",
+        "fields": {
+            "name": "Robert Eggers",
+            "profile_path": "/v9ukVIUGT1vQ3KuPVLSua7FfS9s.jpg"
+        }
+    },
+    {
+        "pk": 6046,
+        "model": "movies.director",
+        "fields": {
+            "name": "Roland Emmerich",
+            "profile_path": "/mN8x74uv9yQ7dJl8nh2q26mkY8v.jpg"
+        }
+    },
+    {
+        "pk": 119293,
+        "model": "movies.director",
+        "fields": {
+            "name": "Tarik Saleh",
+            "profile_path": "/6sZK0JLzcjgEmG8uxvAIdoGFOCH.jpg"
+        }
+    },
+    {
+        "pk": 1190581,
+        "model": "movies.director",
+        "fields": {
+            "name": "Alejandro Hidalgo",
+            "profile_path": null
+        }
+    },
+    {
+        "pk": 125738,
+        "model": "movies.director",
+        "fields": {
+            "name": "Daniel Espinosa",
+            "profile_path": "/rq6TkUBkSXvOrmKEjG5lt8kuhF4.jpg"
+        }
+    },
+    {
+        "pk": 18865,
+        "model": "movies.director",
+        "fields": {
+            "name": "Louis Leterrier",
+            "profile_path": "/pJl1hNtZOIxrdzQjwGlicWWGSXg.jpg"
+        }
+    },
+    {
+        "pk": 542246,
+        "model": "movies.director",
+        "fields": {
+            "name": "Gustavo Hernández",
+            "profile_path": "/y6kM7EIY0YCde0yV6VCtDpyTMUo.jpg"
+        }
+    },
+    {
+        "pk": 865,
+        "model": "movies.director",
+        "fields": {
+            "name": "Michael Bay",
+            "profile_path": "/8I9H9IKROECFEn7usvyChbRMhbI.jpg"
+        }
+    },
+    {
+        "pk": 55499,
+        "model": "movies.director",
+        "fields": {
+            "name": "Scott Derrickson",
+            "profile_path": "/nOQkRTC6OPkUHebBfjIgtiZ0hvE.jpg"
+        }
+    },
+    {
+        "pk": 139558,
+        "model": "movies.director",
+        "fields": {
+            "name": "Josh Sternfeld",
+            "profile_path": null
+        }
+    },
+    {
+        "pk": 88253,
+        "model": "movies.director",
+        "fields": {
+            "name": "Barbara Bialowas",
+            "profile_path": null
+        }
+    },
+    {
+        "pk": 1192152,
+        "model": "movies.director",
+        "fields": {
+            "name": "Tomasz Mandes",
+            "profile_path": "/wmYwPfWSXfjXpwvljvXEX8h0wfC.jpg"
+        }
+    },
+    {
+        "pk": 221850,
+        "model": "movies.director",
+        "fields": {
+            "name": "Graham Moore",
+            "profile_path": "/7L7d6ImqoKaGaokO8xxN0ILnVfx.jpg"
+        }
+    }
+]

@@ -5,9 +5,13 @@ from django.conf import settings
 
 class Actor(models.Model):
     name = models.CharField(max_length=100)
+    profile_path = models.CharField(max_length=200, null=True)
+    character = models.CharField(max_length=100)
+
 
 class Director(models.Model):
     name = models.CharField(max_length=200)
+    profile_path = models.CharField(max_length=200, null=True)
 
 class Video(models.Model):
     key = models.CharField(max_length=100)
@@ -18,6 +22,8 @@ class Genre(models.Model):
 class PopularMovie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_popular_movies')
     genres = models.ManyToManyField(Genre, related_name='popular_movies')
+    actor = models.ManyToManyField(Actor, related_name='popular_movies')
+    director = models.ManyToManyField(Director, related_name='popular_movies')
     adult = models.BooleanField()
     movie_id = models.IntegerField(null=True)
     title = models.CharField(max_length=100)
