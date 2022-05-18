@@ -1,4 +1,3 @@
-import string
 from django.db import models
 from django.forms import CharField, DateTimeField
 from django.conf import settings
@@ -7,16 +6,46 @@ from django.conf import settings
 class Actor(models.Model):
     name = models.CharField(max_length=100)
 
+class Director(models.Model):
+    name = models.CharField(max_length=200)
+
 class Video(models.Model):
     key = models.CharField(max_length=100)
 
 class Genre(models.Model):
     name = models.CharField(max_length=50)
 
-class Movie(models.Model):
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
-    genres = models.ManyToManyField(Genre, related_name='genre_movies')
-    actors = models.ManyToManyField(Actor, related_name='actor_movies')
+class PopularMovie(models.Model):
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_popular_movies')
+    genres = models.ManyToManyField(Genre, related_name='popular_movies')
+    adult = models.BooleanField()
+    movie_id = models.IntegerField(null=True)
+    title = models.CharField(max_length=100)
+    release_date = models.DateField()
+    popularity = models.FloatField()
+    vote_average = models.FloatField()
+    overview = models.TextField()
+    backdrop_path = models.CharField(max_length=200, null=True)
+    poster_path = models.CharField(max_length=200, null=True)
+
+class NowPlayingMovie(models.Model):
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_nowplaying_movies')
+    genres = models.ManyToManyField(Genre, related_name='nowplaying_movies')
+    adult = models.BooleanField()
+    movie_id = models.IntegerField(null=True)
+    title = models.CharField(max_length=100)
+    release_date = models.DateField()
+    popularity = models.FloatField()
+    vote_average = models.FloatField()
+    overview = models.TextField()
+    backdrop_path = models.CharField(max_length=200, null=True)
+    poster_path = models.CharField(max_length=200, null=True)
+
+class UpcomingMovie(models.Model):
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_upcoming_movies')
+    genres = models.ManyToManyField(Genre, related_name='upcoming_movies')
+    adult = models.BooleanField()
+    movie_id = models.IntegerField(null=True)
     title = models.CharField(max_length=100)
     release_date = models.DateField()
     popularity = models.FloatField()
@@ -29,7 +58,9 @@ class Review(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews')
     title = models.CharField(max_length=100)
     content = models.TextField()
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE,)
+    popular_movie = models.ForeignKey(PopularMovie, on_delete=models.CASCADE)
+    nowplaying_movie = models.ForeignKey(NowPlayingMovie, on_delete=models.CASCADE)
+    upcoming_movie = models.ForeignKey(UpcomingMovie, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='movie_review')
     title = models.CharField(max_length=100)
     rank = models.IntegerField()
