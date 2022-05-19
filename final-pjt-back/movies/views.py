@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 import requests
 from .models import Director, Genre, PopularMovie, NowPlayingMovie, UpcomingMovie, Actor, Review
-from .serializers.popularmovie import MovieListSerializer, MovieDetailSerializer
+from .serializers.popularmovie import MovieListSerializer, MovieReviewSerializer,MovieDetailSerializer
 from .serializers.actor import ActorListSerializer, ActorDetailSerializer
 from .serializers.director import DirectorDetailSerializer
 from .serializers.review import ReviewSerializer
@@ -166,8 +166,21 @@ def director_detail(request,director_pk):
     serializer = DirectorDetailSerializer(director)
     return Response(serializer.data)
 
-@api_view(['GET',])
-def review_list(request, popularmovie_pk, user_pk):
-    reviews = get_list_or_404(Review, pk=user_pk)
-    serializer = ReviewSerializer(reviews, many=True)
-    return Response(serializer.data)
+@api_view(['GET','POST'])
+def review_list_create(request, popularmovie_pk):
+    
+    def review_list():
+        movies = get_list_or_404(PopularMovie, pk=popularmovie_pk)
+        serializer = MovieReviewSerializer(reviews, many=True)
+        return Response(serializer.data)
+
+    def review_create():
+        seralizer = ReviewSerializer(data=request.data)
+        if seralizer.is_valid(raise_exception=True):
+            seralizer.save(user=request.user)
+            return Response(seralizer.data, status=status.HTTP_201_CREATED)
+
+    if request.method == 'GET':
+        return review_list()
+    elif request.method == 'POST':
+        return review_create()

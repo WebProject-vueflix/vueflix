@@ -74,3 +74,23 @@ class MovieDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = PopularMovie
         fields = '__all__'
+
+class MovieReviewSerializer(serializers.ModelSerializer):
+    
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('pk', 'username')
+    
+    class ReviewListSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Review
+            fields = ('title','content','rank')
+    movie_review = ReviewSerializer(many=True, read_only=True)
+    user = UserSerializer(read_only=True)
+    # like_count = serializers.IntegerField()
+
+    class Meta:
+        model = PopularMovie
+        fields = ('pk', 'user', 'movie_review',)
