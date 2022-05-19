@@ -1,7 +1,14 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import get_list_or_404,get_object_or_404
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 import requests
-from .models import Director, Genre, PopularMovie, NowPlayingMovie, UpcomingMovie, Actor
+from .models import Director, Genre, PopularMovie, NowPlayingMovie, UpcomingMovie, Actor, Review
+from .serializers.popularmovie import MovieListSerializer
+from .serializers.actor import ActorListSerializer, ActorDetailSerializer
+from .serializers.review import ReviewSerializer
+
 
 API_KEY = '1084b2e96727cbe4bd9c2a0e2fd99168'
 GENRE_URL = 'https://api.themoviedb.org/3/genre/movie/list'
@@ -115,18 +122,39 @@ def movie_data(page=1):
 
         # 배우들 저장
         get_actors(movie)
-        get_directors(movie)
+        # get_directors(movie)
         print('>>>', movie.title, '==>', movie.youtube_key)
 
-# from .models import Movie
-# Create your views here.
+def tmdb(request):
+    Genre.objects.all().delete
+    Actor.objects.all().delete
+    PopularMovie.objects.all().delete
 
-def index(request):
-        Genre.objects.all().delete()
-        Actor.objects.all().delete()
-        PopularMovie.objects.all().delete()
+    genre_data()
+    # for i in range(1,51):
+    #         movie_data(i)
+    return HttpResponse('OK')
 
-        genre_data()
-        for i in range(1,51):
-                movie_data(i)
-        return HttpResponse('OK')
+@api_view(['GET',])
+def movie_list(request):
+    movies = get_list_or_404(PopularMovie)
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+    
+@api_view(['GET',])
+def actor_list(request):
+    actors = get_list_or_404(Actor)
+    serializer = ActorListSerializer(actors, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET',])
+def actor_detail(request,actor_pk):
+    actor = get_object_or_404(Actor,pk=actor_pk)
+    serializer = ActorDetailSerializer(actor)
+    return Response(serializer.data)
+
+@api_view(['GET',])
+def review_list(request, popularmovie_pk, user_pk):
+    reviews = get_list_or_404(Review, pk=user_pk)
+    serializer = ReviewSerializer(reviews, many=True)
+    return Response(serializer.data)
