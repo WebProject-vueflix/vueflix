@@ -6,7 +6,7 @@ from django.conf import settings
 class Actor(models.Model):
     name = models.CharField(max_length=100)
     profile_path = models.CharField(max_length=200, null=True)
-    character = models.CharField(max_length=100)
+    character = models.CharField(max_length=100, null=True)
     def __str__(self):
         return self.name
 
@@ -40,6 +40,8 @@ class PopularMovie(models.Model):
     poster_path = models.CharField(max_length=200, null=True)
     def __str__(self):
         return self.name
+
+
 class NowPlayingMovie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_nowplaying_movies')
     genres = models.ManyToManyField(Genre, related_name='nowplaying_movies')    
@@ -56,6 +58,7 @@ class NowPlayingMovie(models.Model):
     poster_path = models.CharField(max_length=200, null=True)
     def __str__(self):
         return self.name
+
 class UpcomingMovie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_upcoming_movies')
     genres = models.ManyToManyField(Genre, related_name='upcoming_movies')
@@ -72,6 +75,7 @@ class UpcomingMovie(models.Model):
     poster_path = models.CharField(max_length=200, null=True)
     def __str__(self):
         return self.name
+
 class Review(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews')
     title = models.CharField(max_length=100)
