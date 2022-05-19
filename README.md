@@ -59,8 +59,11 @@
   ​	NtoM => Genres, 
   ​	Serializers에서 처리해줄 데이터 => (Actors, Directors)
   }
+  => actors와 directors가 전체 영화 DB에 존재하지 않아서 관계설정에 어려움을 겪음. 
+  ==> MovieData에 임의로 빈 공간을 넣어준 다음 credit에서 필요한 필드만 받아와 append 해주며 해결.
+  ==> but, MovieData와 Serializers 처리해줄 데이터를 합치는 과정에서 fixtures가 잘 되지 않음.
 
-- social login 확인
+- vue 응용 강의 다시보기
 
 ### 7. 느낀 점
 
