@@ -51,7 +51,7 @@ class MovieDetailSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Actor
-            fields = ('name', 'character',)
+            fields = ('id', 'name', 'profile_path','character',)
     # actors = ActorSerializer(many=True, read_only=True)
     actors = ActorSerializer(many=True)
 
@@ -59,7 +59,7 @@ class MovieDetailSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Director
-            fields = ('name',)
+            fields = ('id', 'name', 'profile_path',)
     # director = DirectorSerializer(many=True, read_only=True)
     director = DirectorSerializer(many=True)
 

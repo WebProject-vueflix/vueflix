@@ -5,8 +5,9 @@ from rest_framework.response import Response
 from rest_framework import status
 import requests
 from .models import Director, Genre, PopularMovie, NowPlayingMovie, UpcomingMovie, Actor, Review
-from .serializers.popularmovie import MovieListSerializer
+from .serializers.popularmovie import MovieListSerializer, MovieDetailSerializer
 from .serializers.actor import ActorListSerializer, ActorDetailSerializer
+from .serializers.director import DirectorDetailSerializer
 from .serializers.review import ReviewSerializer
 
 
@@ -140,7 +141,13 @@ def movie_list(request):
     movies = get_list_or_404(PopularMovie)
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
-    
+
+@api_view(['GET',])
+def movie_detail(request,popularmovie_pk):
+    movie = get_object_or_404(PopularMovie, pk=popularmovie_pk)
+    serializer = MovieDetailSerializer(movie)
+    return Response(serializer.data)
+
 @api_view(['GET',])
 def actor_list(request):
     actors = get_list_or_404(Actor)
@@ -151,6 +158,12 @@ def actor_list(request):
 def actor_detail(request,actor_pk):
     actor = get_object_or_404(Actor,pk=actor_pk)
     serializer = ActorDetailSerializer(actor)
+    return Response(serializer.data)
+
+@api_view(['GET',])
+def director_detail(request,director_pk):
+    director = get_object_or_404(Director,pk=director_pk)
+    serializer = DirectorDetailSerializer(director)
     return Response(serializer.data)
 
 @api_view(['GET',])
