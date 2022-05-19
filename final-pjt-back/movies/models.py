@@ -27,8 +27,8 @@ class Genre(models.Model):
 class PopularMovie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_popular_movies')
     genres = models.ManyToManyField(Genre, related_name='popular_movies')
-    actors = models.ManyToManyField(Actor, related_name='popular_actors')
-    director = models.ManyToManyField(Director, related_name='popular_director')
+    actors = models.ManyToManyField(Actor, related_name='popular_movies')
+    director = models.ManyToManyField(Director, related_name='popular_movies')
     adult = models.BooleanField()
     title = models.CharField(max_length=100)
     release_date = models.DateField()
@@ -45,8 +45,8 @@ class PopularMovie(models.Model):
 class NowPlayingMovie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_nowplaying_movies')
     genres = models.ManyToManyField(Genre, related_name='nowplaying_movies')    
-    actors = models.ManyToManyField(Actor, related_name='nowplaying_actors')
-    director = models.ManyToManyField(Director, related_name='nowplaying_director')
+    actors = models.ManyToManyField(Actor, related_name='nowplaying_movies')
+    director = models.ManyToManyField(Director, related_name='nowplaying_movies')
     adult = models.BooleanField()
     title = models.CharField(max_length=100)
     release_date = models.DateField()
@@ -62,8 +62,8 @@ class NowPlayingMovie(models.Model):
 class UpcomingMovie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_upcoming_movies')
     genres = models.ManyToManyField(Genre, related_name='upcoming_movies')
-    actors = models.ManyToManyField(Actor, related_name='upcoming_actors')
-    director = models.ManyToManyField(Director, related_name='upcoming_director')
+    actors = models.ManyToManyField(Actor, related_name='upcoming_movies')
+    director = models.ManyToManyField(Director, related_name='upcoming_movies')
     adult = models.BooleanField()
     title = models.CharField(max_length=100)
     release_date = models.DateField()
