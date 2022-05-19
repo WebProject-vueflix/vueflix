@@ -130,7 +130,7 @@ https://lab.ssafy.com/shko0524/final-pjt.git
 
 ### 3. 데이터베이스 모델링 (ERD)
 
-![ERD.drawio](image/ERD.drawio-16529697071561.png)
+![ERD.drawio](image/ERD.drawio.png)
 
 ### 4. 필수 기능에 대한 설명
 
