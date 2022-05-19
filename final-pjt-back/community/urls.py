@@ -15,5 +15,5 @@ urlpatterns = [
     #comment create
     path('<int:review_pk>/comments/', views.comment_create),
     #comment delete/update
-    path('<int:review_pk>/comments/<int:comment_pk>', views.comment_delete_or_update)
+    path('<int:review_pk>/comments/<int:comment_pk>/', views.comment_delete_or_update)
 ]

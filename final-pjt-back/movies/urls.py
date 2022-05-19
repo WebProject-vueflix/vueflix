@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name='movies/'
+# app_name='movies'
 urlpatterns = [
     # 전체 movie 조회
     path('', views.movie_list),
@@ -16,5 +16,5 @@ urlpatterns = [
     # movie 내부 review create
     path('<int:popularmovie_pk>/reviews/', views.review_list_create),
     # movie 내부 review list/delete/update
-    path('<int:popularmovie_pk>/reviews/<int:review_pk>/', views.review_list_or_delete_update),
+    # path('<int:popularmovie_pk>/reviews/<int:review_pk>/', views.review_list_or_delete_update),
 ]

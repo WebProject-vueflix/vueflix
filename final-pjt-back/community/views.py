@@ -15,7 +15,7 @@ def review_list_or_create(request):
     def review_list():
 
         reviewlist = Review.objects.annotate(
-            comment_count = Count('comments', distinct=True)
+            comment_count = Count('community_review', distinct=True)
         ).order_by('-pk')
 
         serealizer = ReviewListSerializer(reviewlist, many=True)
@@ -31,7 +31,7 @@ def review_list_or_create(request):
     if request.method == 'GET':
         return review_list()
     elif request.method == 'POST':
-        return create_review
+        return create_review()
 
 @api_view(['GET','DELETE','PUT'])
 def review_detail_or_delete_or_update(request, review_pk):
@@ -71,12 +71,12 @@ def comment_create(request,review_pk):
     if serializer.is_valid(raise_exception=True):
         serializer.save(review=review, user=user)
 
-        comments = review.comment.all()
+        comments = review.community_review.all()
         serealizer = CommentSerializer(comments, many=True)
         return Response(serealizer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET','PUT','DELETE'])
-def comment_delete_or_update(reqest, review_pk, comment_pk):
+def comment_delete_or_update(request, review_pk, comment_pk):
     review = get_object_or_404(Review, pk=review_pk)
     comment = get_object_or_404(Comment,pk=comment_pk)
 
@@ -84,7 +84,7 @@ def comment_delete_or_update(reqest, review_pk, comment_pk):
     def delete_comment():
         if request.uer == comment.user:
             comment.delete()
-            comments = review.comments.all()
+            comments = review.community_review.all()
             serializer = CommentSerializer(comments, many=True)
             return Response(serializer.data)
     
@@ -93,7 +93,7 @@ def comment_delete_or_update(reqest, review_pk, comment_pk):
             serializer = CommentSerializer(instance=comment,data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-                comments = review.comments.all()
+                comments = review.community_review.all()
                 serializer = CommentSerializer(comments, many=True)
                 return Response(serializer.data)
 

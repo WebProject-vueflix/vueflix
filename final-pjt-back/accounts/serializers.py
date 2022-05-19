@@ -21,9 +21,9 @@ class ProfileSerializer(serializers.ModelSerializer):
             model = Review
             fields = ('popular_movie','title','content',)
         
-    movie_review = ReviewSerializer(serializers.ModelSerializer)
+    movie_review = ReviewSerializer(many=True)
 
 
     class Meta:
         model = get_user_model()
-        fields = ('username','like_popular_movies',)
+        fields = ('username','like_popular_movies','movie_review',)
