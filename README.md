@@ -185,6 +185,41 @@ https://lab.ssafy.com/shko0524/final-pjt.git
 
 #### Day3 - 220519
 
+- django serializer 마무리 - model 관계설정 단어 오류 해결
+
+  ```
+  - django.core.exceptions.ImproperlyConfigured: Field name `movies` is not valid for model `Review`.
+  ```
+
+  => 역참조 관계명을 가져오는 부분에서 잦은 실수를 함. models.py 를 보면서 관계를 확인하면서 수정
+
+- Vue Home 구현 시 created에 설정했던 fetchmovies 함수와 getters가 undefined 됐다는 오류(console에서 확인), 이후에 duplicate 오류 발생
+
+  ```
+  unknown action type: fetchmovies
+  unknow getters type: movies
+  
+  duplicate getter key:account / ...
+  ```
+
+  => fetchmovies 함수 해결
+
+  ```
+  moduls 파일에 분리해뒀던 movies.js 를 index.js에 추가하지 않음 : 추가해서 해결
+  ```
+
+  => dulplicate 해결
+
+  ```
+  import accounts from './modules/accounts'
+  import movies from './modules/movies'
+  부분에서 movies -> accounts 로 중복 받아옴 : 고쳐주고 해결
+  ```
+
+  
+
+
+
 
 
 ### 7. 느낀 점

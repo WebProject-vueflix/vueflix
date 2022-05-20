@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 import requests
 from .models import Director, Genre, PopularMovie, NowPlayingMovie, UpcomingMovie, Actor, Review
-from .serializers.popularmovie import MovieListSerializer, MovieReviewSerializer,MovieDetailSerializer
+from .serializers.popularmovie import MovieListSerializer, MovieDetailSerializer
 from .serializers.actor import ActorListSerializer, ActorDetailSerializer
 from .serializers.director import DirectorDetailSerializer
 from .serializers.review import ReviewSerializer
@@ -138,7 +138,8 @@ def tmdb(request):
 
 @api_view(['GET',])
 def movie_list(request):
-    movies = get_list_or_404(PopularMovie)
+    # movies = get_list_or_404(PopularMovie)
+    movies = PopularMovie.objects.order_by('-popularity')[:10]
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
@@ -166,21 +167,42 @@ def director_detail(request,director_pk):
     serializer = DirectorDetailSerializer(director)
     return Response(serializer.data)
 
-@api_view(['GET','POST'])
-def review_list_create(request, popularmovie_pk):
+@api_view(['POST'])
+def review_create(request, popularmovie_pk):
+    user = request.user
     
-    def review_list():
-        movies = get_list_or_404(PopularMovie, pk=popularmovie_pk)
-        serializer = MovieReviewSerializer(reviews, many=True)
-        return Response(serializer.data)
+    popular_movie =  get_object_or_404(PopularMovie,pk=popularmovie_pk)
+    
+    seralizer = ReviewSerializer(data=request.data)
+    if seralizer.is_valid(raise_exception=True):
+        seralizer.save(popular_movie=popular_movie, user=user)
 
-    def review_create():
-        seralizer = ReviewSerializer(data=request.data)
-        if seralizer.is_valid(raise_exception=True):
-            seralizer.save(user=request.user)
-            return Response(seralizer.data, status=status.HTTP_201_CREATED)
+        reviews = popular_movie.review_set.all()
+        seralizer = ReviewSerializer(reviews,many=True)
+        return Response(seralizer.data, status=status.HTTP_201_CREATED)
 
-    if request.method == 'GET':
-        return review_list()
-    elif request.method == 'POST':
-        return review_create()
+@api_view(['PUT','DELETE'])
+def review_update_or_delete(request, popularmovie_pk, review_pk):
+    movie = get_object_or_404(PopularMovie,pk=popularmovie_pk)
+    review = get_object_or_404(Review, pk=review_pk)
+
+    def update_review():
+        if request.user == review.user:
+            serializer = ReviewSerializer(instance=review, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                reviews = movie.review_set.all()
+                serializer = ReviewSerializer(reviews, many=True)
+                return Response(serializer.data)
+        
+    def delete_review():
+        if request.user == review.user:
+            review.delete()
+            reviews = movie.review_set.all()
+            serializer = ReviewSerializer(reviews, many=True)
+            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+    if request.method == 'PUT':
+        return update_review()
+    elif request.method == 'DELETE':
+        return delete_review()

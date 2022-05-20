@@ -81,8 +81,6 @@ class Review(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     popular_movie = models.ForeignKey(PopularMovie, on_delete=models.CASCADE)
-    nowplaying_movie = models.ForeignKey(NowPlayingMovie, on_delete=models.CASCADE)
-    upcoming_movie = models.ForeignKey(UpcomingMovie, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='movie_review')
     rank = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -75,18 +75,18 @@ def comment_create(request,review_pk):
         serealizer = CommentSerializer(comments, many=True)
         return Response(serealizer.data, status=status.HTTP_201_CREATED)
 
-@api_view(['GET','PUT','DELETE'])
+@api_view(['PUT','DELETE'])
 def comment_delete_or_update(request, review_pk, comment_pk):
     review = get_object_or_404(Review, pk=review_pk)
     comment = get_object_or_404(Comment,pk=comment_pk)
 
 
     def delete_comment():
-        if request.uer == comment.user:
+        if request.user == comment.user:
             comment.delete()
             comments = review.community_review.all()
             serializer = CommentSerializer(comments, many=True)
-            return Response(serializer.data)
+            return Response(serializer.data,status=status.HTTP_204_NO_CONTENT)
     
     def update_comment():
         if request.user == comment.user:
