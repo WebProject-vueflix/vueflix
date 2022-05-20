@@ -2,7 +2,7 @@
   <nav>
     <ul>
       <li>
-        <router-link :to="{ name: 'articles' }">Home</router-link>
+        <router-link :to="{ name: 'movies' }">Home</router-link>
       </li>
 
       <li v-if="!isLoggedIn">
@@ -13,7 +13,7 @@
       </li>
 
       <li v-if="isLoggedIn">
-        <router-link :to="{ name: 'articleNew' }">New</router-link>
+        <router-link :to="{ name: 'movieNew' }">New</router-link>
       </li>
       <li v-if="isLoggedIn">
         <router-link :to="{ name: 'profile', params: { username } }">
@@ -28,17 +28,17 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
-  export default {
-    name: 'NavBar',
-    computed: {
-      ...mapGetters(['isLoggedIn', 'currentUser']),
-      username() {
-        return this.currentUser.username ? this.currentUser.username : 'guest'
-      },
+export default {
+  name: "NavBar",
+  computed: {
+    ...mapGetters(["isLoggedIn", "currentUser"]),
+    username() {
+      return this.currentUser.username ? this.currentUser.username : "guest";
     },
-  }
+  },
+};
 </script>
 
 <style></style>

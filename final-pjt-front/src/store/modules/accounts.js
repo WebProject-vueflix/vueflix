@@ -8,7 +8,7 @@ export default {
 
   // state는 직접 접근하지 않겠다!
   state: {
-    token: localStorage.getItem('token') || '' ,
+    token: localStorage.getItem('token') || '',
     currentUser: {},
     profile: {},
     authError: null,
@@ -19,7 +19,7 @@ export default {
     currentUser: state => state.currentUser,
     profile: state => state.profile,
     authError: state => state.authError,
-    authHeader: state => ({ Authorization: `Token ${state.token}`})
+    authHeader: state => ({ Authorization: `Token ${state.token}` })
   },
 
   mutations: {
@@ -67,7 +67,7 @@ export default {
           const token = res.data.key
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
-          router.push({ name: 'articles' })
+          router.push({ name: 'movies' })
         })
         .catch(err => {
           console.error(err.response.data)
@@ -94,7 +94,7 @@ export default {
           const token = res.data.key
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
-          router.push({ name: 'articles' })
+          router.push({ name: 'movies' })
         })
         .catch(err => {
           console.error(err.response.data)

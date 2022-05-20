@@ -8,9 +8,10 @@ import store from '../store'
 // import ArticleEditView from '@/views/ArticleEditView'
 
 import LoginView from '@/views/LoginView.vue'
-// import LogoutView from '@/views/LogoutView.vue'
-// import SignupView from '@/views/SignupView.vue'
-// import ProfileView from '@/views/ProfileView.vue'
+import LogoutView from '@/views/LogoutView.vue'
+import MovieListView from '@/views/MovieListView.vue'
+import SignupView from '@/views/SignupView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 import NotFound404 from '../views/NotFound404.vue'
 
 Vue.use(VueRouter)
@@ -36,41 +37,26 @@ const routes = [
     name: 'login',
     component: LoginView
   },
-  // {
-  //   path: '/logout',
-  //   name: 'logout',
-  //   component: LogoutView
-  // },
-  // {
-  //   path: '/signup',
-  //   name: 'signup',
-  //   component: SignupView
-  // },
-  // {
-  //   path: '/profile/:username',  // /profile/neo
-  //   name: 'profile',
-  //   component: ProfileView,
-  // },
-  // {
-  //   path: '/',  // Home
-  //   name: 'articles',
-  //   component: ArticleListView
-  // },
-  // {
-  //   path: '/articles/new',
-  //   name: 'articleNew',
-  //   component: ArticleNewView
-  // },
-  // {
-  //   path: '/articles/:articlePk',
-  //   name: 'article',
-  //   component: ArticleDetailView
-  // },
-  // {
-  //   path: '/articles/:articlePk/edit',
-  //   name: 'articleEdit',
-  //   component: ArticleEditView
-  // },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: LogoutView
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignupView
+  },
+  {
+    path: '/profile/:username',  // /profile/neo
+    name: 'profile',
+    component: ProfileView,
+  },
+  {
+    path: '/',  // Home
+    name: 'movies',
+    component: MovieListView
+  },
   {
     path: '/404',
     name: 'NotFound404',
@@ -80,7 +66,7 @@ const routes = [
     path: '*',
     redirect: '/404'
   },
-  
+
 ]
 
 const router = new VueRouter({
@@ -95,7 +81,7 @@ router.beforeEach((to, from, next) => {
 
   const { isLoggedIn } = store.getters
 
-  const noAuthPages = ['login']
+  const noAuthPages = ['login', 'signup']
 
   const isAuthRequired = !noAuthPages.includes(to.name)
 
@@ -106,9 +92,9 @@ router.beforeEach((to, from, next) => {
     next()
   }
 
-  // if (!isAuthRequired && isLoggedIn) {
-  //   next({ name: 'articles' })
-  // }
+  if (!isAuthRequired && isLoggedIn) {
+    next({ name: 'movies' })
+  }
 })
 
 /*
