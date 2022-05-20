@@ -17,14 +17,4 @@ export default {
   movies: {
     movies: () => HOST + MOVIES,
   }
-  // articles: {
-  //   // /articles/
-  //   articles: () => HOST + ARTICLES,
-  //   // /articles/1/
-  //   article: articlePk => HOST + ARTICLES + `${articlePk}/`,
-  //   likeArticle: articlePk => HOST + ARTICLES + `${articlePk}/` + 'like/',
-  //   comments: articlePk => HOST + ARTICLES + `${articlePk}/` + COMMENTS,
-  //   comment: (articlePk, commentPk) =>
-  //     HOST + ARTICLES + `${articlePk}/` + COMMENTS + `${commentPk}/`,
-  // },
 }
