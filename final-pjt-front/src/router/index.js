@@ -11,6 +11,9 @@ import NotFound404 from '../views/NotFound404.vue'
 import MovieListView from '@/views/MovieListView.vue'
 
 import CommunityListView from '@/views/CommunityListView.vue'
+import CommunityNewView from '@/views/CommunityNewView.vue'
+import CommunityDetailView from '@/views/CommunityDetailView.vue'
+import CommunityEditView from '@/views/CommunityEditView.vue'
 
 Vue.use(VueRouter)
 
@@ -59,6 +62,21 @@ const routes = [
     path: '/community', //Community
     name: 'community',
     component: CommunityListView
+  },
+  {
+    path: '/community/new',
+    name: 'reviewNew',
+    component: CommunityNewView
+  },
+  {
+    path: '/community/:reviewPk',
+    name: 'review',
+    component: CommunityDetailView
+  },
+  {
+    path: '/community/:reviewPk/edit',
+    name: 'reviewEdit',
+    component: CommunityEditView
   },
   {
     path: '/404',

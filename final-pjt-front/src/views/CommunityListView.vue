@@ -1,9 +1,20 @@
 <template>
   <div>
     <h1>Community</h1>
+    <div v-if="isAuthor">
+      <router-link :to="{ name: 'reviewNew' }">
+        <button>New</button>
+      </router-link>
+    </div>
+
     <ul>
       <li v-for="review in community" :key="review.pk">
-        {{ review.title }} : {{ review.content }}
+        {{ review.title }} [{{ review.comment_count }}]
+        <br>
+        <router-link 
+          :to="{ name: 'review', params: {reviewPk: review.pk} }">
+          게시글 보러가기
+        </router-link>
       </li>
     </ul>
   </div>
@@ -15,7 +26,7 @@ import { mapActions, mapGetters } from 'vuex'
   export default {
     name: 'CommunityList',
     computed: {
-      ...mapGetters(['community'])
+      ...mapGetters(['isAuthor', 'community'])
     },
     methods: {
       ...mapActions(['fetchCommunity'])
