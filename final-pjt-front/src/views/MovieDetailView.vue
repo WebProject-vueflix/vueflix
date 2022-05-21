@@ -2,7 +2,7 @@
   <div>
     <h1>{{ movie.title }}</h1>
     <img :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`" alt="사진">
-    <p>{{movie}}</p>
+    <!-- <p>{{movie}}</p> -->
     <p>평점 : {{ movie.vote_average }}</p>
     <p>
       배우 :
