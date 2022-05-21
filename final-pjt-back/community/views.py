@@ -61,6 +61,15 @@ def review_detail_or_delete_or_update(request, review_pk):
     elif request.method == 'PUT':
         return update_review()
 
+# @api_view(['GET'])
+# def comment_list():
+#     reviewlist = Review.objects.annotate(
+#         comment_count = Count('community_review', distinct=True)
+#     ).order_by('-pk')
+
+#     serealizer = ReviewListSerializer(reviewlist, many=True)
+#     return Response(serealizer.data)
+
 @api_view(['POST'])
 def comment_create(request,review_pk):
     user = request.user
