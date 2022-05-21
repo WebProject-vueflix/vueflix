@@ -12,12 +12,17 @@
         <router-link :to="{ name: 'signup' }">Signup</router-link>
       </li>
 
-      <li v-if="isLoggedIn">
+      <!-- <li v-if="isLoggedIn">
         <router-link :to="{ name: 'movieNew' }">New</router-link>
-      </li>
+      </li> -->
       <li v-if="isLoggedIn">
         <router-link :to="{ name: 'profile', params: { username } }">
           {{ currentUser.username }}'s page
+        </router-link>
+      </li>
+      <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'community' }">
+          Community
         </router-link>
       </li>
       <li v-if="isLoggedIn">

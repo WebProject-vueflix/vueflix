@@ -2,17 +2,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
 
-// import ArticleListView from '@/views/ArticleListView.vue'
-// import ArticleDetailView from '@/views/ArticleDetailView.vue'
-// import ArticleNewView from '@/views/ArticleNewView'
-// import ArticleEditView from '@/views/ArticleEditView'
-
 import LoginView from '@/views/LoginView.vue'
 import LogoutView from '@/views/LogoutView.vue'
-import MovieListView from '@/views/MovieListView.vue'
 import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import NotFound404 from '../views/NotFound404.vue'
+
+import MovieListView from '@/views/MovieListView.vue'
+
+import CommunityListView from '@/views/CommunityListView.vue'
 
 Vue.use(VueRouter)
 
@@ -56,6 +54,11 @@ const routes = [
     path: '/',  // Home
     name: 'movies',
     component: MovieListView
+  },
+  {
+    path: '/community', //Community
+    name: 'community',
+    component: CommunityListView
   },
   {
     path: '/404',
