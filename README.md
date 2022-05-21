@@ -45,10 +45,10 @@
     </tr>
     <tr>
     	<td>
-        	<img src='image/승효-16531140173821.png' style='width:400px; display: block; margin: 0 auto;'>
+        	<img src='image/승효.png' style='width:400px; display: block; margin: 0 auto;'>
         </td>
         <td>
-        	<img src='image/애리-16531140572902.jpg' style='width:450px; display: block; margin: 0 auto;'>
+        	<img src='image/애리.jpg' style='width:450px; display: block; margin: 0 auto;'>
         </td>
     </tr>
     <tr>
@@ -97,6 +97,7 @@
         </td>
     </tr>
 </table>
+
 
 ### 2. 목표 서비스 구현 및 실제 구현 정도
 
