@@ -1,6 +1,6 @@
 # 최종관통프로젝트
 
-###  개요
+### 개요
 
 - final-pjt 제출주소
   https://lab.ssafy.com/shko0524/final-pjt.git
@@ -106,7 +106,7 @@
 - 영화 정보 기반 추천 서비스★
   - 최초 로그인 시 추천 받기 싫은 영화 장르를 먼저 선택하고, default값 음수로 변경.
   - 이후 내가 본 영화를 기반으로 좋아요를 누르면 장르별로 점수 차등 부여하여 영화 추천. 
-- 커뮤니티
+- 커뮤니티 - 자유게시판 형식
 
 #### - 구현
 
@@ -198,6 +198,40 @@
 - vue 응용 강의 다시보기
 
 #### Day3 - 220519
+
+- test - dumpdata 받기 완료 : PopularMovie, Genres, Actors, Directors
+- django serializer 코드 짜기
+  - movies부터 comment까지 postman으로 테스트하면서 데이터 구성해주었다.
+    => comment 수정과 삭제에서 오류가 남. 내일 해결하기로 함
+
+#### Day4 - 220520
+
+- django serializer 마무리 : model 관계설정 단어 오류 해결
+
+  ```
+  - django.core.exceptions.ImproperlyConfigured: Field name `movies` is not valid for model `Review`.
+  ```
+
+  => 역참조 관계명을 가져오는 부분에서 잦은 실수를 함. models.py 를 보면서 관계를 확인하면서 수정
+
+- Vue 메인페이지 구현에서 created에 설정했던 fetchmovies 함수와 movies가 undefined 됐다는 오류(console에서 확인)와 duplicate 오류 발생
+
+  ```
+  unknown action type: fetchmovies
+  unknow getters type: movies
+  
+  duplicate getter key:account / ...
+  ```
+
+  => moduls 파일에 분리해뒀던 movies.js 를 index.js에 추가하지 않아서 발생한 오류였다. index.js에 movies 추가해주며 unknown 현상 해결. 이 과정에서 휴먼에러로 인해 duplicate 오류 발생.
+
+  ```
+  import movies from './modules/accounts'
+  ```
+
+  => accounts로 적은 부분을 movies로 고쳐주면서 dulplicate 해결
+
+#### Day5 - 220521
 
 
 
