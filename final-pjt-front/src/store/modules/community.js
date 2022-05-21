@@ -21,6 +21,7 @@ export default {
     SET_COMMUNITY: (state, community) => state.community = community,
     SET_REVIEW: (state, review) => state.review = review,
     SET_REVIEW_COMMENTS: (state, comments) => (state.review.comments = comments),
+    SET_REVIEW_COMMENT: (state, comment) => (state.review.commnet = comment),
   },
 
   actions: {
@@ -103,7 +104,6 @@ export default {
     },
     createComment({ commit, getters }, { reviewPk, content }) {
       const comment = { content }
-
       axios({
         url: drf.community.comments(reviewPk),
         method: 'post',
@@ -114,6 +114,33 @@ export default {
           commit('SET_REVIEW_COMMENTS', res.data)
         })
         .catch(err => console.error(err.response))
+    },
+    updateComment({ commit, getters }, { reviewPk, commentPk, content }) {
+      const comment = { content }
+      axios({
+        url: drf.community.comment(reviewPk, commentPk),
+        method: 'put',
+        data: comment,
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_REVIEW_COMMENT', res.data)
+        })
+        .catch(err => console.error(err.response))
+    },
+    deleteComment({ commit, getters }, { reviewPk, commentPk }) {
+      if (confirm('정말 삭제하시겠습니까?')) {
+        axios({
+          url: drf.community.comment(reviewPk, commentPk),
+          method: 'delete',
+          data: {},
+          headers: getters.authHeader,
+        })
+          .then(res => {
+            commit('SET_REVIEW_COMMENT', res.data)
+          })
+          .catch(err => console.error(err.response))
+      }
     },
   }
 }

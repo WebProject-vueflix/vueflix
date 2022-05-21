@@ -79,6 +79,11 @@ const routes = [
     component: CommunityEditView
   },
   {
+    path: '/community/:reviewPk/comment/New',
+    name: 'commentNew',
+    component: CommunityDetailView
+  },
+  {
     path: '/404',
     name: 'NotFound404',
     component: NotFound404

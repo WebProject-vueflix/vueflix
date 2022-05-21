@@ -14,33 +14,36 @@
       <button @click="deleteReview(reviewPk)">Delete</button>
     </div>
 
-    <!-- Article Like UI -->
+    <!-- Review Like UI -->
     <!-- <div>
       Likeit:
       <button
-        @click="likeArticle(articlePk)"
+        @click="likeReview(reviewPk)"
       >{{ likeCount }}</button>
     </div> -->
 
     <hr />
     <!-- Comment UI -->
-    <!-- <comment-list :comments="review.comments"></comment-list> -->
-    <ul>
+    <comment-list :comments="review.community_review"></comment-list>
+    <!-- <ul>
       <li v-for="comment in review.community_review" :key="comment.pk">
         {{ comment.user.username }} : {{ comment.content }}
       </li>
     </ul>
+    <comment-form></comment-form> -->
 
   </div>
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  // import CommentList from '@/components/CommentList.vue'
+  // import CommentForm from '@/components/CommentForm.vue'
+  import CommentList from '@/components/CommentList.vue'
 
   export default {
     name: 'CommuintyDetail',
-    // components: { CommentList },
+    // components: { CommentForm },
+    components: { CommentList },
     data() {
       return {
         reviewPk: this.$route.params.reviewPk,
@@ -49,14 +52,15 @@
     computed: {
       ...mapGetters(['isAuthor', 'review']),
       // likeCount() {
-      //   return this.article.like_users?.length
+      //   return this.review.like_users?.length
       // }
     },
     methods: {
       ...mapActions([
         'fetchReview',
         'deleteReview',
-        // 'likeArticle',
+        'createComment',
+        // 'likeReview',
       ])
     },
     created() {
