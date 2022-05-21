@@ -40,7 +40,7 @@
 
 <table>
     <tr>
-    	<th style="text-align:center">고승효</th>
+    	<th style="text-align:center">고승효(팀장)</th>
         <th style="text-align:center">김애리</th>
     </tr>
     <tr>
@@ -53,30 +53,14 @@
     </tr>
     <tr>
         <td colspan="2" style="text-align:center">
-        공통 작업
-    </td>
-    </tr>
-    <tr>
-        <td colspan="2" style="text-align:center">
-        serializer 구현
-        </td>
-    </tr>
-    <tr>
-        <td>
-            팀장<br />social login 구현
-        </td>
-        <td>
-            dumpdata 받아오기 (TMDB)
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" style="text-align:center">
             프론트엔드 구현
         </td>
     </tr>
     <tr>
         <td>
-            명세 필수 기능 구현 - community 게시글 리스트 조회
+            명세 필수 기능 구현 - community 게시글 리스트 조회<br>
+            명세 필수 기능 구현 - review(자유게시판)CRUD<br>
+            명세 필수 기능 구현 - movie detail 구현(ing)
         </td>
         <td>
             명세 필수 기능 구현 - 로그인/로그아웃/signup<br>
@@ -90,13 +74,24 @@
     </tr>
     <tr>
         <td>
-            ...
+            social login 구현
         </td>
         <td>
-            ...
+            dumpdata 받아오기 (TMDB)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:center">
+        	공통 작업
+    	</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:center">
+        serializer 구현
         </td>
     </tr>
 </table>
+
 
 
 
