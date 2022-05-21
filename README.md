@@ -48,7 +48,7 @@
         	<img src='image/seunghyo.png' style='width:400px; display: block; margin: 0 auto;'>
         </td>
         <td>
-        	<img src='image/aeri.jpg' style='width:450px; display: block; margin: 0 auto;'>
+        	<img src='image/aeri.jpg' style='width:400px; display: block; margin: 0 auto;'>
         </td>
     </tr>
     <tr>
@@ -76,7 +76,7 @@
     </tr>
     <tr>
         <td>
-            명세 필수 기능 구현 - 
+            명세 필수 기능 구현 - community 게시글 리스트 조회
         </td>
         <td>
             명세 필수 기능 구현 - 로그인/로그아웃/signup<br>
@@ -140,7 +140,7 @@
   $ python -Xutf8 manage.py dumpdata --indent 4 movies.genre > genre.json
   $ python -Xutf8 manage.py dumpdata --indent 4 movies.popularmovie > popularmovie.json
   
-  $ python manage.py loaddata movies/actors.json movies/derector.json movies/genre.json
+  $ python manage.py loaddata movies/actor.json movies/director.json movies/genre.json
   $ python manage.py loaddata movies/popularmovie.json
   ```
 
@@ -241,7 +241,43 @@
 
 #### Day5 - 220521
 
+- 시작 전 진행상황
 
+  > <b>back</b>
+
+  - dumpdata 완료
+  - serialization 완료
+  - server - client 연결
+
+  > front
+
+  - login / logout / signup 구현 완료
+  - popular movie 메인페이지에 데이터 로드하기 완료(detail x)
+
+  > postman으로 확인 가능한 부분
+
+  - [POST] http://127.0.0.1:8000/api/v1/accounts/login - 로그인
+  - [POST] http://127.0.0.1:8000/api/v1/accounts/logout - 로그아웃
+  - [POST] http://127.0.0.1:8000/api/v1/accounts/signup - 회원가입
+  - [GET] http://127.0.0.1:8000/api/v1/movies -무비리스트(전체)
+  - [GET] http://127.0.0.1:8000/api/v1/movies/actor - 출연배우(전체)
+  - [GET] http://127.0.0.1:8000/api/v1/movies/director/1 - 감독(한명씩)
+  - [GET / POST] http://127.0.0.1:8000/api/v1/community/ - 자유게시판 목록 조회 및 생성 (+ 댓글목록)
+  - [GET / PUT / DELETE] http://127.0.0.1:8000/api/v1/community/1/ - 자유게시판 디테일 조회 수정 삭제
+  - [POST] http://127.0.0.1:8000/api/v1/community/1/comments/ - 자유게시판 디테일에 달린 댓글 목록 생성
+  - [DELETE / PUT] http://127.0.0.1:8000/api/v1/community/1/comments/1/ - 자유게시판 디테일에 달린 댓글 개별 수정/삭제
+
+- git pull을 받았는데 push를 잘못해버려서 git clone을 다시 받게 되었다. 그리고 서버 실행을 시켰는데 accounts를 제외하고 200은 뜨는데 데이터가 안떠서 당황스러웠다. 삽질 엄청 하다가 로드데이터 안한거 깨닫고 로드데이터 받은 후 시작..ㅠㅠ
+
+- community 게시판 생성
+
+  ```
+  [ERROR] Component name "Community" should always be multi-word
+  ```
+
+  => export default 의 name을 그냥 Community로 해주어서 발생한 오류로 CommunityList로 수정해주며 해결.
+
+- 
 
 ### 7. 느낀 점
 
