@@ -50,22 +50,24 @@
       }
     },
     computed: {
-      ...mapGetters(['isAuthor', 'review']),
+      ...mapGetters(['isAuthor', 'review', 'comment']),
       // likeCount() {
       //   return this.review.like_users?.length
       // }
+
     },
     methods: {
       ...mapActions([
         'fetchReview',
         'deleteReview',
         'createComment',
+        'deleteComment',
         // 'likeReview',
       ])
     },
     created() {
       this.fetchReview(this.reviewPk)
-    },
+    }
   }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSubmit" class="comment-list-form">
+  <form @submit.prevent="onSubmit" class="comment-form">
     <label for="comment">comment: </label>
     <input type="text" id="comment" v-model="content" required>
     <button>Comment</button>

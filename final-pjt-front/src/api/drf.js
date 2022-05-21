@@ -17,6 +17,7 @@ export default {
   },
   movies: {
     movies: () => HOST + MOVIES,
+    movie: moviePk => HOST + MOVIES +`${moviePk}/`,
   },
   community: {
     community: () => HOST + COMMUNITY,

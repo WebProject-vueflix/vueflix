@@ -2,8 +2,11 @@
   <div>
     <h1>Home</h1>
     <ul>
-      <li v-for="movie in movies" :key="movie.pk">
-        {{ movie.title }}
+      <li v-for="movie in movies" :key="movie.id">
+        <router-link 
+          :to="{ name: 'movie', params: { moviePk: movie.id } }">
+          {{ movie.title }}
+        </router-link>
       </li>
     </ul>
   </div>

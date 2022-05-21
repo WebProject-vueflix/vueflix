@@ -9,11 +9,13 @@ import ProfileView from '@/views/ProfileView.vue'
 import NotFound404 from '../views/NotFound404.vue'
 
 import MovieListView from '@/views/MovieListView.vue'
+import MovieDetailView from '@/views/MovieDetailView.vue'
 
 import CommunityListView from '@/views/CommunityListView.vue'
 import CommunityNewView from '@/views/CommunityNewView.vue'
 import CommunityDetailView from '@/views/CommunityDetailView.vue'
 import CommunityEditView from '@/views/CommunityEditView.vue'
+import CommentForm from '@/components/CommentForm.vue'
 
 Vue.use(VueRouter)
 
@@ -59,6 +61,11 @@ const routes = [
     component: MovieListView
   },
   {
+    path: '/:moviePk',
+    name: 'movie',
+    component: MovieDetailView
+  },
+  {
     path: '/community', //Community
     name: 'community',
     component: CommunityListView
@@ -80,8 +87,8 @@ const routes = [
   },
   {
     path: '/community/:reviewPk/comment/New',
-    name: 'commentNew',
-    component: CommunityDetailView
+    name: 'comment',
+    component: CommentForm
   },
   {
     path: '/404',

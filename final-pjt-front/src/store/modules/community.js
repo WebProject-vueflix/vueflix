@@ -20,8 +20,8 @@ export default {
   mutations: {
     SET_COMMUNITY: (state, community) => state.community = community,
     SET_REVIEW: (state, review) => state.review = review,
-    SET_REVIEW_COMMENTS: (state, comments) => (state.review.comments = comments),
-    SET_REVIEW_COMMENT: (state, comment) => (state.review.commnet = comment),
+    SET_REVIEW_COMMENTS: (state, comments) => (state.review.community_review = comments),
+    SET_REVIEW_COMMENT: (state, comment) => (state.review.comment = comment),
   },
 
   actions: {
@@ -88,7 +88,7 @@ export default {
         })
           .then(() => {
             commit('SET_REVIEW', {})
-            router.push({ name: 'community' })
+            // router.push({ name: 'review' })
           })
           .catch(err => console.error(err.response))
       }
@@ -111,7 +111,12 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
-          commit('SET_REVIEW_COMMENTS', res.data)
+          commit('SET_REVIEW_COMMENT', res.data)
+          console.log(res.data)
+          router.push({
+            name: 'review',
+            params: { commentPk: getters.comment.pk }
+          })
         })
         .catch(err => console.error(err.response))
     },
@@ -138,6 +143,8 @@ export default {
         })
           .then(res => {
             commit('SET_REVIEW_COMMENT', res.data)
+            console.log('ㅇㅇ')
+            router.push({ name: 'review' })
           })
           .catch(err => console.error(err.response))
       }
