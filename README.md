@@ -2,7 +2,10 @@
 
 ###  개요
 
-https://lab.ssafy.com/shko0524/final-pjt.git
+- final-pjt 제출주소
+  https://lab.ssafy.com/shko0524/final-pjt.git
+- Trello management
+  https://trello.com/b/Agl03LfX/final-pjt
 
 - 개발환경
   - Python 3.8 +
@@ -31,6 +34,8 @@ https://lab.ssafy.com/shko0524/final-pjt.git
 
 ----
 
+### 0.
+
 ### 1. 팀원 정보 및 업무 분담 내역
 
 <table>
@@ -39,47 +44,56 @@ https://lab.ssafy.com/shko0524/final-pjt.git
         <th style="text-align:center">김애리</th>
     </tr>
     <tr>
-    	<td colspan="2" style="text-align:center">
-        공통 작업
+    	<td>
+        	<img src='image/승효.png' style='width:400px; display: block; margin: 0 auto;'>
+        </td>
+        <td>
+        	<img src='image/애리.jpg' style='width:450px; display: block; margin: 0 auto;'>
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="2" style="text-align:center">
+        공통 작업
+    </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:center">
         serializer 구현
         </td>
     </tr>
     <tr>
-    	<td>
+        <td>
             팀장<br />social login 구현
         </td>
         <td>
-        	dumpdata 받아오기 (TMDB)
-        </td>
-	</tr>
-    <tr>
-    	<td colspan="2" style="text-align:center">
-        	프론트엔드 구현
+            dumpdata 받아오기 (TMDB)
         </td>
     </tr>
     <tr>
-    	<td>
-        	...
+        <td colspan="2" style="text-align:center">
+            프론트엔드 구현
+        </td>
+    </tr>
+    <tr>
+        <td>
+            명세 필수 기능 구현 - 
         </td>
         <td>
-        	...
+            명세 필수 기능 구현 - 로그인/로그아웃/signup<br>
+            명세 필수 기능 구현 - popularmovie 상위 10개 main 페이지에 띄우기
         </td>
     </tr>
     <tr>
-    	<td colspan="2" style="text-align:center">
-        	백엔드 구현
+        <td colspan="2" style="text-align:center">
+            백엔드 구현
         </td>
     </tr>
     <tr>
-    	<td>
-        	...
+        <td>
+            ...
         </td>
         <td>
-        	...
+            ...
         </td>
     </tr>
 </table>
