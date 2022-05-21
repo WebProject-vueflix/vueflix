@@ -277,7 +277,14 @@
 
   => export default 의 name을 그냥 Community로 해주어서 발생한 오류로 CommunityList로 수정해주며 해결.
 
-- 
+- community 내 review detail 구현 - comment까지 출력.
+
+- community 내 comment 생성/수정/삭제
+  comment를 달면 새로고침을 해줘야 댓글이 달렸음을 확인할 수 있었다.  => 이유를 모르겠음..ㅠㅠ axios에 console.log 찍어봐도 찍히는데 왜 안넘어가ㅠㅠ 내일 해결....하기...
+
+- movie detail 구현
+  moviePk가 계속 Undefined라고 나와서 drf부터 확인해봤다. => 이상 없음.
+  메인페이지에서 movie를 찍어보고 id로 바꿔주며 해결
 
 ### 7. 느낀 점
 
