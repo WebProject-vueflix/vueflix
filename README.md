@@ -45,10 +45,10 @@
     </tr>
     <tr>
     	<td>
-        	<img src='image/승효.png' style='width:400px; display: block; margin: 0 auto;'>
+        	<img src='image/seunghyo.png' style='width:400px; display: block; margin: 0 auto;'>
         </td>
         <td>
-        	<img src='image/애리.jpg' style='width:450px; display: block; margin: 0 auto;'>
+        	<img src='image/aeri.jpg' style='width:450px; display: block; margin: 0 auto;'>
         </td>
     </tr>
     <tr>
@@ -97,6 +97,7 @@
         </td>
     </tr>
 </table>
+
 
 
 ### 2. 목표 서비스 구현 및 실제 구현 정도
@@ -215,6 +216,8 @@
 
   => 역참조 관계명을 가져오는 부분에서 잦은 실수를 함. models.py 를 보면서 관계를 확인하면서 수정
 
+- Vue - django 서버 연결하기
+
 - Vue 메인페이지 구현에서 created에 설정했던 fetchmovies 함수와 movies가 undefined 됐다는 오류(console에서 확인)와 duplicate 오류 발생
 
   ```
@@ -231,6 +234,10 @@
   ```
 
   => accounts로 적은 부분을 movies로 고쳐주면서 dulplicate 해결
+  
+- login / logout / signup 구현 완료 (social login 제외)
+
+- main 페이지에 popular movie 상위 10개 띄우기 완료 - 추후 알고리즘 구현 후 보완 예정
 
 #### Day5 - 220521
 
