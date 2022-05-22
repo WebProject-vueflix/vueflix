@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1>Home</h1>
+    <!-- {{ movies }} -->
     <ul>
       <li v-for="movie in movies" :key="movie.id">
-        <router-link 
-          :to="{ name: 'movie', params: { moviePk: movie.id } }">
+        <router-link :to="{ name: 'movie', params: { moviePk: movie.id } }">
           {{ movie.title }}
         </router-link>
       </li>

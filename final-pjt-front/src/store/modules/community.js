@@ -31,8 +31,8 @@ export default {
         method: 'get',
         headers: getters.authHeader,
       })
-        .then(res => commit('SET_COMMUNITY', res.data))
-        .catch(err => console.error(err.response))
+        .then(res => commit('SET_COMMUNITY', res.data, console.log(res.data)))
+        .catch(err => console.error(err.response, "힝"),)
     },
     fetchReview({ commit, getters }, reviewPk) {
       axios({
@@ -44,7 +44,8 @@ export default {
         .catch(err => {
           console.error(err.response)
           if (err.response.status === 404) {
-            router.push({ name: 'NotFound404' })
+            router.push({ name: 'NotFound404' }),
+              console.log("g힝")
           }
         })
     },

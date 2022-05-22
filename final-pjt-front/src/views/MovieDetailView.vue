@@ -29,6 +29,8 @@
     <hr />
     <div v-for="actor in movie.actors" :key="actor.name">
       <p>{{ actor.name }}의 이 영화는 어때요?</p>
+      <!-- <p>{{ actor }}</p> -->
+      <movie-actor-list :actor="actor"></movie-actor-list>
     </div>
 
     <hr />
@@ -43,10 +45,11 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import MovieReviewForm from "@/components/Movie/MovieReviewForm.vue";
+import MovieActorList from "@/components/Movie/MovieActorList.vue";
 
 export default {
   name: "MovieDetail",
-  components: { MovieReviewForm },
+  components: { MovieReviewForm, MovieActorList },
   data() {
     return {
       moviePk: this.$route.params.moviePk,
@@ -58,8 +61,9 @@ export default {
   methods: {
     ...mapActions(["fetchMovie"]),
   },
-  created() {
+  mounted() {
     this.fetchMovie(this.moviePk);
+    console.log("mounted");
   },
 };
 </script>

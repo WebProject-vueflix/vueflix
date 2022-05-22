@@ -7,6 +7,7 @@ import _ from 'lodash'
 export default {
   state: {
     movies: [],
+    actor_movie: [],
     movie: {},
   },
   getters: {
@@ -15,6 +16,7 @@ export default {
     // isAuthor: (state, getters) => {
     //   return state.movie.user?.username === getters.currentUser.username
     // },
+    actor_movie: state => state.actor_movie,
     isMovieReview: state => !_.isEmpty(state.review),
   },
   mutations: {
@@ -22,6 +24,7 @@ export default {
     SET_MOVIE: (state, movie) => state.movie = movie,
     SET_MOVIE_REVIEWS: (state, review_set) => (state.movie.review_set = review_set),
     SET_MOVIE_REVIEW: (state, comment) => (state.review.comment = comment),
+    SET_MOVIE_ACTOR: (state, actor_movie) => state.actor_movie = actor_movie
   },
 
   actions: {
@@ -42,7 +45,25 @@ export default {
       })
         .then(res => {
           commit('SET_MOVIE', res.data)
-          console.log(res.data)
+          console.log("mount moviedetail")
+        }
+        )
+        .catch(err => {
+          console.error(err.response)
+          if (err.response.status === 404) {
+            router.push({ name: 'NotFound404' })
+          }
+        })
+    },
+    fetchActorMovies({ commit, getters }, actorPK) {
+      axios({
+        url: drf.movies.actor(actorPK),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_MOVIE_ACTOR', res.data)
+          console.log(res.data.popular_movies)
         }
         )
         .catch(err => {
