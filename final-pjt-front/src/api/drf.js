@@ -4,7 +4,7 @@ const ACCOUNTS = 'accounts/'
 const MOVIES = 'movies/'
 const COMMUNITY = 'community/'
 const COMMENTS = 'comments/'
-
+const REVIEWS = 'reviews/'
 export default {
   accounts: {
     login: () => HOST + ACCOUNTS + 'login/',
@@ -17,14 +17,15 @@ export default {
   },
   movies: {
     movies: () => HOST + MOVIES,
-    movie: moviePk => HOST + MOVIES +`${moviePk}/`,
+    movie: moviePk => HOST + MOVIES + `${moviePk}/`,
+    movie_reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
   },
   community: {
     community: () => HOST + COMMUNITY,
     // /community/1/
     review: reviewPk => HOST + COMMUNITY + `${reviewPk}/`,
     comments: reviewPk => HOST + COMMUNITY + `${reviewPk}/` + COMMENTS,
-    comment: (reviewPk, commentPk) => 
+    comment: (reviewPk, commentPk) =>
       HOST + COMMUNITY + `${reviewPk}/` + COMMENTS + `${commentPk}/`,
   },
 }

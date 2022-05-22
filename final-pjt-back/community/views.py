@@ -95,7 +95,7 @@ def comment_delete_or_update(request, review_pk, comment_pk):
             comment.delete()
             comments = review.community_review.all()
             serializer = CommentSerializer(comments, many=True)
-            return Response(serializer.data,status=status.HTTP_204_NO_CONTENT)
+            return Response(serializer.data)
     
     def update_comment():
         if request.user == comment.user:

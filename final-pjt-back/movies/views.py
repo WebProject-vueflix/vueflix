@@ -200,7 +200,7 @@ def review_update_or_delete(request, popularmovie_pk, review_pk):
             review.delete()
             reviews = movie.review_set.all()
             serializer = ReviewSerializer(reviews, many=True)
-            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+            return Response(serializer.data)
 
     if request.method == 'PUT':
         return update_review()

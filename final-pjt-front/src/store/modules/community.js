@@ -20,7 +20,7 @@ export default {
   mutations: {
     SET_COMMUNITY: (state, community) => state.community = community,
     SET_REVIEW: (state, review) => state.review = review,
-    SET_REVIEW_COMMENTS: (state, comments) => (state.review.community_review = comments),
+    SET_REVIEW_COMMENTS: (state, community_review) => (state.review.community_review = community_review),
     SET_REVIEW_COMMENT: (state, comment) => (state.review.comment = comment),
   },
 
@@ -63,7 +63,7 @@ export default {
           })
         })
     },
-    updateReview({ commit, getters }, { pk, title, content}) {
+    updateReview({ commit, getters }, { pk, title, content }) {
       axios({
         url: drf.community.review(pk),
         method: 'put',
@@ -93,15 +93,15 @@ export default {
           .catch(err => console.error(err.response))
       }
     },
-    fetchComments({ commit, getters }, reviewPk) {
-      axios({
-        url: drf.community.comments(reviewPk),
-        method: 'get',
-        headers: getters.authHeader,
-      })
-        .then(res => commit('SET_REVIEW_COMMENTS', res.data))
-        .catch(err => console.error(err.response))
-    },
+    // fetchComments({ commit, getters }, reviewPk) {
+    //   axios({
+    //     url: drf.community.comments(reviewPk),
+    //     method: 'get',
+    //     headers: getters.authHeader,
+    //   })
+    //     .then(res => commit('SET_REVIEW_COMMENTS', res.data))
+    //     .catch(err => console.error(err.response))
+    // },
     createComment({ commit, getters }, { reviewPk, content }) {
       const comment = { content }
       axios({
@@ -111,14 +111,10 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
-          commit('SET_REVIEW_COMMENT', res.data)
           console.log(res.data)
-          router.push({
-            name: 'review',
-            params: { commentPk: getters.comment.pk }
-          })
+          commit('SET_REVIEW_COMMENTS', res.data)
         })
-        .catch(err => console.error(err.response))
+        .catch(err => console.log(err, "힝"))
     },
     updateComment({ commit, getters }, { reviewPk, commentPk, content }) {
       const comment = { content }
@@ -142,9 +138,9 @@ export default {
           headers: getters.authHeader,
         })
           .then(res => {
-            commit('SET_REVIEW_COMMENT', res.data)
-            console.log('ㅇㅇ')
-            router.push({ name: 'review' })
+            // console.log(res)
+            commit('SET_REVIEW_COMMENTS', res.data)
+            // router.push({ name: 'review' })
           })
           .catch(err => console.error(err.response))
       }

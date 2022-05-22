@@ -1,32 +1,34 @@
 <template>
-  <form @submit.prevent="onSubmit" class="comment-form">
+  <form @submit.prevent="onSubmit">
     <label for="comment">comment: </label>
-    <input type="text" id="comment" v-model="content" required>
+    <input type="text" id="comment" v-model="content" required />
+    <!-- review 객체  확인하기 위해 객체 전체 리스트 -->
+    <!-- <p>{{ review }}</p> -->
     <button>Comment</button>
   </form>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: 'CommentForm',
+  name: "CommentForm",
   data() {
     return {
-      content: ''
-    }
+      content: "",
+    };
   },
   computed: {
-    ...mapGetters(['review']),
+    ...mapGetters(["review"]),
   },
   methods: {
-    ...mapActions(['createComment']),
+    ...mapActions(["createComment"]),
     onSubmit() {
-      this.createComment({ reviewPk: this.review.pk, content: this.content, })
-      this.content = ''
-    }
-  }
-}
+      this.createComment({ reviewPk: this.review.pk, content: this.content });
+      this.content = "";
+    },
+  },
+};
 </script>
 
 <style></style>
