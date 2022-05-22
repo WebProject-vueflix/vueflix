@@ -47,13 +47,24 @@ class MovieDetailSerializer(serializers.ModelSerializer):
     # genres = GenreSerializer(many=True, read_only=True)
     genres = GenreSerializer(many=True)
 
-    class ActorSerializer(serializers.ModelSerializer):
-
+    class ActorDetailSerializer(serializers.ModelSerializer):
+        class ActorMovieSerializer(serializers.ModelSerializer):
+            class Meta:
+                model = PopularMovie
+                fields = ('id', 'title', 'poster_path')
+        popular_movies = ActorMovieSerializer(many=True)
         class Meta:
             model = Actor
-            fields = ('id', 'name', 'profile_path','character',)
-    # actors = ActorSerializer(many=True, read_only=True)
-    actors = ActorSerializer(many=True)
+            fields = ('id', 'name', 'profile_path', 'character', 'popular_movies')
+            read_only_fields = ('popular_movies',)
+    # class ActorSerializer(serializers.ModelSerializer):
+
+    #     class Meta:
+    #         model = Actor
+    #         fields = ('id', 'name', 'profile_path','character',)
+    # # actors = ActorSerializer(many=True, read_only=True)
+    # actors = ActorSerializer(many=True)
+    actors = ActorDetailSerializer(many=True)
 
     class DirectorSerializer(serializers.ModelSerializer):
 

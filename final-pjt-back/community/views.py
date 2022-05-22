@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
-from requests import request
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -82,7 +81,7 @@ def comment_create(request,review_pk):
 
         comments = review.community_review.all()
         serealizer = CommentSerializer(comments, many=True)
-        return Response(serealizer.data, status=status.HTTP_201_CREATED)
+        return Response(serealizer.data)
 
 @api_view(['PUT','DELETE'])
 def comment_delete_or_update(request, review_pk, comment_pk):
