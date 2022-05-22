@@ -11,7 +11,9 @@
       <li v-if="!isLoggedIn">
         <router-link :to="{ name: 'signup' }">Signup</router-link>
       </li>
-
+      <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'actors' }">actors</router-link>
+      </li>
       <!-- <li v-if="isLoggedIn">
         <router-link :to="{ name: 'movieNew' }">New</router-link>
       </li> -->

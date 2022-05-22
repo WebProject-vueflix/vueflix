@@ -10,12 +10,14 @@ import NotFound404 from '../views/NotFound404.vue'
 
 import MovieListView from '@/views/MovieListView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
+import ActorListView from '@/views/ActorListView.vue'
+import ActorDetailView from '@/views/ActorDetailView.vue'
+import DirectorDetailView from '@/views/DirectorDetailView.vue'
 
 import CommunityListView from '@/views/CommunityListView.vue'
 import CommunityNewView from '@/views/CommunityNewView.vue'
 import CommunityDetailView from '@/views/CommunityDetailView.vue'
 import CommunityEditView from '@/views/CommunityEditView.vue'
-import CommentForm from '@/components/CommentForm.vue'
 
 Vue.use(VueRouter)
 
@@ -56,14 +58,34 @@ const routes = [
     component: ProfileView,
   },
   {
-    path: '/',  // Home
+    path: '/movies',  // Home
     name: 'movies',
     component: MovieListView
   },
   {
-    path: '/:moviePk',
+    path: '/movies/:moviePk',
     name: 'movie',
     component: MovieDetailView
+  },
+  {
+    path: '/movies/:moviePk',
+    name: 'newmovie',
+    component: MovieDetailView
+  },
+  {
+    path: '/movies/actor',
+    name: 'actors',
+    component: ActorListView
+  },
+  {
+    path: '/movies/actor/:actorPk',
+    name: 'actor',
+    component: ActorDetailView
+  },
+  {
+    path: '/movies/director/:directorPk',
+    name: 'director',
+    component: DirectorDetailView
   },
   {
     path: '/community', //Community
@@ -84,11 +106,6 @@ const routes = [
     path: '/community/:reviewPk/edit',
     name: 'reviewEdit',
     component: CommunityEditView
-  },
-  {
-    path: '/community/:reviewPk/comment/New',
-    name: 'comment',
-    component: CommentForm
   },
   {
     path: '/404',

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Community</h1>
-    <div v-if="isAuthor">
+    <div>
       <router-link :to="{ name: 'reviewNew' }">
         <button>New</button>
       </router-link>

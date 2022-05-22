@@ -16,12 +16,15 @@ export default {
     // username으로 프로필 제공
     profile: username => HOST + ACCOUNTS + 'profile/' + username,
   },
+
   movies: {
     movies: () => HOST + MOVIES,
     movie: moviePk => HOST + MOVIES + `${moviePk}/`,
-    movie_reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
-    actor: actorPK => HOST + MOVIES + ACTOR + `${actorPK}`
+    reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
+    actors: () => HOST + MOVIES + ACTOR,
+    actor: actorPk => HOST + MOVIES + ACTOR + `${actorPk}/`
   },
+
   community: {
     community: () => HOST + COMMUNITY,
     // /community/1/
