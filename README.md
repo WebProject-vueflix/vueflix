@@ -281,6 +281,32 @@
   moviePk가 계속 Undefined라고 나와서 drf부터 확인해봤다. => 이상 없음.
   메인페이지에서 movie를 찍어보고 id로 바꿔주며 해결
 
+#### Day6 - 220522
+
+- 구글링을 통해 Vue는 JavaSript의 한계로 인해 속성의 추가, 제거를 감지할 수 없다는 사실을 알게 되었다. Vue는 인스턴스 초기화 중 data 객체의 속성을 getter/setter로 변환하기 때문에 data 객체에 속성이 있어야만 변환하고 응답할 수 있다고 한다.
+  => 재확인 해보니 코드 자체에는 문제가 없었음.
+  => 장고 community의 views.py에서 delete를 하고 난 후 status를 status=status.HTTP_204_NO_CONTENT로 설정해놔서 url 변경이 일어남을 확인. ==> status 삭제.
+  => review 객체 내 이름 설정을 하나 잘못해주었다. community_review로 설정해주어 해결
+
+- movie detail에서 review(영화별 한줄평)를 comment 형식으로 넣어주고자 하였다. community의 comment와 동일한 방식으로 작업을 해주었는데도 불구하고 axios error가 났다. 6시간동안 구글링 하며 코드를 손봤는데 이유조차 모르겠다ㅠㅠ
+
+- actors list 와 actor detail을 구현. => movie detail에서 actor detail로 넘어갈 수 있다.
+
+- movie detail에서 actor별 출연작을 추천해준다 => 같은 링크의 params(moviePk)만 달라서 새로고침이 되지 않는 문제 발생.
+  => `<router-view :key="$route.fullPath">`를 넣어줬음에도
+
+  ```
+  [Vue warn]: Duplicate keys detected: '1912381'. This may cause an update error.
+  ```
+
+  다음과 같은 에러가 뜬다.
+
+#### Day7 - 220523
+
+- 
+
+
+
 ### 7. 느낀 점
 
 - 고승효 : 
