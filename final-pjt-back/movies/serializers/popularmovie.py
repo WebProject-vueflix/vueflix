@@ -68,10 +68,14 @@ class MovieDetailSerializer(serializers.ModelSerializer):
     actors = ActorDetailSerializer(many=True)
 
     class DirectorSerializer(serializers.ModelSerializer):
-
+        class DirectorMovieSerializer(serializers.ModelSerializer):
+            class Meta:
+                model = PopularMovie
+                fields = ('id', 'title', 'poster_path')
+        popular_movies = DirectorMovieSerializer(many=True)
         class Meta:
             model = Director
-            fields = ('id', 'name', 'profile_path',)
+            fields = ('id', 'name', 'profile_path', 'popular_movies')
     # director = DirectorSerializer(many=True, read_only=True)
     director = DirectorSerializer(many=True)
 
