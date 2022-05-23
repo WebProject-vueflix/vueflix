@@ -111,48 +111,55 @@ export default {
           }
         })
     },
-    createReview({ commit, getters }, { moviePk, content }) {
-      const comment = { content }
+    createMovieReview({ commit, getters }, { moviePk, title, content, rank }) {
+      const movieReview = { title, content, rank }
+      console.log(movieReview)
       axios({
-        url: drf.movies.movie_reviews(moviePk),
+        url: drf.movies.reviews(moviePk),
         method: 'post',
-        data: comment,
+        data: movieReview,
         headers: getters.authHeader,
       })
         .then(res => {
-          console.log(res.data)
           commit('SET_MOVIE_REVIEWS', res.data)
+          console.log(res.data)
+          console.log("asdf")
         })
-        .catch(err => console.log(err, "힝"))
+        .catch(err => console.log(err.response, "힝"))
     },
-    // updateComment({ commit, getters }, { moviePk, reviewPk, content }) {
-    //   const comment = { content }
-    //   axios({
-    //     url: drf.community.comment(moviePk, reviewPk),
-    //     method: 'put',
-    //     data: comment,
-    //     headers: getters.authHeader,
-    //   })
-    //     .then(res => {
-    //       commit('SET_MOVIE_REVIEW', res.data)
-    //     })
-    //     .catch(err => console.error(err.response))
-    // },
-    // deleteComment({ commit, getters }, { moviePk, reviewPk }) {
-    //   if (confirm('정말 삭제하시겠습니까?')) {
-    //     axios({
-    //       url: drf.community.comment(moviePk, reviewPk),
-    //       method: 'delete',
-    //       data: {},
-    //       headers: getters.authHeader,
-    //     })
-    //       .then(res => {
-    //         console.log(res)
-    //         commit('SET_MOVIE_REVIEWS', res.data)
-    //         // router.push({ name: 'review' })
-    //       })
-    //       .catch(err => console.error(err.response))
-    //   }
-    // },
+
+
+    updateMovieReview({ commit, getters }, { moviePk, reviewPk, title, content, rank }) {
+      const movieReview = { title, content, rank }
+      // console.log(movieReview)
+      axios({
+        url: drf.movies.review(moviePk, reviewPk),
+        method: 'put',
+        data: movieReview,
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_MOVIE_REVIEWS', res.data)
+          console.log(res.data)
+
+        })
+        .catch(err => console.error(err.response))
+    },
+    deleteMovieReview({ commit, getters }, { moviePk, reviewPk }) {
+      if (confirm('정말 삭제하시겠습니까?')) {
+        axios({
+          url: drf.movies.review(moviePk, reviewPk),
+          method: 'delete',
+          data: {},
+          headers: getters.authHeader,
+        })
+          .then(res => {
+            commit('SET_MOVIE_REVIEWS', res.data)
+            console.log(res)
+            // router.push({ name: 'review' })
+          })
+          .catch(err => console.error(err.response))
+      }
+    },
   }
 }

@@ -34,31 +34,33 @@
         <router-link :to="{ name: 'movie', params: { moviePk: newmovie.id } }">
           <img :src="`https://image.tmdb.org/t/p/w300/${newmovie.poster_path}`" alt="사진">
         </router-link>
-        <p>{{ movie.title }}</p>
-      </div><router-view :key="$route.fullPath"></router-view>
+        <p>{{ newmovie.title }}</p>
+      </div>
     </div>
     <hr />
-    <h2>한줄평</h2>
+    <!-- <h2>한줄평</h2>
     <div v-for="review in movie.review_set" :key="review.id">
       <b>제목: {{ review.title }}</b>
       <p>내용: {{ review.content }}</p>
       <p>평점: {{ review.rank }}</p>
       <p>작성자: {{ review.user.username }}</p>
       <br>
-    </div>
-
+    </div> -->
+    <h2>한줄평</h2>
+    <movie-review-list :review_set="movie.review_set"></movie-review-list>
     <!-- <movie-review-form> </movie-review-form> -->
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import MovieReviewList from "@/components/MovieReviewList.vue"
 // import MovieReviewForm from "@/components/MovieReviewForm.vue";
 // import MovieActorList from "@/components/Movie/MovieActorList.vue";
 
 export default {
   name: "MovieDetail",
-  // components: { MovieActorList },
+  components: { MovieReviewList },
   data() {
     return {
       moviePk: this.$route.params.moviePk,

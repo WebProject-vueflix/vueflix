@@ -67,11 +67,11 @@ const routes = [
     name: 'movie',
     component: MovieDetailView
   },
-  {
-    path: '/movies/:moviePk',
-    name: 'newmovie',
-    component: MovieDetailView
-  },
+  // {
+  //   path: '/movies/:moviePk',
+  //   name: 'newmovie',
+  //   component: MovieDetailView
+  // },
   {
     path: '/movies/actor',
     name: 'actors',
