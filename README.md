@@ -303,7 +303,17 @@
 
 #### Day7 - 220523
 
-- 
+- 오류 - 
+
+  ```
+  The service worker navigation preload request was cancelled before 'preloadResponse' settled. If you intend to use 'preloadResponse', use waitUntil() or respondWith() to wait for the promise to settle.
+  ```
+
+  ```
+  [Vue warn]: Duplicate keys detected: '11006'. This may cause an update error.
+  ```
+
+  
 
 
 

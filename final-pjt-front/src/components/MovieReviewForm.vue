@@ -16,6 +16,7 @@
     </div>
     <div>
       <label for="rank">rank:</label>
+      <!-- <input type="selectbox" id="rank" v-model="newMovieReview.rank" required /> -->
       <select v-model="newMovieReview.rank">
         <option disabled value="">평점을 선택하세요</option>
         <option value="1">⭐</option>
@@ -43,8 +44,8 @@ export default {
         // moviePk: this.$route.params.moviePk,
         title: "",
         content: "",
-        rank: "",
-      },
+        rank: ""
+      }
     };
   },
   computed: {
@@ -54,14 +55,14 @@ export default {
     ...mapActions(["createMovieReview"]),
     onSubmit() {
       this.createMovieReview({
-        moviePk: this.movie.id,
-        ...this.newMovieReview,
-      });
+        moviePk: this.movie.id, 
+        ...this.newMovieReview
+      })
       // this.newMovieReview = []
       // this.newMovieReview = ""
-      this.newMovieReview.title = "";
-      this.newMovieReview.content = "";
-      this.newMovieReview.rank = "";
+      this.newMovieReview.title = ""
+      this.newMovieReview.content = ""
+      this.newMovieReview.rank = ""
     },
   },
 };

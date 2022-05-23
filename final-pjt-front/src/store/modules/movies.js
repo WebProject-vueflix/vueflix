@@ -10,25 +10,27 @@ export default {
     movie: {},
     actors: [],
     actor: {},
+    director: {},
   },
   getters: {
     movies: state => state.movies,
     movie: state => state.movie,
+    actors: state => state.actors,
+    actor: state => state.actor,
+    director: state => state.director,
     // isAuthor: (state, getters) => {
     //   return state.movie.user?.username === getters.currentUser.username
     // },
-    actors: state => state.actors,
-    actor: state => state.actor,
     isMovieReview: state => !_.isEmpty(state.review),
   },
   mutations: {
     SET_MOVIES: (state, movies) => state.movies = movies,
     SET_MOVIE: (state, movie) => state.movie = movie,
-    // SET_NEW_MOVIE: (state, newmovie) => state.movie = newmovie,
     SET_MOVIE_REVIEWS: (state, review_set) => (state.movie.review_set = review_set),
     SET_MOVIE_REVIEW: (state, comment) => (state.review.comment = comment),
     SET_ACTORS: (state, actors) => state.actors = actors,
     SET_ACTOR: (state, actor) => state.actor = actor,
+    SET_DIRECTOR: (state, director) => state.director = director,
 
   },
 
@@ -60,24 +62,7 @@ export default {
           }
         })
     },
-    // fetchNewMovie({ commit, getters }, moviePk) {
-    //   axios({
-    //     url: drf.movies.movie(moviePk),
-    //     method: 'get',
-    //     headers: getters.authHeader,
-    //   })
-    //     .then(res => {
-    //       commit('SET_NEW_MOVIE', res.data)
-    //       console.log(res.data)
-    //     }
-    //     )
-    //     .catch(err => {
-    //       console.error(err.response)
-    //       if (err.response.status === 404) {
-    //         router.push({ name: 'NotFound404' })
-    //       }
-    //     })
-    // },
+    
     fetchActors({ commit, getters }) {
       axios({
         url: drf.movies.actors(),
@@ -112,14 +97,24 @@ export default {
           }
         })
     },
+    fetchDirector({ commit, getters }, directorPk) {
+      axios({
+        url: drf.movies.director(directorPk),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_DIRECTOR', res.data)
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.error(err.response)
+          if (err.response.status === 404) {
+            router.push({ name: 'NotFound404' })
+          }
+        })
+    },
     likeMovie({ commit, getters }, moviePk) {
-      /* 좋아요
-      POST: likeArticle URL(token)
-        성공하면
-          state.article 갱신
-        실패하면
-          에러 메시지 표시
-      */
       axios({
         url: drf.movies.likeMovie(moviePk),
         method: 'post',

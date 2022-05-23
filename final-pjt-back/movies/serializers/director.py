@@ -12,7 +12,7 @@ class DirectorDetailSerializer(serializers.ModelSerializer):
     class DirectorMovieSerializer(serializers.ModelSerializer):
         class Meta:
             model = PopularMovie
-            fields = ('title', 'poster_path')
+            fields = ('id', 'title', 'poster_path')
     popular_movies = DirectorMovieSerializer(many=True)
 
     class Meta:
