@@ -60,11 +60,24 @@
         <td>
             명세 필수 기능 구현 - community 게시글 리스트 조회<br>
             명세 필수 기능 구현 - review(자유게시판)CRUD<br>
-            명세 필수 기능 구현 - movie detail 구현(ing)
+            명세 필수 기능 구현 - movie detail 구현<br>
+            명세 필수 기능 구현 - movie review 구현<br>
+            명세 필수 기능 구현 - actor list / actor detail / director detail 구현<br>
         </td>
         <td>
             명세 필수 기능 구현 - 로그인/로그아웃/signup<br>
-            명세 필수 기능 구현 - popularmovie 상위 10개 main 페이지에 띄우기
+            명세 필수 기능 구현 - popularmovie 상위 10개 main 페이지에 띄우기<br>
+            명세 필수 기능 구현 - profile: 좋아요 영화, 작성 게시글 확인<br>
+        </td>
+    </tr>
+    <tr>
+    	<td colspan="2" style="text-align:center">
+        	공통 작업
+        </td>
+    </tr>
+    <tr>
+    	<td colspan="2" style="text-align:center">
+        	명세 필수 기능 구현 - movie detail: 좋아요 기능 구현<br>
         </td>
     </tr>
     <tr>
@@ -91,6 +104,7 @@
         </td>
     </tr>
 </table>
+
 
 
 
