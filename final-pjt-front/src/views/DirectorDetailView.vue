@@ -1,16 +1,27 @@
 <template>
   <div>
-    <!-- {{director}} -->
+    {{ director }}
     <!-- <p>{{ movie.review_set }}</p> -->
     <h1>{{ director.name }}</h1>
-    <div v-if="director.profile_path!=null">
-      <img :src="`https://image.tmdb.org/t/p/w300/${director.profile_path}`" alt="사진">
+    <div v-if="director.profile_path != null">
+      <img
+        :src="`https://image.tmdb.org/t/p/w300/${director.profile_path}`"
+        alt="사진"
+      />
     </div>
-    <hr>
+    <div>
+      Likeit:
+      <button @click="likeDirector(directorPk)">{{ likeDir }}</button>
+    </div>
+    <br />
+    <hr />
     <h2>{{ director.name }}의 이 영화는 어때요?</h2>
     <div v-for="movie in director.popular_movies" :key="movie.id">
       <router-link :to="{ name: 'movie', params: { moviePk: movie.id } }">
-        <img :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`" alt="사진">
+        <img
+          :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`"
+          alt="사진"
+        />
         {{ movie.title }}
       </router-link>
     </div>
@@ -32,9 +43,12 @@ export default {
   },
   computed: {
     ...mapGetters(["director"]),
+    likeDir() {
+      return this.director.like_users?.length;
+    },
   },
   methods: {
-    ...mapActions(["fetchDirector"]),
+    ...mapActions(["fetchDirector", "likeDirector"]),
   },
   created() {
     this.fetchDirector(this.directorPk);

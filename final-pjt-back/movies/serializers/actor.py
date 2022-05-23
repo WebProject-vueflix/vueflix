@@ -16,9 +16,16 @@ class ActorDetailSerializer(serializers.ModelSerializer):
             fields = ('id', 'title', 'poster_path')
     popular_movies = ActorMovieSerializer(many=True)
 
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('id', 'username',)
+    user = UserSerializer(read_only=True)
+    like_users = UserSerializer(read_only=True, many=True)
+
     class Meta:
         model = Actor
-        fields = ('id', 'name', 'profile_path', 'character', 'popular_movies')
+        fields = ('id', 'name', 'profile_path', 'character', 'popular_movies','like_users','user')
         read_only_fields = ('popular_movies',)
 
 

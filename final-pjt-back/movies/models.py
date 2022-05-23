@@ -4,6 +4,7 @@ from django.conf import settings
 # Create your models here.
 
 class Actor(models.Model):
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_actor')
     name = models.CharField(max_length=100)
     profile_path = models.CharField(max_length=200, null=True)
     character = models.CharField(max_length=100, null=True)
@@ -12,6 +13,7 @@ class Actor(models.Model):
 
 
 class Director(models.Model):
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_director')
     name = models.CharField(max_length=200)
     profile_path = models.CharField(max_length=200, null=True)
     def __str__(self):
@@ -19,6 +21,7 @@ class Director(models.Model):
 
 
 class Genre(models.Model):
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_genres')
     name = models.CharField(max_length=50)
     def __str__(self):
         return self.name

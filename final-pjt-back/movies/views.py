@@ -183,6 +183,31 @@ def like_movie(request, popularmovie_pk):
         serializer = MovieDetailSerializer(movie)
         return Response(serializer.data)
 
+@api_view(['POST'])
+def like_actor(request, actor_pk):
+    actor = get_object_or_404(Actor, pk=actor_pk)
+    user = request.user
+    if actor.like_users.filter(pk=user.pk).exists():
+        actor.like_users.remove(user)
+        serializer = ActorDetailSerializer(actor)
+        return Response(serializer.data)
+    else:
+        actor.like_users.add(user)
+        serializer = ActorDetailSerializer(actor)
+        return Response(serializer.data)
+
+@api_view(['POST'])
+def like_director(request, director_pk):
+    director = get_object_or_404(Director, pk=director_pk)
+    user = request.user
+    if director.like_users.filter(pk=user.pk).exists():
+        director.like_users.remove(user)
+        serializer = DirectorDetailSerializer(director)
+        return Response(serializer.data)
+    else:
+        director.like_users.add(user)
+        serializer = DirectorDetailSerializer(director)
+        return Response(serializer.data)
 
 @api_view(['POST'])
 def review_create(request, popularmovie_pk):

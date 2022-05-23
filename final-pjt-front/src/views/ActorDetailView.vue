@@ -1,13 +1,25 @@
 <template>
   <div>
     <!-- <p>{{ movie.review_set }}</p> -->
+    {{ actor }}
     <h1>{{ actor.name }}</h1>
-    <img :src="`https://image.tmdb.org/t/p/w300/${actor.profile_path}`" alt="사진">
-    <hr>
+    <div>
+      Likeit:
+      <button @click="likeActor(actorPk)">{{ likeAct }}</button>
+    </div>
+    <br />
+    <img
+      :src="`https://image.tmdb.org/t/p/w300/${actor.profile_path}`"
+      alt="사진"
+    />
+    <hr />
     <h2>{{ actor.name }}의 이 영화는 어때요?</h2>
     <div v-for="movie in actor.popular_movies" :key="movie.id">
       <router-link :to="{ name: 'movie', params: { moviePk: movie.id } }">
-        <img :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`" alt="사진">
+        <img
+          :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`"
+          alt="사진"
+        />
         {{ movie.title }}
       </router-link>
     </div>
@@ -29,9 +41,12 @@ export default {
   },
   computed: {
     ...mapGetters(["actor"]),
+    likeAct() {
+      return this.actor.like_users?.length;
+    },
   },
   methods: {
-    ...mapActions(["fetchActor"]),
+    ...mapActions(["fetchActor", "likeActor"]),
   },
   created() {
     this.fetchActor(this.actorPk);

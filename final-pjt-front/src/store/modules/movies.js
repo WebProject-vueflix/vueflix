@@ -62,7 +62,7 @@ export default {
           }
         })
     },
-    
+
     fetchActors({ commit, getters }) {
       axios({
         url: drf.movies.actors(),
@@ -121,6 +121,24 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => commit('SET_MOVIE', res.data), console.log('hi'))
+        .catch(err => console.error(err.response))
+    },
+    likeActor({ commit, getters }, actorPk) {
+      axios({
+        url: drf.movies.likeactor(actorPk),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+        .then(res => commit('SET_ACTOR', res.data), console.log('bye'))
+        .catch(err => console.error(err.response))
+    },
+    likeDirector({ commit, getters }, directorPk) {
+      axios({
+        url: drf.movies.likedirector(directorPk),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+        .then(res => commit('SET_DIRECTOR', res.data), console.log('bye'))
         .catch(err => console.error(err.response))
     },
     createMovieReview({ commit, getters }, { moviePk, title, content, rank }) {

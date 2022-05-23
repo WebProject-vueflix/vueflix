@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <p>{{ movie }}</p> -->
+    <p>{{ movie.actors }}</p>
     <!-- <p>{{ movie.review_set }}</p> -->
     <h1>{{ movie.title }}</h1>
     <img
@@ -15,19 +15,28 @@
       <button @click="likeMovie(moviePk)">{{ likeCount }}</button>
     </div>
     <p>배우 :</p>
+
     <div v-for="actor in movie.actors" :key="actor.id">
-      <div v-if="actor.profile_path!=null">
-        <img :src="`https://image.tmdb.org/t/p/w300/${actor.profile_path}`" alt="사진">
+      <div v-if="actor.profile_path != null">
+        <img
+          :src="`https://image.tmdb.org/t/p/w300/${actor.profile_path}`"
+          alt="사진"
+        />
       </div>
       <router-link :to="{ name: 'actor', params: { actorPk: actor.id } }">
         <p>{{ actor.name }}({{ actor.character }} 역)</p>
       </router-link>
     </div>
-    <p>감독 : </p>
+    <p>감독 :</p>
     <!-- {{ movie.director[0].id }} -->
-    <router-link :to="{ name: 'director', params: { directorPk: movie.director[0].id } }">
-      <div v-if="movie.director[0].profile_path!=null">
-        <img :src="`https://image.tmdb.org/t/p/w300/${movie.director[0].profile_path}`" alt="사진"/>
+    <router-link
+      :to="{ name: 'director', params: { directorPk: movie.director[0].id } }"
+    >
+      <div v-if="movie.director[0].profile_path != null">
+        <img
+          :src="`https://image.tmdb.org/t/p/w300/${movie.director[0].profile_path}`"
+          alt="사진"
+        />
       </div>
       <p>{{ movie.director[0].name }}</p>
     </router-link>
@@ -39,14 +48,17 @@
     <!-- 공유하기 -->
     <hr />
     <div v-for="movieactor in movie.actors" :key="movieactor.name">
-      <div v-if="movieactor.popular_movies.count >= 2">
-
-      </div>
+      <div v-if="movieactor.popular_movies.count >= 2"></div>
       <p>{{ movieactor.name }}의 이 영화는 어때요?</p>
       <div v-for="newmovie in movieactor.popular_movies" :key="newmovie.title">
         <div v-if="newmovie.id != movie.id">
-          <router-link :to="{ name: 'movie', params: { moviePk: newmovie.id } }">
-            <img :src="`https://image.tmdb.org/t/p/w300/${newmovie.poster_path}`" alt="사진">
+          <router-link
+            :to="{ name: 'movie', params: { moviePk: newmovie.id } }"
+          >
+            <img
+              :src="`https://image.tmdb.org/t/p/w300/${newmovie.poster_path}`"
+              alt="사진"
+            />
           </router-link>
         </div>
         <!-- {{ movie.id }} -->
@@ -92,7 +104,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchMovie", "likeMovie"]),
+    ...mapActions(["fetchMovie", "likeMovie", "likeActor"]),
   },
   created() {
     this.fetchMovie(this.moviePk);
