@@ -7,6 +7,8 @@ urlpatterns = [
     path('', views.movie_list),
     # 무비 detail
     path('<int:popularmovie_pk>/',views.movie_detail),
+    # 무비 좋아요
+    path ('<int:popularmovie_pk>/like/', views.like_movie),
     # 배우 list
     path('actor/', views.actor_list),
     # 배우 detail

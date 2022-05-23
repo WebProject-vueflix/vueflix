@@ -7,7 +7,12 @@
     </div>
     <div>
       <label for="content">content:</label>
-      <input type="text" id="content" v-model="newMovieReview.content" required />
+      <input
+        type="text"
+        id="content"
+        v-model="newMovieReview.content"
+        required
+      />
     </div>
     <div>
       <label for="rank">rank:</label>
@@ -38,8 +43,8 @@ export default {
         // moviePk: this.$route.params.moviePk,
         title: "",
         content: "",
-        rank: ""
-      }
+        rank: "",
+      },
     };
   },
   computed: {
@@ -49,14 +54,14 @@ export default {
     ...mapActions(["createMovieReview"]),
     onSubmit() {
       this.createMovieReview({
-        moviePk: this.movie.id, 
-        ...this.newMovieReview
-      })
+        moviePk: this.movie.id,
+        ...this.newMovieReview,
+      });
       // this.newMovieReview = []
       // this.newMovieReview = ""
-      this.newMovieReview.title = ""
-      this.newMovieReview.content = ""
-      this.newMovieReview.rank = ""
+      this.newMovieReview.title = "";
+      this.newMovieReview.content = "";
+      this.newMovieReview.rank = "";
     },
   },
 };

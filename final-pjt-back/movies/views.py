@@ -10,6 +10,7 @@ from .serializers.actor import ActorListSerializer, ActorDetailSerializer
 from .serializers.director import DirectorDetailSerializer
 from .serializers.review import ReviewSerializer
 
+from django.db.models import Count
 
 API_KEY = '1084b2e96727cbe4bd9c2a0e2fd99168'
 GENRE_URL = 'https://api.themoviedb.org/3/genre/movie/list'
@@ -139,7 +140,9 @@ def tmdb(request):
 @api_view(['GET',])
 def movie_list(request):
     # movies = get_list_or_404(PopularMovie)
-    movies = PopularMovie.objects.order_by('-popularity')[:10]
+    movies = PopularMovie.objects.annotate(
+            like_count=Count('like_users', distinct=True)
+        ).order_by('-popularity')[:10]
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
@@ -166,6 +169,20 @@ def director_detail(request,director_pk):
     director = get_object_or_404(Director,pk=director_pk)
     serializer = DirectorDetailSerializer(director)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def like_movie(request, popularmovie_pk):
+    movie = get_object_or_404(PopularMovie, pk=popularmovie_pk)
+    user = request.user
+    if movie.like_users.filter(pk=user.pk).exists():
+        movie.like_users.remove(user)
+        serializer = MovieDetailSerializer(movie)
+        return Response(serializer.data)
+    else:
+        movie.like_users.add(user)
+        serializer = MovieDetailSerializer(movie)
+        return Response(serializer.data)
+
 
 @api_view(['POST'])
 def review_create(request, popularmovie_pk):

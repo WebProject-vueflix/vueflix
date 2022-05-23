@@ -1,17 +1,24 @@
 <template>
   <div>
-    <!-- <p>{{ movie }}</p> -->
+    <p>{{ movie }}</p>
     <!-- <p>{{ movie.review_set }}</p> -->
     <h1>{{ movie.title }}</h1>
     <img
       :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`"
       alt="사진"
     />
+    <div>
+      Likeit:
+      <button @click="likeMovie(moviePk)">{{ likeCount }}</button>
+    </div>
     <!-- <p>{{movie}}</p> -->
     <p>평점 : {{ movie.vote_average }}</p>
     <p>배우 :</p>
     <div v-for="actor in movie.actors" :key="actor.id">
-      <img :src="`https://image.tmdb.org/t/p/w300/${actor.profile_path}`" alt="사진">
+      <img
+        :src="`https://image.tmdb.org/t/p/w300/${actor.profile_path}`"
+        alt="사진"
+      />
       <router-link :to="{ name: 'actor', params: { actorPk: actor.id } }">
         <p>{{ actor.name }}({{ actor.character }} 역)</p>
       </router-link>
@@ -32,10 +39,16 @@
       <p>{{ movieactor.name }}의 이 영화는 어때요?</p>
       <div v-for="newmovie in movieactor.popular_movies" :key="newmovie.id">
         <router-link :to="{ name: 'movie', params: { moviePk: newmovie.id } }">
-          <img :src="`https://image.tmdb.org/t/p/w300/${newmovie.poster_path}`" alt="사진">
+          <img
+            :src="`https://image.tmdb.org/t/p/w300/${newmovie.poster_path}`"
+            alt="사진"
+          />
         </router-link>
         <p>{{ newmovie.title }}</p>
       </div>
+    </div>
+    <div v-for="review in movie.review_set" :key="review.id">
+      {{ sum_rank }} : {{ review.rank }}
     </div>
     <hr />
     <!-- <h2>한줄평</h2>
@@ -46,7 +59,7 @@
       <p>작성자: {{ review.user.username }}</p>
       <br>
     </div> -->
-    <h2>한줄평</h2>
+    <h2>한줄평 ({{ movie.review_set.length }})명</h2>
     <movie-review-list :review_set="movie.review_set"></movie-review-list>
     <!-- <movie-review-form> </movie-review-form> -->
   </div>
@@ -54,10 +67,10 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import MovieReviewList from "@/components/MovieReviewList.vue"
+import MovieReviewList from "@/components/MovieReviewList.vue";
 // import MovieReviewForm from "@/components/MovieReviewForm.vue";
 // import MovieActorList from "@/components/Movie/MovieActorList.vue";
-
+// let sum_rank = 0;
 export default {
   name: "MovieDetail",
   components: { MovieReviewList },
@@ -68,9 +81,12 @@ export default {
   },
   computed: {
     ...mapGetters(["movie", "actor"]),
+    likeCount() {
+      return this.movie.like_users?.length;
+    },
   },
   methods: {
-    ...mapActions(["fetchMovie"]),
+    ...mapActions(["fetchMovie", "likeMovie"]),
   },
   created() {
     this.fetchMovie(this.moviePk);

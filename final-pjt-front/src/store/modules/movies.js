@@ -29,6 +29,7 @@ export default {
     SET_MOVIE_REVIEW: (state, comment) => (state.review.comment = comment),
     SET_ACTORS: (state, actors) => state.actors = actors,
     SET_ACTOR: (state, actor) => state.actor = actor,
+
   },
 
   actions: {
@@ -110,6 +111,22 @@ export default {
             router.push({ name: 'NotFound404' })
           }
         })
+    },
+    likeMovie({ commit, getters }, moviePk) {
+      /* 좋아요
+      POST: likeArticle URL(token)
+        성공하면
+          state.article 갱신
+        실패하면
+          에러 메시지 표시
+      */
+      axios({
+        url: drf.movies.likeMovie(moviePk),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+        .then(res => commit('SET_MOVIE', res.data), console.log('hi'))
+        .catch(err => console.error(err.response))
     },
     createMovieReview({ commit, getters }, { moviePk, title, content, rank }) {
       const movieReview = { title, content, rank }
