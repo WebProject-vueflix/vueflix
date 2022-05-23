@@ -44,7 +44,7 @@ export default {
         // moviePk: this.$route.params.moviePk,
         title: "",
         content: "",
-        rank: ""
+        rank: null
       }
     };
   },
@@ -62,7 +62,7 @@ export default {
       // this.newMovieReview = ""
       this.newMovieReview.title = ""
       this.newMovieReview.content = ""
-      this.newMovieReview.rank = ""
+      this.newMovieReview.rank = null
     },
   },
 };

@@ -1,15 +1,16 @@
 <template>
   <div>
-    <p>{{ movie.actors }}</p>
+    <!-- {{movie}} -->
+    <!-- <p>{{ movie.actors }}</p> -->
     <!-- <p>{{ movie.review_set }}</p> -->
     <h1>{{ movie.title }}</h1>
     <img
       :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`"
       alt="사진"
     />
-    <!-- <p>{{movie}}</p> -->
     <p>요약 : {{ movie.overview }}</p>
-    <p>평점 : {{ movie.vote_average }}</p>
+    <p>평점 : ⭐ {{ movie.vote_average }} / 10.0</p>
+    <p>사용자평점 : ⭐ {{rankAvg}} / 5.00</p>
     <div>
       Likeit:
       <button @click="likeMovie(moviePk)">{{ likeCount }}</button>
@@ -19,17 +20,24 @@
     <div v-for="actor in movie.actors" :key="actor.id">
       <div v-if="actor.profile_path != null">
         <img
-          :src="`https://image.tmdb.org/t/p/w300/${actor.profile_path}`"
+          :src="`https://image.tmdb.org/t/p/w200/${actor.profile_path}`"
           alt="사진"
         />
-      </div>
-      <router-link :to="{ name: 'actor', params: { actorPk: actor.id } }">
         <p>{{ actor.name }}({{ actor.character }} 역)</p>
-      </router-link>
+      </div>
+      <!-- <router-link :to="{ name: 'actor', params: { actorPk: actor.id } }">
+        <p>{{ actor.name }}({{ actor.character }} 역)</p>
+      </router-link> -->
     </div>
-    <p>감독 :</p>
+    <p>감독 : {{ movie.director[0].name }}</p>
     <!-- {{ movie.director[0].id }} -->
-    <router-link
+    <div v-if="movie.director[0].profile_path != null">
+      <img
+        :src="`https://image.tmdb.org/t/p/w200/${movie.director[0].profile_path}`"
+        alt="사진"
+      />
+    </div>
+    <!-- <router-link
       :to="{ name: 'director', params: { directorPk: movie.director[0].id } }"
     >
       <div v-if="movie.director[0].profile_path != null">
@@ -39,7 +47,7 @@
         />
       </div>
       <p>{{ movie.director[0].name }}</p>
-    </router-link>
+    </router-link> -->
     <p>개봉일 : {{ movie.release_date }}</p>
     <!-- 영화예매 바로가기 하이퍼링크 -->
     <iframe
@@ -48,21 +56,44 @@
     <!-- 공유하기 -->
     <hr />
     <div v-for="movieactor in movie.actors" :key="movieactor.name">
-      <div v-if="movieactor.popular_movies.count >= 2"></div>
-      <p>{{ movieactor.name }}의 이 영화는 어때요?</p>
-      <div v-for="newmovie in movieactor.popular_movies" :key="newmovie.title">
-        <div v-if="newmovie.id != movie.id">
-          <router-link
-            :to="{ name: 'movie', params: { moviePk: newmovie.id } }"
-          >
+      <div v-if="movieactor.popular_movies.length >= 2">  
+        <h3><b>{{ movieactor.name }} 배우님의 이 영화는 어때요?</b></h3>
+        <router-link :to="{ name: 'actor', params: { actorPk: movieactor.id } }">
+          <p>더 보러가기</p>
+        </router-link>
+        <div v-for="num in movieactor.popular_movies.length" :key="num">
+          <div v-if="num <= `${n}`">
+            <!-- {{num}} -->
+          <!-- <div v-for="newmovie in movieactor.popular_movies" :key="newmovie.title"> -->
+            <div v-if="movieactor.popular_movies[num-1].id != movie.id">
+              <img
+                :src="`https://image.tmdb.org/t/p/w200/${movieactor.popular_movies[num-1].poster_path}`"
+                alt="사진"
+              />
+              <p>{{ movieactor.popular_movies[num-1].title }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div v-if="movie.director[0].popular_movies.length >= 2">  
+      <h3><b>{{ movie.director[0].name }} 감독님의 이 영화는 어때요?</b></h3>
+      <router-link :to="{ name: 'director', params: { directorPk: movie.director[0].id } }">
+        <p>더 보러가기</p>
+      </router-link>
+      <div v-for="num in movie.director[0].popular_movies.length" :key="num">
+        <div v-if="num <= `${n}`">
+          <!-- {{num}} -->
+        <!-- <div v-for="newmovie in movieactor.popular_movies" :key="newmovie.title"> -->
+          <div v-if="movie.director[0].popular_movies[num-1].id != movie.id">
             <img
-              :src="`https://image.tmdb.org/t/p/w300/${newmovie.poster_path}`"
+              :src="`https://image.tmdb.org/t/p/w200/${movie.director[0].popular_movies[num-1].poster_path}`"
               alt="사진"
             />
-          </router-link>
+            <p>{{ movie.director[0].popular_movies[num-1].title }}</p>
+          </div>
         </div>
-        <!-- {{ movie.id }} -->
-        <p>{{ newmovie.title }}</p>
       </div>
     </div>
     <!-- <div v-for="review in movie.review_set" :key="review.id">
@@ -77,7 +108,9 @@
       <p>작성자: {{ review.user.username }}</p>
       <br>
     </div> -->
-    <h2>한줄평 ({{ movie.review_set.length }})명</h2>
+    <!-- {{rankAvg}} -->
+    <!-- {{this.movie.review_set}} -->
+    <h2>한줄평 ({{ movie.review_set.length }})</h2>
     <movie-review-list :review_set="movie.review_set"></movie-review-list>
     <!-- <movie-review-form> </movie-review-form> -->
   </div>
@@ -95,6 +128,7 @@ export default {
   data() {
     return {
       moviePk: this.$route.params.moviePk,
+      n: 3,
     };
   },
   computed: {
@@ -102,6 +136,16 @@ export default {
     likeCount() {
       return this.movie.like_users?.length;
     },
+    rankAvg() {
+      let sum = 0
+      for(let idx of this.movie.review_set) {
+        sum = sum + idx.rank
+      }
+      // sum = sum + int(this.movie.review_set.rank)
+      let len = this.movie.review_set?.length
+      return (sum / len).toPrecision(3)
+      // return sum
+    }
   },
   methods: {
     ...mapActions(["fetchMovie", "likeMovie", "likeActor"]),
