@@ -4,19 +4,20 @@
       <li>
         <router-link :to="{ name: 'movies' }">Home</router-link>
       </li>
-
       <li v-if="!isLoggedIn">
         <router-link :to="{ name: 'login' }">Login</router-link>
       </li>
       <li v-if="!isLoggedIn">
         <router-link :to="{ name: 'signup' }">Signup</router-link>
       </li>
+      <!-- <li v-if="isLoggedIn">
+        <div v-if="is_staff">
+          <router-link :to="{ name: 'admin' }">admin</router-link>
+        </div>
+      </li> -->
       <li v-if="isLoggedIn">
         <router-link :to="{ name: 'actors' }">actors</router-link>
       </li>
-      <!-- <li v-if="isLoggedIn">
-        <router-link :to="{ name: 'movieNew' }">New</router-link>
-      </li> -->
       <li v-if="isLoggedIn">
         <router-link :to="{ name: 'profile', params: { username } }">
           {{ currentUser.username }}'s page

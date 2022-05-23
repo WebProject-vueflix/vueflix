@@ -1,4 +1,5 @@
 const HOST = 'http://localhost:8000/api/v1/'
+const ADMIN = 'http://localhost:8000/admin/'
 
 const ACCOUNTS = 'accounts/'
 const MOVIES = 'movies/'
@@ -9,6 +10,9 @@ const ACTOR = 'actor/'
 const DIRECTOR = 'director/'
 const LIKE = 'like/'
 export default {
+  admin: {
+    admin: () => ADMIN
+  },
   accounts: {
     login: () => HOST + ACCOUNTS + 'login/',
     logout: () => HOST + ACCOUNTS + 'logout/',
