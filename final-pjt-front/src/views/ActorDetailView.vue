@@ -4,8 +4,8 @@
     {{ actor }}
     <h1>{{ actor.name }}</h1>
     <div>
-      Likeit:
-      <button @click="likeActor(actorPk)">{{ likeAct }}</button>
+      Likeit : {{ likeAct }}
+      <button @click="likeActor(actorPk)">좋아요</button>
     </div>
     <br />
     <img

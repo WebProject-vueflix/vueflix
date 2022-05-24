@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{review}}
     <h1>{{ review.title }}</h1>
 
     <p>
@@ -12,6 +13,9 @@
       </router-link>
       |
       <button @click="deleteReview(reviewPk)">Delete</button>
+      <router-link :to="{name:'community'}">
+        <button>목록으로 돌아가기</button>
+      </router-link>
     </div>
 
     <!-- Review Like UI -->
@@ -24,6 +28,7 @@
 
     <hr />
     <!-- Comment UI -->
+    <b>[Comment]</b>
     <comment-list :community_review="review.community_review"></comment-list>
     <!-- <ul>
       <li v-for="comment in review.community_review" :key="comment.pk">

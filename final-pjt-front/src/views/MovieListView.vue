@@ -7,7 +7,8 @@
         <router-link :to="{ name: 'movie', params: { moviePk: movie.id } }">
           {{ movie.title }}
         </router-link>
-        ({{ movie.like_count }})
+        ✍🏻{{ movie.review_count }}
+        💓{{ movie.like_count }}
       </li>
     </ul>
   </div>

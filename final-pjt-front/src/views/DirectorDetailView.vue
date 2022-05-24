@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ director }}
+    <!-- {{ director }} -->
     <!-- <p>{{ movie.review_set }}</p> -->
     <h1>{{ director.name }}</h1>
     <div v-if="director.profile_path != null">
@@ -10,12 +10,13 @@
       />
     </div>
     <div>
-      Likeit:
-      <button @click="likeDirector(directorPk)">{{ likeDir }}</button>
+      Likeit:{{ likeDir }}
+      <button @click="likeDirector(directorPk)">좋아요</button>
     </div>
-    <br />
     <hr />
-    <h2>{{ director.name }}의 이 영화는 어때요?</h2>
+    <br />
+    <h2>{{ director.name }} 감독님의 이 영화는 어때요?</h2>
+    <br>
     <div v-for="movie in director.popular_movies" :key="movie.id">
       <router-link :to="{ name: 'movie', params: { moviePk: movie.id } }">
         <img

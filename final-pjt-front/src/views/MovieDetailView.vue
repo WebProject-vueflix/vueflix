@@ -12,8 +12,8 @@
     <p>평점 : ⭐ {{ movie.vote_average }} / 10.0</p>
     <p>사용자평점 : ⭐ {{rankAvg}} / 5.00</p>
     <div>
-      Likeit:
-      <button @click="likeMovie(moviePk)">{{ likeCount }}</button>
+      Likeit : {{ likeCount }}
+      <button @click="likeMovie(moviePk)">좋아요</button>
     </div>
     <p>배우 :</p>
 
@@ -128,7 +128,7 @@ export default {
   data() {
     return {
       moviePk: this.$route.params.moviePk,
-      n: 3,
+      n: 4,
     };
   },
   computed: {
