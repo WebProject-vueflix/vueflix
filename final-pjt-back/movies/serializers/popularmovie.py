@@ -30,12 +30,14 @@ class MovieListSerializer(serializers.ModelSerializer):
             fields = ('name',)
     # director = DirectorSerializer(many=True, read_only=True)
     director = DirectorSerializer(many=True)
+    
 
     like_count = serializers.IntegerField()
+    review_count = serializers.IntegerField()
 
     class Meta:
         model = PopularMovie
-        fields = ('id', 'title', 'adult', 'release_date', 'vote_average', 'poster_path', 'genres', 'actors', 'director','like_count')
+        fields = ('id', 'title', 'adult', 'release_date', 'vote_average', 'poster_path', 'genres', 'actors', 'director','like_count', 'review_count',)
         read_only_fields = ('genres', 'actors', 'director',)
 
 class MovieDetailSerializer(serializers.ModelSerializer):
