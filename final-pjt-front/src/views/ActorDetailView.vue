@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <p>{{ movie.review_set }}</p> -->
-    {{ actor }}
+    <!-- {{ actor }} -->
     <h1>{{ actor.name }}</h1>
     <div>
       Likeit : {{ likeAct }}

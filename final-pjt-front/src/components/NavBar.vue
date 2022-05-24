@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <nav>
     <ul>
       <li>
         <router-link :to="{ name: 'movies' }">Home</router-link>
@@ -15,9 +15,9 @@
           <router-link :to="{ name: 'admin' }">admin</router-link>
         </div>
       </li> -->
-      <li v-if="isLoggedIn">
+      <!-- <li v-if="isLoggedIn">
         <router-link :to="{ name: 'actors' }">actors</router-link>
-      </li>
+      </li> -->
       <li v-if="isLoggedIn">
         <router-link :to="{ name: 'profile', params: { username } }">
           {{ currentUser.username }}'s page
@@ -32,9 +32,7 @@
         <router-link :to="{ name: 'logout' }">Logout</router-link>
       </li>
     </ul>
-    
-  </v-app>
-
+  </nav>
 </template>
 
 <script>
@@ -42,17 +40,6 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "NavBar",
-  data(){
-    return {
-      appTitle: 'Vueflix',
-      sidebar: false,
-      menuItems: [
-          { title: 'movies', path: '/movies', icon: 'Home' },
-          { title: 'signup', path: '/signup', icon: 'Signup' },
-          { title: 'login', path: '/login', icon: 'Login' }
-     ]
-    }
-  },
   computed: {
     ...mapGetters(["isLoggedIn", "currentUser"]),
     username() {

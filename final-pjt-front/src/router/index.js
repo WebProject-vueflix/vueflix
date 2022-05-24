@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
 
-import AdminView from '@/views/AdminView.vue'
 import LoginView from '@/views/LoginView.vue'
 import LogoutView from '@/views/LogoutView.vue'
 import SignupView from '@/views/SignupView.vue'
@@ -39,11 +38,6 @@ const routes = [
     * => /404
   */
   {
-    path: '/admin',
-    name: 'admin',
-    component: AdminView 
-  },
-  {
     path: '/login',
     name: 'login',
     component: LoginView
@@ -64,7 +58,7 @@ const routes = [
     component: ProfileView,
   },
   {
-    path: '/movies',  // Home
+    path: '/',  // Home
     name: 'movies',
     component: MovieListView
   },
