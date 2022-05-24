@@ -1,23 +1,28 @@
 <template>
   <div>
     <h1>Login</h1>
-
-    <account-error-list v-if="authError"></account-error-list>
-
-
     <form @submit.prevent="login(credentials)">
-      <div>
-        <label for="username">username: </label>
-        <input v-model="credentials.username" type="text" id="username" required />
+      <div class="">
+        <div class="row align-items-center justify-content-center mt-5">
+          <div class="col-auto">
+            <label for="username" class="col-form-label">username: </label>
+          </div>
+          <div class="col-auto">
+            <input v-model="credentials.username" type="text" class="form-control" id="username" required />
+          </div>
+        </div>
+        <div class="row align-items-center justify-content-center mt-3">
+          <div class="col-auto">
+            <label for="password" class="col-form-label">password: </label>
+          </div>
+          <div class="col-auto">
+            <input v-model="credentials.password" type="password" class="form-control" aria-describedby="passwordHelpInline" id="password" required />
+          </div>
+        </div>
+        <button type="submit" class="d-inline btn btn-primary mt-3">Login</button>
       </div>
-
-      <div>
-        <label for="password">password: </label>
-        <input v-model="credentials.password" type="password" id="password" required />
-      </div>
-
-      <button>Login</button>
     </form>
+    <account-error-list v-if="authError"></account-error-list>
   </div>
 </template>
 
