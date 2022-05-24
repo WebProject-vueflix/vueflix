@@ -73,6 +73,16 @@ const routes = [
   //   name: 'newmovie',
   //   component: MovieDetailView
   // },
+  // {
+  //   path: '/movies/genre',
+  //   name: 'genres',
+  //   component: GenreListView
+  // },
+  // {
+  //   path: '/movies/genre/:genrePk',
+  //   name: 'genre',
+  //   component: GenreDetailView
+  // },
   {
     path: '/movies/actor',
     name: 'actors',
@@ -132,7 +142,7 @@ router.beforeEach((to, from, next) => {
 
   const { isLoggedIn } = store.getters
 
-  const noAuthPages = ['login', 'signup']
+  const noAuthPages = ['movies', 'login', 'signup']
 
   const isAuthRequired = !noAuthPages.includes(to.name)
 

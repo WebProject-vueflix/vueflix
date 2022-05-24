@@ -1,6 +1,7 @@
 <template>
   <div>
-    <!-- {{ profile }} -->
+    {{ profile.like_popular_movies }}
+    {{ profile.movie_review }}
     <h1>{{ profile.username }}</h1>
 
     <h2>좋아요 한 영화</h2>
@@ -55,10 +56,11 @@
     <ul>
       <li v-for="movie in profile.movie_review" :key="movie.popular_movie">
         <router-link
-          :to="{ name: 'movie', params: { moviePk: movie.popular_movie } }"
+          :to="{ name: 'movie', params: { moviePk: movie.popular_movie.id } }"
         >
-          {{ movie.title }}
+          {{ movie.popular_movie.title }}
         </router-link>
+        - {{ movie.title }}
       </li>
     </ul>
   </div>

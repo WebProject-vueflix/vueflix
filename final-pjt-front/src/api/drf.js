@@ -6,8 +6,10 @@ const COMMUNITY = 'community/'
 const COMMENTS = 'comments/'
 const REVIEWS = 'reviews/'
 const ACTOR = 'actor/'
+const GENRE = 'genre/'
 const DIRECTOR = 'director/'
 const LIKE = 'like/'
+const UNLIKE = 'unlike/'
 export default {
   accounts: {
     login: () => HOST + ACCOUNTS + 'login/',
@@ -22,6 +24,9 @@ export default {
   movies: {
     movies: () => HOST + MOVIES,
     movie: moviePk => HOST + MOVIES + `${moviePk}/`,
+    genres: () => HOST + MOVIES + GENRE,
+    genre: genrePk => HOST + MOVIES + GENRE + `${genrePk}`,
+    unlikegenre: genrePk => HOST + MOVIES + GENRE + `${genrePk}` + UNLIKE,
     likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + LIKE,
     reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
     review: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEWS + `${reviewPk}/`,
