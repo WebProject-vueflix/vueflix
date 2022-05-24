@@ -9,7 +9,7 @@
       >
         <div
           class="card text-white bg-dark mb-3"
-          style="max-width: 18rem"
+          style="width: 18rem"
           v-for="movie in movies"
           :key="movie.id"
         >
@@ -19,7 +19,7 @@
                 :src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
                 class="card-img-top mt-2"
                 alt="..."
-                style="height: 275px"
+                style="height: 260px"
               />
             </router-link>
             <!-- <br /> -->
@@ -27,43 +27,6 @@
             <p class="mt-3">
               ✍🏻{{ movie.review_count }} 💓{{ movie.like_count }}
             </p>
-          </div>
-
-          <div class="modal" :id="`largeModal-${movie.id}`" tabindex="-1">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title fw-bold">🎥 {{ movie.title }}</h4>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <img
-                    :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`"
-                    alt=""
-                  />
-                  <hr />
-                  <p class="text-start">개봉일 : {{ movie.release_date }}</p>
-                  <p class="text-start">
-                    평점 : ⭐ {{ movie.vote_average }} / 10
-                  </p>
-                  <!-- <p class="text-start">내용 : {{ movie.release_date }}</p> -->
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger btn-sm"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
