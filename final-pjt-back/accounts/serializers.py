@@ -7,13 +7,21 @@ from movies.models import PopularMovie,Review,Genre,Director,Actor
 # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='movie_review')
 
 class ProfileSerializer(serializers.ModelSerializer):
-    
+
+    class GenreListSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Genre
+            fields = ('score','name','id',)
+
+    hate_genres = GenreListSerializer(many=True)
+
+
     class MovieListSerializer(serializers.ModelSerializer):
         
         class GenreListSerializer(serializers.ModelSerializer):
             class Meta:
                 model = Genre
-                fields = ('id','name')
+                fields = ('id','name',)
         genres = GenreListSerializer(many=True)
 
         class Meta:
@@ -58,4 +66,4 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('username','like_popular_movies','movie_review','like_director','like_actor')
+        fields = ('username','like_popular_movies','movie_review','like_director','like_actor','hate_genres')

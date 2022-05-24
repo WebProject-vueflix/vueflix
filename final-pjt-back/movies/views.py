@@ -9,7 +9,7 @@ from .serializers.popularmovie import MovieListSerializer, MovieDetailSerializer
 from .serializers.actor import ActorListSerializer, ActorDetailSerializer
 from .serializers.director import DirectorDetailSerializer
 from .serializers.review import ReviewSerializer
-
+from .serializers.genre import GenreListSerializer, GenreDetailSerializer
 from django.db.models import Count
 
 API_KEY = '1084b2e96727cbe4bd9c2a0e2fd99168'
@@ -152,6 +152,32 @@ def movie_detail(request,popularmovie_pk):
     movie = get_object_or_404(PopularMovie, pk=popularmovie_pk)
     serializer = MovieDetailSerializer(movie)
     return Response(serializer.data)
+
+@api_view(['GET',])
+def genre_list(request):
+    genres = get_list_or_404(Genre)
+    serializer = GenreListSerializer(genres, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET',])
+def genre_detail(request,genre_pk):
+    genre = get_object_or_404(Genre,pk=genre_pk)
+    serializer = GenreDetailSerializer(genre)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def unlike_genre(request, genre_pk):
+    genre = get_object_or_404(Genre, pk=genre_pk)
+    user = request.user
+    if genre.hate_users.filter(pk=user.pk).exists():
+        genre.hate_users.remove(user)
+        serializer = GenreDetailSerializer(genre)
+        return Response(serializer.data)
+    else:
+        genre.hate_users.add(user)
+        serializer = GenreDetailSerializer(genre)
+        return Response(serializer.data)
+
 
 @api_view(['GET',])
 def actor_list(request):

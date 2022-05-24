@@ -21,8 +21,9 @@ class Director(models.Model):
 
 
 class Genre(models.Model):
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_genres')
-    hate_users = models.ManyToManyField(settings.AUTH_USER_MODEL, through='HateUser', related_name='hate_genres')
+    # like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_genres')
+    hate_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='hate_genres')
+    score = models.IntegerField(default=0)
     name = models.CharField(max_length=50)
     def __str__(self):
         return self.name

@@ -9,6 +9,12 @@ urlpatterns = [
     path('<int:popularmovie_pk>/',views.movie_detail),
     # 무비 좋아요
     path ('<int:popularmovie_pk>/like/', views.like_movie),
+    # 장르 
+    path('genre/', views.genre_list),
+    # 장르 디테일
+    path('genre/<int:genre_pk>/', views.genre_detail ),
+    # 장르 싫어요
+    path('genre/<int:genre_pk>/unlike/', views.unlike_genre ),
     # 배우 list
     path('actor/', views.actor_list),
     # 배우 detail
