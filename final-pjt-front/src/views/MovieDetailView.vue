@@ -10,7 +10,8 @@
     />
     <p>요약 : {{ movie.overview }}</p>
     <p>평점 : ⭐ {{ movie.vote_average }} / 10.0</p>
-    <p>사용자평점 : ⭐ {{rankAvg}} / 5.00</p>
+    <p v-if="movie.review_set.length != 0">사용자평점 : ⭐ {{rankAvg}} / 5.00</p>
+    <p v-else>사용자평점 : 한줄평을 입력해주세요</p>
     <div>
       Likeit : {{ likeCount }}
       <button @click="likeMovie(moviePk)">좋아요</button>
