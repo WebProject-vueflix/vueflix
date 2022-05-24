@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{review}}
+    <!-- {{review}} -->
     <h1>{{ review.title }}</h1>
 
     <p>

@@ -18,9 +18,9 @@ export default {
     actors: state => state.actors,
     actor: state => state.actor,
     director: state => state.director,
-    // isAuthor: (state, getters) => {
-    //   return state.movie.user?.username === getters.currentUser.username
-    // },
+    isAuthor: (state, getters) => {
+      return state.movie.user?.username === getters.currentUser.username
+    },
     isMovieReview: state => !_.isEmpty(state.review),
   },
   mutations: {
