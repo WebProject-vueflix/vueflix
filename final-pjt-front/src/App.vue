@@ -1,84 +1,55 @@
 <template>
-  <v-card class="overflow-hidden">
-    <v-app-bar 
-      app 
-      color="white" 
-      elevation="5"
-      scroll-target="#scrolling-techniques-7"
-      elevate-on-scroll
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
       dark
-      shaped
     >
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      
-      <v-toolbar-title>Vueflix</v-toolbar-title>
+      <div class="d-flex align-center">
+        <v-img
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          transition="scale-transition"
+          width="40"
+        />
+
+        <v-img
+          alt="Vuetify Name"
+          class="shrink mt-1 hidden-sm-and-down"
+          contain
+          min-width="100"
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+          width="100"
+        />
+      </div>
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
+      <v-btn
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+        text
+      >
+        <span class="mr-2">Latest Release</span>
+        <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-navigation-drawer
-      v-model="drawer"
-      absolute
-      temporary
-    >
-      <nav-bar></nav-bar>
-    </v-navigation-drawer>
-    <hr>
-    <v-container>
-      <v-content>
-        <router-view :key="$route.fullpath"></router-view>
-      </v-content>
-    </v-container>
-  </v-card>
+
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-  import NavBar from '@/components/NavBar.vue'
 
-  import { mapActions } from 'vuex'
+export default {
+  name: 'App',
 
-  export default {
-    name: 'App',
-    data: () => ({
-      drawer: false,
-      group: null,
-    }),
-    components: { NavBar },
-    methods: {
-      ...mapActions(['fetchCurrentUser'])
-    },
-    created() {
-      this.fetchCurrentUser()
-    }
-  }
+  data: () => ({
+    //
+  }),
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>

@@ -13,7 +13,13 @@
     <p>사용자평점 : ⭐ {{rankAvg}} / 5.00</p>
     <div>
       Likeit : {{ likeCount }}
-      <button @click="likeMovie(moviePk)">좋아요</button>
+      <v-btn depressed fab small color="pink white--text" @click="likeMovie(moviePk)"
+      >
+        <v-icon dark>
+          mdi-heart
+        </v-icon>
+      </v-btn>
+      <!-- <button @click="likeMovie(moviePk)">좋아요</button> -->
     </div>
     <p>배우 :</p>
 
