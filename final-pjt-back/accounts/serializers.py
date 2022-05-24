@@ -7,12 +7,19 @@ from movies.models import PopularMovie,Review,Genre,Director,Actor
 # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='movie_review')
 
 class ProfileSerializer(serializers.ModelSerializer):
-
+    
     class MovieListSerializer(serializers.ModelSerializer):
+        
+        class GenreListSerializer(serializers.ModelSerializer):
+            class Meta:
+                model = Genre
+                fields = ('id','name')
+        genres = GenreListSerializer(many=True)
+
         class Meta:
             model = PopularMovie
-            fields = ('pk','poster_path','title',)
-
+            fields = ('pk','poster_path','title','genres')
+    # genre = serializers.ManyRelatedFields
     like_popular_movies = MovieListSerializer(many=True)
 
     class ActorListSerializer(serializers.ModelSerializer):
@@ -27,15 +34,24 @@ class ProfileSerializer(serializers.ModelSerializer):
             model = Director
             fields = ('pk','profile_path','name',)
 
-    like_director = DirectorListSerializer(many=True)
 
+    like_director = DirectorListSerializer(many=True)
 
 
     class ReviewSerializer(serializers.ModelSerializer):
 
+        class MovieDetailSerializer(serializers.ModelSerializer):
+
+            class Meta:
+                model = PopularMovie
+                fields = ('id', 'title', )
+
+        popular_movie = MovieDetailSerializer()
+
         class Meta:
             model = Review
-            fields = ('popular_movie','title','content',)
+            fields = ('popular_movie','title','content','popular_movie')
+        
         
     movie_review = ReviewSerializer(many=True)
 

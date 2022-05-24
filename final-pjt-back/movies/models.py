@@ -22,6 +22,7 @@ class Director(models.Model):
 
 class Genre(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_genres')
+    hate_users = models.ManyToManyField(settings.AUTH_USER_MODEL, through='HateUser', related_name='hate_genres')
     name = models.CharField(max_length=50)
     def __str__(self):
         return self.name
@@ -60,7 +61,7 @@ class NowPlayingMovie(models.Model):
     backdrop_path = models.CharField(max_length=200, null=True)
     poster_path = models.CharField(max_length=200, null=True)
     def __str__(self):
-        return self.name
+        return self.title
 
 class UpcomingMovie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_upcoming_movies')
@@ -77,7 +78,7 @@ class UpcomingMovie(models.Model):
     backdrop_path = models.CharField(max_length=200, null=True)
     poster_path = models.CharField(max_length=200, null=True)
     def __str__(self):
-        return self.name
+        return self.title
 
 class Review(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews')
