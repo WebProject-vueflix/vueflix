@@ -42,7 +42,7 @@ class PopularMovie(models.Model):
     backdrop_path = models.CharField(max_length=200, null=True)
     poster_path = models.CharField(max_length=200, null=True)
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class NowPlayingMovie(models.Model):
