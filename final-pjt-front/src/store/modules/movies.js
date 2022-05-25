@@ -11,6 +11,8 @@ export default {
     actors: [],
     actor: {},
     director: {},
+    genres: [], 
+    genre: {}, 
   },
   getters: {
     movies: state => state.movies,
@@ -18,6 +20,8 @@ export default {
     actors: state => state.actors,
     actor: state => state.actor,
     director: state => state.director,
+    genres: state => state.genres,
+    genre: state => state.genre,
     isAuthor: (state, getters) => {
       return state.movie.user?.username === getters.currentUser.username
     },
@@ -31,7 +35,8 @@ export default {
     SET_ACTORS: (state, actors) => state.actors = actors,
     SET_ACTOR: (state, actor) => state.actor = actor,
     SET_DIRECTOR: (state, director) => state.director = director,
-
+    SET_GENRES: (state, genres) => state.genres = genres,
+    SET_GENRE: (state, genre) => state.genre = genre,
   },
 
   actions: {
@@ -97,6 +102,7 @@ export default {
           }
         })
     },
+
     fetchDirector({ commit, getters }, directorPk) {
       axios({
         url: drf.movies.director(directorPk),
@@ -113,6 +119,52 @@ export default {
             router.push({ name: 'NotFound404' })
           }
         })
+    },
+
+    fetchGenres({ commit, getters }) {
+      axios({
+        url: drf.movies.genres(),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_GENRES', res.data)
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.error(err.response)
+          if (err.response.status === 404) {
+            router.push({ name: 'NotFound404' })
+          }
+        })
+    },
+    fetchGenre({ commit, getters }, genrePk) {
+      axios({
+        url: drf.movies.genre(genrePk),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_GENRE', res.data)
+          console.log(res.data)
+        }
+        )
+        .catch(err => {
+          console.error(err.response)
+          if (err.response.status === 404) {
+            router.push({ name: 'NotFound404' })
+          }
+        })
+    },
+
+    unlikeGenre({ commit, getters }, genrePk) {
+      axios({
+        url: drf.movies.unlikeGenre(genrePk),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+        .then(res => commit('SET_GENRE', res.data), console.log('hi'))
+        .catch(err => console.error(err.response))
     },
     likeMovie({ commit, getters }, moviePk) {
       axios({
@@ -141,6 +193,7 @@ export default {
         .then(res => commit('SET_DIRECTOR', res.data), console.log('bye'))
         .catch(err => console.error(err.response))
     },
+
     createMovieReview({ commit, getters }, { moviePk, title, content, rank }) {
       const movieReview = { title, content, rank }
       console.log(movieReview)

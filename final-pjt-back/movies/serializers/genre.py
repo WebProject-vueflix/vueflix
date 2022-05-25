@@ -5,7 +5,7 @@ from accounts.models import User
 class GenreListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = ('id', 'name','unlike')
+        fields = ('id', 'name','unlike', 'score')
 
 class GenreDetailSerializer(serializers.ModelSerializer):
     class GenreMovieSerializer(serializers.ModelSerializer):

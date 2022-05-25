@@ -172,12 +172,14 @@ def unlike_genre(request, genre_pk):
     if genre.hate_users.filter(pk=user.pk).exists():
         genre.hate_users.remove(user)
         genre.unlike = False
+        genre.score = 0
         genre.save()
         serializer = GenreDetailSerializer(genre)
         return Response(serializer.data)
     else:
         genre.hate_users.add(user)
         genre.unlike = True
+        genre.score = -5
         genre.save()
         serializer = GenreDetailSerializer(genre)
         return Response(serializer.data)

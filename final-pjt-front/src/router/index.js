@@ -14,6 +14,8 @@ import MovieDetailView from '@/views/MovieDetailView.vue'
 import ActorListView from '@/views/ActorListView.vue'
 import ActorDetailView from '@/views/ActorDetailView.vue'
 import DirectorDetailView from '@/views/DirectorDetailView.vue'
+import GenreSelectListView from '@/views/GenreSelectListView.vue'
+import GenreDetailView from '@/views/GenreDetailView.vue'
 
 import CommunityListView from '@/views/CommunityListView.vue'
 import CommunityNewView from '@/views/CommunityNewView.vue'
@@ -73,16 +75,16 @@ const routes = [
   //   name: 'newmovie',
   //   component: MovieDetailView
   // },
-  // {
-  //   path: '/movies/genre',
-  //   name: 'genres',
-  //   component: GenreListView
-  // },
-  // {
-  //   path: '/movies/genre/:genrePk',
-  //   name: 'genre',
-  //   component: GenreDetailView
-  // },
+  {
+    path: '/movies/genre',
+    name: 'genres',
+    component: GenreSelectListView
+  },
+  {
+    path: '/movies/genre/:genrePk',
+    name: 'genre',
+    component: GenreDetailView
+  },
   {
     path: '/movies/actor',
     name: 'actors',

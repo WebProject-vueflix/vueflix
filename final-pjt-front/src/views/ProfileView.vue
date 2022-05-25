@@ -3,7 +3,15 @@
     {{ profile.like_popular_movies }}
     {{ profile.movie_review }}
     <h1>{{ profile.username }}</h1>
-
+    <h2>Don't recommended</h2>
+    <li v-for="genre in profile.hate_genres" :key="genre.name">
+      <router-link :to="{ name: 'genre', params: { genrePk: genre.id } }">
+        {{genre.name}}
+      </router-link>
+    </li>
+    <router-link :to="{ name: 'genres' }">
+      <button>설정 변경</button>
+    </router-link>
     <h2>좋아요 한 영화</h2>
     <ul>
       <li v-for="movie in profile.like_popular_movies" :key="movie.pk">
