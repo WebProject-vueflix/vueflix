@@ -15,11 +15,16 @@
     <hr />
     <!-- <h2>{{ movie.name }}의 이 영화는 어때요?</h2> -->
     <div v-for="movie in genre.popular_movies" :key="movie.id">
-      <img
-        :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`"
-        alt="사진"
-      />
+      <router-link :to="{ name: 'movie', params: { moviePk: movie.id } }">
+        <img
+          :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`"
+          alt="사진"
+        />
+      </router-link>
       {{ movie.title }}
+      <!-- <router-link :to="{ name: 'genre', params: { genrePk: genre.id } }">
+          <button>상세보기</button>
+        </router-link>  -->
     </div>
   </div>
 </template>

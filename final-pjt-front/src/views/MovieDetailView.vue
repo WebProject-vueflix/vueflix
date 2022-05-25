@@ -16,6 +16,10 @@
       Likeit : {{ likeCount }}
       <button @click="likeMovie(moviePk)">좋아요</button>
     </div>
+    <span>장르 : </span>
+    <span v-for="genre in movie.genres" :key="genre.name">
+      {{ genre.name }} |
+    </span>
     <p>배우 :</p>
 
     <div v-for="actor in movie.actors" :key="actor.id">
