@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'accounts',
     'community',
     # 3rd party app
+    'django_extensions',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
