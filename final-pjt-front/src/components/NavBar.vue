@@ -9,6 +9,11 @@
                 <router-link :to="{ name: 'movies' }">🏠Home</router-link>
               </div>
             </li>
+            <li class="nav-item">
+              <div class="nav-link active">
+                <router-link :to="{ name: 'recommend' }">🎥Recommendation</router-link>
+              </div>
+            </li>
             <li class="nav-item" v-if="!isLoggedIn">
               <div class="nav-link active">
                 <router-link :to="{ name: 'login' }">🔓Login</router-link>

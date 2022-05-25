@@ -24,6 +24,7 @@ export default {
   movies: {
     movies: () => HOST + MOVIES,
     movie: moviePk => HOST + MOVIES + `${moviePk}/`,
+    recommend: () => HOST + MOVIES + 'recommended/',
     genres: () => HOST + MOVIES + GENRE,
     genre: genrePk => HOST + MOVIES + GENRE + `${genrePk}/`,
     unlikeGenre: genrePk => HOST + MOVIES + GENRE + `${genrePk}/` + UNLIKE,

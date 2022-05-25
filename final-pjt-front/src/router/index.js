@@ -11,6 +11,7 @@ import NotFound404 from '../views/NotFound404.vue'
 
 import MovieListView from '@/views/MovieListView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
+import RecommendationView from '@/views/RecommendationView.vue'
 import ActorListView from '@/views/ActorListView.vue'
 import ActorDetailView from '@/views/ActorDetailView.vue'
 import DirectorDetailView from '@/views/DirectorDetailView.vue'
@@ -70,11 +71,11 @@ const routes = [
     name: 'movie',
     component: MovieDetailView
   },
-  // {
-  //   path: '/movies/:moviePk',
-  //   name: 'newmovie',
-  //   component: MovieDetailView
-  // },
+  {
+    path: '/movies/recommended',
+    name: 'recommend',
+    component: RecommendationView
+  },
   {
     path: '/movies/genre',
     name: 'genres',
