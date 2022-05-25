@@ -1,5 +1,6 @@
 <template>
   <div class="comment-list">
+    <!-- {{ community_review }} -->
     <ul>
       <comment-item
         v-for="comment in community_review"

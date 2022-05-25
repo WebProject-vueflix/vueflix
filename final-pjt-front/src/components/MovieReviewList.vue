@@ -1,6 +1,6 @@
 <template>
   <div class="movie-review-list">
-    <!-- {{review_set}} -->
+    <!-- {{ review_set }} -->
     <ul>
       <movie-review-item
         v-for="review in review_set"

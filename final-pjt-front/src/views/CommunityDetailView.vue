@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- {{review}} -->
+    <!-- {{ review }} -->
     <h1>{{ review.title }}</h1>
 
     <p>
@@ -13,7 +13,7 @@
       </router-link>
       |
       <button @click="deleteReview(reviewPk)">Delete</button>
-      <router-link :to="{name:'community'}">
+      <router-link :to="{ name: 'community' }">
         <button>목록으로 돌아가기</button>
       </router-link>
     </div>

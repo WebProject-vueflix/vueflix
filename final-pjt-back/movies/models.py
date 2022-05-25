@@ -28,7 +28,6 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
-
 class PopularMovie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_popular_movies')
     genres = models.ManyToManyField(Genre, related_name='popular_movies')
