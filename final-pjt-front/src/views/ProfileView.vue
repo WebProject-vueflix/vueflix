@@ -4,7 +4,7 @@
     {{ profile.movie_review }} -->
     <h1>{{ profile.username }}'s Page</h1>
     <h2>Don't recommended</h2>
-    <li v-for="genre in profile.hate_genres" :key="genre.name">
+    <li v-for="genre in profile.hate_genres" :key="genre.name+'f'">
       <router-link :to="{ name: 'genre', params: { genrePk: genre.id } }">
         {{genre.name}}
       </router-link>
@@ -14,7 +14,7 @@
     </router-link>
     <h2>좋아요 한 영화</h2>
     <ul>
-      <li v-for="movie in profile.like_popular_movies" :key="movie.pk">
+      <li v-for="movie in profile.like_popular_movies" :key="movie.pk+'l'">
         <div v-if="movie.poster_path != null">
           <img
             :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`"
@@ -29,7 +29,7 @@
 
     <h2>좋아요 한 배우</h2>
     <ul>
-      <li v-for="actor in profile.like_actor" :key="actor.pk">
+      <li v-for="actor in profile.like_actor" :key="actor.pk+'r'">
         <div v-if="actor.profile_path != null">
           <img
             :src="`https://image.tmdb.org/t/p/w300/${actor.profile_path}`"
@@ -44,7 +44,7 @@
 
     <h2>좋아요 한 감독</h2>
     <ul>
-      <li v-for="director in profile.like_director" :key="director.pk">
+      <li v-for="director in profile.like_director" :key="director.pk+'s'">
         <div v-if="director.profile_path != null">
           <img
             :src="`https://image.tmdb.org/t/p/w300/${director.profile_path}`"
@@ -62,7 +62,7 @@
 
     <h2>작성한 한줄평</h2>
     <ul>
-      <li v-for="movie in profile.movie_review" :key="movie.popular_movie">
+      <li v-for="movie in profile.movie_review" :key="movie.title+'a'">
         <router-link
           :to="{ name: 'movie', params: { moviePk: movie.popular_movie.id } }"
         >

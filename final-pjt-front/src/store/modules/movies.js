@@ -18,7 +18,7 @@ export default {
   getters: {
     movies: state => state.movies,
     movie: state => state.movie,
-    recommend: state => state.movies,
+    recommend: state => state.recommend,
     actors: state => state.actors,
     actor: state => state.actor,
     director: state => state.director,
@@ -32,7 +32,7 @@ export default {
   mutations: {
     SET_MOVIES: (state, movies) => state.movies = movies,
     SET_MOVIE: (state, movie) => state.movie = movie,
-    SET_RECOMMEND: (state, recommend) => state.movies = recommend,
+    SET_RECOMMEND: (state, recommend) => state.recommend = recommend,
     SET_MOVIE_REVIEWS: (state, review_set) => (state.movie.review_set = review_set),
     SET_MOVIE_REVIEW: (state, comment) => (state.review.comment = comment),
     SET_ACTORS: (state, actors) => state.actors = actors,

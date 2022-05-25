@@ -3,25 +3,79 @@
     <!-- {{movie}} -->
     <!-- <p>{{ movie.actors }}</p> -->
     <!-- <p>{{ movie.review_set }}</p> -->
-    <h1>{{ movie.title }}</h1>
-    <img
-      :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`"
-      alt="사진"
-    />
-    <p>요약 : {{ movie.overview }}</p>
-    <p>평점 : ⭐ {{ movie.vote_average }} / 10.0</p>
-    <p v-if="movie.review_set.length > 0">사용자평점 : ⭐ {{rankAvg}} / 5.00</p>
-    <p v-else>사용자평점 : 한줄평을 입력해주세요</p>
-    <div>
-      Likeit : {{ likeCount }}
-      <button @click="likeMovie(moviePk)">좋아요</button>
-    </div>
-    <span>장르 : </span>
-    <span v-for="genre in movie.genres" :key="genre.name">
-      {{ genre.name }} |
-    </span>
-    <p>배우 :</p>
+    <!-- {{movie.id}} -->
+    <h1 class="mb-4"><b>{{ movie.title }}</b></h1>
+    <hr>
+    <div class="card mb-3 mt-4" style="max-width: 100rem;">
+      <div class="row g-0">
+        <div class="col-md-4 d-flex align-items-center justify-content-center my-4">
+          <img :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`" class="img-fluid rounded-start" alt="사진">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body my-3">
+            <p class="card-text text-start"><b>요약 : </b>{{ movie.overview }}</p>
+            <p class="card-text text-start"><b>평점 : </b>⭐ {{ movie.vote_average }} / 10.0</p>
+            <p v-if="movie.review_set.length > 0" class="card-text text-start"><b>사용자평점 : </b>⭐ {{rankAvg}} / 5.00</p>
+            <p v-else class="card-text text-start"><b>사용자평점 : </b>한줄평을 입력해주세요</p>
+            <p class="card-text text-start">
+              <b>장르 : </b>|
+              <span v-for="genre in movie.genres" :key="genre.name">
+                {{ genre.name }} |
+              </span>
+            </p>
+            <p class="card-text text-start"><b>배우 : </b>
+              <span v-for="actor in movie.actors" :key="actor.id">
+                <span>{{ actor.name }}({{ actor.character }} 역)ㅤ</span>
+              </span>
+            </p>
+            <p class="card-text text-start"><b>감독 : </b>{{ movie.director[0].name }}</p>
+            <p class="card-text text-start"><b>개봉일 : </b>{{ movie.release_date }}</p>
+            <br>
+            <p class="card-text text-start"><b>Likeit : </b>{{ likeCount }}</p>
+            <!-- Button trigger modal -->
+            <!-- <button type="button" class="btn btn-danger video-btn" data-bs-toggle="modal" :data-src="`https://www.youtube.com/embed/${movie.youtube_key}`" data-bs-target="#myModal">
+              영상 미리보기
+            </button> -->
+            <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              영상 미리보기
+            </button> -->
+            <!-- Button trigger modal -->
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-danger video-btn mx-4" data-bs-toggle="modal" :data-src="`https://www.youtube.com/embed/${movie.youtube_key}`" data-bs-target="#myModal">
+                영상 미리보기
+              </button>
+              <button class="btn btn btn-outline-warning" @click="likeMovie(moviePk)">❤️</button>
+            </div>
 
+            <!-- Modal -->
+            <div class="modal fade" data-bs-backdrop="static" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>        
+                      <!-- 16:9 aspect ratio -->
+                    <div id="area" class="ratio ratio-16x9">
+                      <iframe id="video" class="embed-responsive-item" :src="`https://www.youtube.com/embed/${movie.youtube_key}`" allowscriptaccess="always" allow="autoplay"></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>배우 :</p>
+    <div class="card-group" v-for="actor in movie.actors" :key="actor.id">
+      <div class="card" style="max-width:18rem" v-if="actor.profile_path != null">
+        <img :src="`https://image.tmdb.org/t/p/original/${actor.profile_path}`"
+          alt="사진" class="card-img-top">
+        <div class="card-body">
+          <p class="card-text">{{actor.name}}</p>
+        </div>
+      </div>
+    </div>
+    
     <div v-for="actor in movie.actors" :key="actor.id">
       <div v-if="actor.profile_path != null">
         <img
@@ -53,11 +107,8 @@
       </div>
       <p>{{ movie.director[0].name }}</p>
     </router-link> -->
-    <p>개봉일 : {{ movie.release_date }}</p>
     <!-- 영화예매 바로가기 하이퍼링크 -->
-    <iframe
-      :src="`https://www.youtube.com/embed/${movie.youtube_key}`"
-    ></iframe>
+    
     <!-- 공유하기 -->
     <hr />
     <div v-for="movieactor in movie.actors" :key="movieactor.name">
@@ -89,7 +140,6 @@
       </router-link>
       <div v-for="num in movie.director[0].popular_movies.length" :key="num">
         <div v-if="num <= `${n}`">
-          <!-- {{num}} -->
         <!-- <div v-for="newmovie in movieactor.popular_movies" :key="newmovie.title"> -->
           <div v-if="movie.director[0].popular_movies[num-1].id != movie.id">
             <img
@@ -163,4 +213,38 @@ export default {
 </script>
 
 <style>
+div {
+  color: aliceblue;
+}
+#area {
+  position: relative; /* absolute는 부모가 relative일 때 부모를 따라간다. */
+  width: 100%;
+  height: 480px;
+  padding-bottom: 56.25%; /* 16:9 비율 */
+}
+
+#video {
+  position: absolute;
+  width: 100%; /* 부모에 맞게 꽉 채운다. */
+  height: 100%;
+}
+.modal-dialog {
+      max-width: 1000px;
+      margin: 30px auto;
+  }
+
+.modal-body {
+  position: relative;
+  overflow-y: auto;
+  max-height: 1000px;
+  padding: 15px;
+}
+
+div.card {
+  background-color:rgba(226, 182, 182, 0);
+  border-color: rgb(245, 235, 197);
+}
+div.card p {
+  color: white;
+}
 </style>

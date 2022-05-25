@@ -1,7 +1,6 @@
 <template>
   <div class="recommend">
     <h1><b>Recommended</b></h1>
-    <!-- {{recommend}} -->
     <hr />
     <!-- {{ recommend }} -->
     <div class="container mb-5">
@@ -12,7 +11,7 @@
           class="card text-white bg-dark mb-3"
           style="width: 18rem"
           v-for="movie in recommend"
-          :key="movie.title"
+          :key="movie.id+'l'"
         >
           <div>
             <router-link :to="{ name: 'movie', params: { moviePk: movie.id } }">
@@ -47,6 +46,7 @@ export default {
     ...mapActions(["fetchRecommendation"]),
   },
   created() {
+    console.log('dd')
     this.fetchRecommendation();
   },
 };

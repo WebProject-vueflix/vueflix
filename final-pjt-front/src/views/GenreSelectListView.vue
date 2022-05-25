@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>GenreList</h1>
-    {{ genres }}
+    <!-- {{ genres }} -->
     <ul>
       <li v-for="genre in genres" :key="genre.name">
         <div v-if="genre.unlike === true">
