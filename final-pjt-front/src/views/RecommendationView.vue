@@ -3,7 +3,7 @@
     <h1><b>Recommended</b></h1>
     <!-- {{recommend}} -->
     <hr />
-    {{ recommend }}
+    <!-- {{ recommend }} -->
     <div class="container mb-5">
       <div
         class="row row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-0"
