@@ -22,9 +22,9 @@ export default {
     director: state => state.director,
     genres: state => state.genres,
     genre: state => state.genre,
-    isAuthor: (state, getters) => {
-      return state.movie.user?.username === getters.currentUser.username
-    },
+    // isAuthor: (state, getters) => {
+    //   return state.movie.user?.username === getters.currentUser.username
+    // },
     isMovieReview: state => !_.isEmpty(state.review),
   },
   mutations: {

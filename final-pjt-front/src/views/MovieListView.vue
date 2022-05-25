@@ -43,10 +43,9 @@ export default {
     ...mapGetters(["movies"]),
   },
   methods: {
-    ...mapActions(["SET_LOADING", "fetchMovies"]),
+    ...mapActions(["fetchMovies"]),
   },
   created() {
-    this.SET_LOADING(true);
     this.fetchMovies();
   },
 };
