@@ -155,11 +155,12 @@ def movie_detail(request,popularmovie_pk):
 
 @api_view(['GET',])
 def recommendation(request):
-    movies = PopularMovie.objects.annotate(
+    movie_list = PopularMovie.objects.annotate(
         like_count=Count('like_users', distinct=True),
-        review_count=Count('review', distinct=True)
+        review_count=Count('review', distinct=True),
     ).order_by('-genre_score')[:20]
-    serializer = MovieListSerializer(movies, many=True)
+    
+    serializer = MovieListSerializer(movie_list, many=True)
     return Response(serializer.data)
 
 @api_view(['GET',])
@@ -217,13 +218,25 @@ def like_movie(request, popularmovie_pk):
     movie = get_object_or_404(PopularMovie, pk=popularmovie_pk)
     user = request.user
     if movie.like_users.filter(pk=user.pk).exists():
+        for genre in movie.genres.all():
+            if genre.score > 0:
+                genre.score = genre.score - 1
+                genre.save()
         movie.like_users.remove(user)
-        serializer = MovieDetailSerializer(movie)
-        return Response(serializer.data)
+
     else:
         movie.like_users.add(user)
-        serializer = MovieDetailSerializer(movie)
-        return Response(serializer.data)
+        for genre in movie.genres.all():
+            if genre.score >= 0:
+                genre.score = genre.score + 1
+                genre.save()
+    b = 0
+    for genre in movie.genres.all():
+        b += genre.score
+    movie.genre_score = b
+    movie.save()
+    serializer = MovieDetailSerializer(movie)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def like_actor(request, actor_pk):
