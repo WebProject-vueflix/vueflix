@@ -25,6 +25,7 @@ class Genre(models.Model):
     hate_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='hate_genres')
     score = models.IntegerField(default=0)
     name = models.CharField(max_length=50)
+    unlike = models.BooleanField(default=False)
     def __str__(self):
         return self.name
 
