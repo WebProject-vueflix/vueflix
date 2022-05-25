@@ -36,7 +36,7 @@ class MovieListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PopularMovie
-        fields = ('id', 'title', 'adult', 'release_date', 'vote_average', 'poster_path', 'genres', 'actors', 'director','like_count', 'review_count',)
+        fields = ('id', 'title', 'adult', 'release_date', 'vote_average', 'poster_path', 'genres', 'actors', 'director','like_count', 'review_count', 'genre_score')
         read_only_fields = ('genres', 'actors', 'director',)
 
 class MovieDetailSerializer(serializers.ModelSerializer):
@@ -91,7 +91,7 @@ class MovieDetailSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Review
-            fields = ('pk','title','content','user','like_users','rank','created_at','updated_at')
+            fields = ('pk','title','content','user','like_users','rank','created_at','updated_at', 'genre_score')
     review_set = ReviewSerializer(many=True, read_only=True)
 
     class Meta:

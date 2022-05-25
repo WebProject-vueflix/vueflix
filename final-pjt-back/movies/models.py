@@ -34,6 +34,7 @@ class PopularMovie(models.Model):
     genres = models.ManyToManyField(Genre, related_name='popular_movies')
     actors = models.ManyToManyField(Actor, related_name='popular_movies')
     director = models.ManyToManyField(Director, related_name='popular_movies')
+    genre_score = models.IntegerField(default=0)
     adult = models.BooleanField()
     title = models.CharField(max_length=100)
     release_date = models.DateField()

@@ -143,7 +143,7 @@ def movie_list(request):
     movies = PopularMovie.objects.annotate(
             like_count=Count('like_users', distinct=True),
             review_count=Count('review', distinct=True)
-        ).order_by('-popularity')[:15]
+        ).order_by('-popularity')[:20]
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
@@ -151,6 +151,15 @@ def movie_list(request):
 def movie_detail(request,popularmovie_pk):
     movie = get_object_or_404(PopularMovie, pk=popularmovie_pk)
     serializer = MovieDetailSerializer(movie)
+    return Response(serializer.data)
+
+@api_view(['GET',])
+def recommendation(request):
+    movies = PopularMovie.objects.annotate(
+        like_count=Count('like_users', distinct=True),
+        review_count=Count('review', distinct=True)
+    ).order_by('-genre_score')[:20]
+    serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
 @api_view(['GET',])
