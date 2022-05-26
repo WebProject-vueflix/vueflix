@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 import requests
-from .models import Director, Genre, PopularMovie, NowPlayingMovie, UpcomingMovie, Actor, Review
+from .models import Director, Genre, PopularMovie,  Actor, Review
 from .serializers.popularmovie import MovieListSerializer, MovieDetailSerializer
 from .serializers.actor import ActorListSerializer, ActorDetailSerializer
 from .serializers.director import DirectorDetailSerializer

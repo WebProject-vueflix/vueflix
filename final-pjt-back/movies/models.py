@@ -48,40 +48,6 @@ class PopularMovie(models.Model):
         return self.title
 
 
-class NowPlayingMovie(models.Model):
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_nowplaying_movies')
-    genres = models.ManyToManyField(Genre, related_name='nowplaying_movies')    
-    actors = models.ManyToManyField(Actor, related_name='nowplaying_movies')
-    director = models.ManyToManyField(Director, related_name='nowplaying_movies')
-    adult = models.BooleanField()
-    title = models.CharField(max_length=100)
-    release_date = models.DateField()
-    popularity = models.FloatField()
-    vote_average = models.FloatField()
-    overview = models.TextField()
-    youtube_key = models.CharField(max_length=200)
-    backdrop_path = models.CharField(max_length=200, null=True)
-    poster_path = models.CharField(max_length=200, null=True)
-    def __str__(self):
-        return self.title
-
-class UpcomingMovie(models.Model):
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_upcoming_movies')
-    genres = models.ManyToManyField(Genre, related_name='upcoming_movies')
-    actors = models.ManyToManyField(Actor, related_name='upcoming_movies')
-    director = models.ManyToManyField(Director, related_name='upcoming_movies')
-    adult = models.BooleanField()
-    title = models.CharField(max_length=100)
-    release_date = models.DateField()
-    popularity = models.FloatField()
-    vote_average = models.FloatField()
-    overview = models.TextField()
-    youtube_key = models.CharField(max_length=200)
-    backdrop_path = models.CharField(max_length=200, null=True)
-    poster_path = models.CharField(max_length=200, null=True)
-    def __str__(self):
-        return self.title
-
 class Review(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews')
     title = models.CharField(max_length=100)
