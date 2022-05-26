@@ -34,8 +34,6 @@
 
 ----
 
-### 0.
-
 ### 1. 팀원 정보 및 업무 분담 내역
 
 <table>
@@ -58,16 +56,14 @@
     </tr>
     <tr>
         <td>
-            명세 필수 기능 구현 - community 게시글 리스트 조회<br>
-            명세 필수 기능 구현 - review(자유게시판)CRUD<br>
-            명세 필수 기능 구현 - movie detail 구현<br>
-            명세 필수 기능 구현 - movie review 구현<br>
-            명세 필수 기능 구현 - actor list / actor detail / director detail 구현<br>
+            비선호 장르 + 좋아요 영화 기반 영화 추천 알고리즘 <br>
+            영화별 한줄평 기능 구현 <br>
+            커뮤니티 기능 구현 <br>
+            비선호 장르 선택 기능 구현
         </td>
         <td>
-            명세 필수 기능 구현 - 로그인/로그아웃/signup<br>
-            명세 필수 기능 구현 - popularmovie 상위 10개 main 페이지에 띄우기<br>
-            명세 필수 기능 구현 - profile: 좋아요 영화, 작성 게시글 확인<br>
+            로그인/로그아웃/signup<br>
+            개인프로필: 좋아요 영화, 작성 게시글 확인 기능 구현 
         </td>
     </tr>
     <tr>
@@ -77,7 +73,7 @@
     </tr>
     <tr>
     	<td colspan="2" style="text-align:center">
-        	명세 필수 기능 구현 - movie detail: 좋아요 기능 구현<br>
+        	movie detail: 좋아요 기능 구현<br>
         </td>
     </tr>
     <tr>
@@ -87,25 +83,27 @@
     </tr>
     <tr>
         <td>
-            social login 구현
+            Movie Serializer<br>
+            비선호 장르 '싫어요' 구현
         </td>
         <td>
-            dumpdata 받아오기 (TMDB)
+            TMDB 이용 dumpdata 받아오기<br>
+            전체적인 모델링 및 serializer 보완<br>
+            admin CRUD 구현<br>
+            '좋아요' 기능 구현
         </td>
     </tr>
     <tr>
         <td colspan="2" style="text-align:center">
-        	공통 작업
-    	</td>
+            공통 작업
+        </td>
     </tr>
     <tr>
         <td colspan="2" style="text-align:center">
-        serializer 구현
+            serializer 구현
         </td>
     </tr>
 </table>
-
-
 
 
 
@@ -117,6 +115,7 @@
 - 영화 정보 기반 추천 서비스★
   - 최초 로그인 시 추천 받기 싫은 영화 장르를 먼저 선택하고, default값 음수로 변경.
   - 이후 내가 본 영화를 기반으로 좋아요를 누르면 장르별로 점수 차등 부여하여 영화 추천. 
+- 배우별 / 감독별 영화 추천 - 유저 좋아요 기반
 - 커뮤니티 - 자유게시판 형식
 
 #### - 구현
@@ -149,9 +148,17 @@
   $ python -Xutf8 manage.py dumpdata --indent 4 movies.genre > genre.json
   $ python -Xutf8 manage.py dumpdata --indent 4 movies.popularmovie > popularmovie.json
   
-  $ python manage.py loaddata movies/actor.json movies/director.json movies/genre.json
+  $ python manage.py loaddata movies/actor.json movies/director.json movies/genre.json movies/popularmovie.json
   $ python manage.py loaddata movies/popularmovie.json
   ```
+
+- 영화 정보 기반 추천 서비스★
+  - 최초 로그인 시 추천 받기 싫은 영화 장르를 먼저 선택하고, default값 음수로 변경.
+  - 이후 내가 본 영화를 기반으로 좋아요를 누르면 장르별로 점수 차등 부여하여 영화 추천. 
+- 배우별 / 감독별 영화 추천 - 유저 좋아요 기반
+- 커뮤니티 - 자유게시판 형식
+
+
 
 ### 3. 데이터베이스 모델링 (ERD)
 
@@ -159,11 +166,82 @@
 
 ### 4. 필수 기능에 대한 설명
 
+#### 1) 실제 구현 내용
 
+- 관리자 뷰
+
+  ![image-20220527081542837](image/image-20220527081542837.png)
+
+  => admin 계정으로 movie 정보 CRUD 설정
+
+- accounts
+
+  ![image-20220527081318397](image/image-20220527081318397.png)
+
+  ![image-20220527081345693](image/image-20220527081345693.png)
+
+  ![image-20220527081353248](image/image-20220527081353248.png)
+
+  => 로그인 / 로그아웃 / 회원가입 기능 구현
+
+- Movies
+
+  ![image-20220527081636398](image/image-20220527081636398.png)
+
+  => Popularity를 기반으로 상위 20개의 영화 추천
+  ![image-20220527081704804](image/image-20220527081704804.png)
+
+  => 유저들의 영화 좋아요 + 장르 싫어요 기반으로 영화 추천 알고리즘 구현
+  ![image-20220527081738023](image/image-20220527081738023.png)
+
+  ![image-20220527081746166](image/image-20220527081746166.png)
+
+  ![image-20220527081816493](image/image-20220527081816493.png)
+
+  => movie detail 페이지
+  ![image-20220527081832123](image/image-20220527081832123.png)
+
+  ![image-20220527081839871](image/image-20220527081839871.png)
+
+  => 감독별 배우별 추천 알고리즘
+
+- Profile
+
+  ![image-20220527081924326](image/image-20220527081924326.png)
+
+  => 장르 싫어요 ( 비선호 장르 선택 기능 )
+
+  ![image-20220527082022730](image/image-20220527082022730.png)
+  ![image-20220527082040994](image/image-20220527082040994.png)
+
+  => 좋아요 누른 영화 / 배우 / 감독 / 내가 작성한 한줄평
+
+- Community
+
+  ![image-20220527082133118](image/image-20220527082133118.png)
+
+  ![image-20220527082144160](image/image-20220527082144160.png)
+
+  ![image-20220527082150759](image/image-20220527082150759.png)
+
+  ![image-20220527082205321](image/image-20220527082205321.png)
+  => CRUD 구현
+
+- 추천 알고리즘 설명
+
+  ```
+  개인 프로필페이지에 제공되는 비선호 장르 선택창과 각 영화에 제공되는 좋아요 버튼을 통해 Genre Score에 장르별 점수를 부여합니다. 싫어하는 장르에는 음수값을 부여하고, 각 영화에 좋아요를 누르면 해당 영화의 장르에 각각 점수가 누적됩니다. 이 때 좋아요를 누른 영화에 비선호 장르가 포함된다면 점수부여를 따로 해주지는 않습니다. 이후 각 영화가 가지는 장르의 점수를 각각 합산해주고 장르 스코어가 높은 순서대로 상위 20개를 목록에 추천해줍니다. 예를 들어서 말씀을 드리면 닥터 스트레인지 영화가 가지는 장르는 모험, 판타지, 액션입니다. 만약 제가 모험에 비선호 장르를 설정을 해뒀다면 비선호 장르에는 임의의 음수값이 부여가 되고, 판타지와 액션에는 점수가 플러스 되어 합산되는 형식입니다.
+  ```
+
+  ```
+  프로필에서 좋아요를 누른 배우별 감독별 영화 추천을 제공합니다.
+  ```
+
+  
 
 ### 5. 배포 서버 URL
 
-
+-
 
 ### 6. 일자별 기록
 
@@ -327,34 +405,54 @@
   [Vue warn]: Duplicate keys detected: '11006'. This may cause an update error.
   ```
 
-  --애리--
+- movie detail 좋아요
 
+- movie detail 감독별 영화 추천
 
+- movie detail 사용자 별점 평균 
 
-0524 한 일
+- 프로필 좋아요 누른 영화 배우 감독별 영화 추천 및 확인
 
-```
-장고 admin 구현
-```
+- 배우별 감독별 영화 추천 => 디테일 페이지로 이동해서 전부 출력
 
-0523 한 일
+- ~~social login 구현(ing)~~
 
-```
-좋아요 기능 구현
-```
+#### Day8 - 220524
 
+- 관리자계정 CRUD 구현 - ok
+- social login 구현 - 나중에
+- css - bootstrap 이용 예정
+- 댓글, 포스트 작성 시각 및 수정 시각 표시하기 안했음;;
+- 메인페이지 만듦 - 부트스트랩적용함
+- my profile - genre - popular movie - actor - director serializer model 수정(장르 싫어요 기반 추천 알고리즘 준비사항)
+- ~~Vutify파이 공부~~ => 추후 보완하면서 기능들을 적용시켜보며 공부할 예정이다....
 
+- 장고 admin 구현
 
-0525 한 일
+  
 
-```
-싫어요 백 구현
-recommendation algorithm 
-싫어요 장르 / 좋아요 영화 기반 추천 알고리즘 구현
--> views.py 구현 / 알고리즘에 따른 모델 재정의
-```
+#### Day9 - 220525(계획)
 
-0525 오류
+- 현재 구조
+
+유저가 로그인하고 나 이 장르 싫어 누르면 hate genres 리스트로 출력됨.
+
+=> http://127.0.0.1:8000/api/v1/accounts/profile/admin/
+
+장르 리스트에서 싫어요 누르는 행동이 [post]http://127.0.0.1:8000/api/v1/movies/genre/14/unlike/
+
+추천x 장르 선택 폼 로드 -> 싫어요 체크 -> 체크된 데이터는 hate genre로 넘겨주기
+
+==> 구현 완료
+
+- 추천알고리즘 구현 마무리
+  프로세스 : 각 데이터를 기반으로 장르스코어 합산하고 내림차순으로 20개 영화 추천(실시간 변동)
+- ~~덤프 다시 받아 제대로~~
+- ~~Vuetify 적용하기 꼭^^;;~~
+- Bootstrap 적용
+- recommendation algorithm 
+- 싫어요 장르 / 좋아요 영화 기반 추천 알고리즘 구현
+  -> views.py 구현 / 알고리즘에 따른 모델 재정의
 
 ```
 genre 테이블에 정의되지 않은 이름이 들어가 axios 통신을 못하는 오류 -> ERROR 500 -> serializer fields 삭제
@@ -362,24 +460,18 @@ genre 테이블에 정의되지 않은 이름이 들어가 axios 통신을 못�
 
 
 
-0526 한 일 
+#### Day10 - 220526
 
 ```
 CSS - signup / moviedetail_reviewform / community - form/list/item / genreselectform
 serializer - moviedetail serializer 중 reviewserializer 부분에서 review 정의 오류 부분 수정
 ```
 
-0526 오류
-
 ```
 $attrs is readonly.
-
 $listeners is readonly.
-
 ==> 오류가 아닌 Vue warn 부분. 오류가 남에도 돌아가고 있지만 무엇이 문제인지 잘 모르겠다. 
 ```
-
-
 
 ```
 avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. instead, use a data or computed property based on the prop's value. prop being mutated: "to"
@@ -388,10 +480,8 @@ the service worker navigation preload request was cancelled before 'preloadrespo
 
 vue.runtime.esm.js?c320:1897 typeerror: cannot read properties of undefined
 
-==> 비동기 처리 순서를 거치면서 오류가 생긴 듯 하다. 같은 반 오빠의 도움으로 vue의 router 링크 순서를 바꿔줬다 (moviedetail 부분에서 계속 오류가 났기 때문에, moviedetail <-> recommend 위치 변경)
+=> 비동기 처리 순서를 거치면서 오류가 생긴 듯 하다. 같은 반 교육생의 도움으로 vue의 router 링크 순서를 바꿔주었다 => (moviedetail 부분에서 계속 오류가 났기 때문에, moviedetail <-> recommend 위치 변경)
 ```
-
-
 
 ```
 moviedetail에서 쓴 review의 작성자와 edit 버튼이 눌리지 않음 -> serializer오류로 username이 포함되지 않았음 
@@ -399,31 +489,43 @@ vue에서 해당 데이터 확인 후 serializer 수정
 ```
 
 ```
-duplicated key error -> 키값에러가 났다. name으로 지정한 key값을 id로 변경 !
+duplicated key error -> 키값에러가 났다. name으로 지정한 key값을 중복되지 않게 문자열을 추가해주며 변경 !
 ```
+
+- 오류 수정으로 최종 프로젝트 마무리.
+
+  =) 이후 추가적인 기능 구현예정.
+
+#### Day 11 - 220527 (최종 발표)
 
 
 
 ### 7. 느낀 점
 
 - 고승효 : 
+
+  ```
+  프로젝트 시작 전부터 어떤 기능을 어떤식으로 구현할지에 대한 이야기를 많이 했다. 처음 구상하고 구현하고자 했던 내용들 중에서 남은 시간과 타협하며 할 수 있을법한 기능들을 정하는 과정에서 기간이 좀만 더 있었더라면 이라는 생각을 가장 많이 하게 되었던 것 같다. 초반 구상 시점에서 이야기가 나왔던 것 중에 시각 장애인을 위한 기능을 추가하자는 의견을 냈었는데, 필수 기능들부터 구현하는게 우선순위가 높았기 때문에 시간이 남으면 하기로 정하고 시작하였다. 최소 기능 위주로 시작하면서도 생각만큼 빠르게 진행이 되지 않아서 중간 중간 오류 수정에 애를 많이 먹었는데, 최종 결과물이 그래도 나름의 결과를 낳은 것 같아서 그동안의 나와 페어의 노력이 보여지는 느낌이다. 방학 중까지 좀 더 공부하고 보완하는 시간을 가지면서 초기에 구현하려했던 기능들을 더 추가시켜볼 생각이고, 배포까지 해보는 것을 목표로 가지려 한다.
+  1학기 중 배운 내용들을 토대로 해 본 프로젝트임에도 중간중간 고비가 있을 때마다 역시 복습이 가장 중요하고, 이론적인 부분 이외에도 실습을 꼭 스스로도 많이 해봐야겠다고 생각했다. 이제 이 프로젝트를 마지막으로 1학기를 마치게 되었고, 지나간 시간은 되돌릴 수는 없기 때문에 방학 중 1학기간의 내용을 좀 더 공부하고 2학기 프로젝트를 준비하여야겠다고 생각하는 시간이 된 것 같다.
+  ```
+
 - 김애리 : 
 
-```
-처음에 기능별 구현을 제안했었는데, 진행하다보니 자연스럽게 백 쪽을 많이 구현하게 된 것 같습니다 ..
-맨 처음 프로젝트를 시작하면서 맨 땅에 헤딩하는 기분이었는데, 어느덧 완벽하게 기능을 구현하는 것을 보니 짧은 시간이지만 많은 성장을 했다고 생각합니다.
-serializer를 하면서 serializer 안에 새로운 serializer를 구현하는 방식들을 많이 접하면서 어떤 걸 보여주고, 어떻게 정의를 해야하는지 한 번 더 확인할 수 있는 계기가 되었습니다.
-또한 serializer에서 필드를 새로 만들어 views.py에서 계산값(annotate)을 넣어주는 작업을 다시 한 번 해보면서 serializer의 넓은 폭을 한 번 더 경험할 수 있었습니다.
-또한 Vue를 작업하면서 생각보다 프론트에서 신경을 쓸 부분이 많다는 것을 느꼈습니다. 받은 정보를 처리해서 사용자에게 보여주는 작업들이 많다보니 , 각각 어떤 결과를 가지고 와야할지 생각해야해서 많이 복잡했습니다.
-방학 동안 Vue와 Django를 좀 더 심화학습 (복습 필수)을 공부하며 2학기 프로젝트를 준비해야겠다고 생각했습니다. 
-일주일이라는 시간동안 좋은 페어를 만나서 많은 것을 배울 수 있던 좋은 경험이었습니다.
-```
+  ```
+  처음에 기능별 구현을 제안했었는데, 진행하다보니 자연스럽게 백 쪽을 많이 구현하게 된 것 같습니다 ..
+  맨 처음 프로젝트를 시작하면서 맨 땅에 헤딩하는 기분이었는데, 어느덧 완벽하게 기능을 구현하는 것을 보니 짧은 시간이지만 많은 성장을 했다고 생각합니다.
+  serializer를 하면서 serializer 안에 새로운 serializer를 구현하는 방식들을 많이 접하면서 어떤 걸 보여주고, 어떻게 정의를 해야하는지 한 번 더 확인할 수 있는 계기가 되었습니다.
+  또한 serializer에서 필드를 새로 만들어 views.py에서 계산값(annotate)을 넣어주는 작업을 다시 한 번 해보면서 serializer의 넓은 폭을 한 번 더 경험할 수 있었습니다.
+  또한 Vue를 작업하면서 생각보다 프론트에서 신경을 쓸 부분이 많다는 것을 느꼈습니다. 받은 정보를 처리해서 사용자에게 보여주는 작업들이 많다보니 , 각각 어떤 결과를 가지고 와야할지 생각해야해서 많이 복잡했습니다.
+  방학 동안 Vue와 Django를 좀 더 심화학습 (복습 필수)을 공부하며 2학기 프로젝트를 준비해야겠다고 생각했습니다. 
+  일주일이라는 시간동안 좋은 페어를 만나서 많은 것을 배울 수 있던 좋은 경험이었습니다.
+  ```
 
- 
+  
 
+### 8. 기타 - 메모
 
-
-DATA 받아오기
+DATA 받아오기 ( 초기 코드 )
 
 ```python
 from django.shortcuts import render
@@ -466,5 +568,95 @@ def index(request):
 
 ```
 python manage.py dumpdata --indent 4 movies.movie > test.json
+=> 4칸씩 띄어서 저장
 ```
+
+- 배우별 영화 3개만 출력하기 (ing)
+
+```html
+<div v-for="movieactor in movie.actors" :key="movieactor.name">
+      <div v-if="movieactor.popular_movies.length >= 2">
+        <p>{{ movieactor.name }}의 이 영화는 어때요?</p>
+        <div v-for="num in 3" :key="num">
+          <!-- <div v-for="newmovie in movieactor.popular_movies" :key="newmovie.title"> -->
+          <div v-if="movieactor.popular_movies[num].id != movie.id">
+            <router-link
+              :to="{ name: 'movie', params: { moviePk: movieactor.popular_movies[num].id } }"
+            >
+              <img
+                :src="`https://image.tmdb.org/t/p/w300/${movieactor.popular_movies[num].poster_path}`"
+                alt="사진"
+              />
+            </router-link>
+            <p>{{ movieactor.popular_movies[num].title }}</p>
+          </div>
+            <!-- {{ movie.id }} -->
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+```
+
+is_staff : 관리자 여부 확인
+
+allauth
+
+- 네브바 확인하기ㅠㅠ
+
+```html
+	<ul>
+      <li>
+        <router-link :to="{ name: 'movies' }">Home</router-link>
+      </li>
+      <li v-if="!isLoggedIn">
+        <router-link :to="{ name: 'login' }">Login</router-link>
+      </li>
+      <li v-if="!isLoggedIn">
+        <router-link :to="{ name: 'signup' }">Signup</router-link>
+      </li>
+      <!-- <li v-if="isLoggedIn">
+        <div v-if="is_staff">
+          <router-link :to="{ name: 'admin' }">admin</router-link>
+        </div>
+      </li> -->
+      <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'actors' }">actors</router-link>
+      </li>
+      <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'profile', params: { username } }">
+          {{ currentUser.username }}'s page
+        </router-link>
+      </li>
+      <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'community' }">
+          Community
+        </router-link>
+      </li>
+      <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'logout' }">Logout</router-link>
+      </li>
+    </ul>
+```
+
+싫어요 
+
+```
+	<ul>
+      <li v-for="movie in movies" :key="movie.id">
+        <router-link :to="{ name: 'movie', params: { moviePk: movie.id } }">
+          {{ movie.title }}
+        </router-link>
+        ✍🏻{{ movie.review_count }}
+        💓{{ movie.like_count }}
+      </li>
+    </ul>
+  </div>
+```
+
+- 덤프 다시 뜨기 ( 추후에 )
+  => upcoming 100개
+  => Now Playing 500개 데이터 추가로 받아서 적용해보기
+- 
+
+
 
