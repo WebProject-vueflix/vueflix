@@ -67,11 +67,6 @@ const routes = [
     component: MovieListView
   },
   {
-    path: '/movies/:moviePk',
-    name: 'movie',
-    component: MovieDetailView
-  },
-  {
     path: '/movies/recommended',
     name: 'recommend',
     component: RecommendationView
@@ -100,6 +95,11 @@ const routes = [
     path: '/movies/director/:directorPk',
     name: 'director',
     component: DirectorDetailView
+  },
+  {
+    path: '/movies/:moviePk',
+    name: 'movie',
+    component: MovieDetailView
   },
   {
     path: '/community', //Community

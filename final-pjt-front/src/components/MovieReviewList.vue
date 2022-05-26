@@ -1,11 +1,18 @@
 <template>
   <div class="movie-review-list">
     <!-- {{ review_set }} -->
-    <ul>
+    <ul class="list-group list-group-flush">
       <movie-review-item
         v-for="review in review_set"
         :review="review"
         :key="review.id"
+        class="
+          list-group-item
+          d-flex
+          justify-content-between
+          align-items-end
+          list-group-item-warning
+        "
       >
       </movie-review-item>
     </ul>

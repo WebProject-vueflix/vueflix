@@ -1,25 +1,31 @@
 <template>
   <li class="movie-review-item">
-    
     <!-- <p>{{ review.title }}</p> -->
     <!-- <p>{{ review }}</p> -->
 
     <span v-if="!isEditing">
-      <p>제목: {{ payload.title }} </p>
-      <p>내용: {{ payload.content }}</p>
-      <p>평점: {{ payload.rank }}</p>
+      <p class="text-start">제목: {{ payload.title }}</p>
+      <p class="text-start">내용: {{ payload.content }}</p>
+      <p class="text-start">평점: {{ payload.rank }}</p>
       <!-- {{ payload.newMovieReview }} -->
     </span>
-    <p>작성자: 
-    <router-link :to="{ name: 'profile', params: { username: review.user.username } }">
-      {{ review.user.username }}
-    </router-link></p>
+    <p>
+      작성자:
+      <router-link
+        :to="{ name: 'profile', params: { username: review.user.username } }"
+      >
+        {{ review.user.username }}
+      </router-link>
+    </p>
 
     <span v-if="isEditing">
-      <input type="text" v-model="payload.title">
-      <br>
-      <input type="text" v-model="payload.content">
-      <br>
+      <div>
+        <span class="text-dark">제목: </span>
+        <input type="text" v-model="payload.title" />
+      </div>
+      <br />
+      <input type="text" v-model="payload.content" />
+      <br />
       <select v-model="payload.rank">
         <option disabled value="">평점을 선택하세요</option>
         <option value="1">⭐</option>
@@ -29,23 +35,26 @@
         <option value="5">⭐⭐⭐⭐⭐</option>
       </select>
       <!-- <input type="selectbox" v-model="payload.rank"> -->
-      <br>
+      <br />
       <button @click="onUpdate">Update</button> |
       <button @click="switchIsEditing">Cancle</button>
     </span>
 
-    <span v-if="currentUser.username === review.user.username && !isEditing">
+    <p
+      v-if="currentUser.username === review.user.username && !isEditing"
+      class="d-inline"
+    >
       <button @click="switchIsEditing">Edit</button> |
       <button @click="deleteMovieReview(payload)">Delete</button>
-    </span>
+    </p>
   </li>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: 'MovieReviewItem',
+  name: "MovieReviewItem",
   props: { review: Object },
   data() {
     return {
@@ -55,25 +64,24 @@ export default {
         reviewPk: this.review.id,
         title: this.review.title,
         content: this.review.content,
-        rank: this.review.rank
+        rank: this.review.rank,
       },
-    }
+    };
   },
   computed: {
-    ...mapGetters(['currentUser']),
+    ...mapGetters(["currentUser"]),
   },
   methods: {
-    ...mapActions(['updateMovieReview', 'deleteMovieReview']),
+    ...mapActions(["updateMovieReview", "deleteMovieReview"]),
     switchIsEditing() {
-      this.isEditing = !this.isEditing
+      this.isEditing = !this.isEditing;
     },
     onUpdate() {
-      this.updateMovieReview(this.payload)
-      this.isEditing = false
-    }
+      this.updateMovieReview(this.payload);
+      this.isEditing = false;
+    },
   },
-
-}
+};
 </script>
 
 <style></style>
