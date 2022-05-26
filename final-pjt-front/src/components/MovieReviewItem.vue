@@ -8,15 +8,15 @@
       <p class="text-start">내용: {{ payload.content }}</p>
       <p class="text-start">평점: {{ payload.rank }}</p>
       <!-- {{ payload.newMovieReview }} -->
+      <p class="text-start">
+        작성자:
+        <router-link
+          :to="{ name: 'profile', params: { username: review.user.username } }"
+        >
+          {{ review.user.username }}
+        </router-link>
+      </p>
     </span>
-    <p>
-      작성자:
-      <router-link
-        :to="{ name: 'profile', params: { username: review.user.username } }"
-      >
-        {{ review.user.username }}
-      </router-link>
-    </p>
 
     <span v-if="isEditing">
       <div>
@@ -24,8 +24,11 @@
         <input type="text" v-model="payload.title" />
       </div>
       <br />
+      <span class="text-dark">내용: </span>
+
       <input type="text" v-model="payload.content" />
       <br />
+      <span></span>
       <select v-model="payload.rank">
         <option disabled value="">평점을 선택하세요</option>
         <option value="1">⭐</option>

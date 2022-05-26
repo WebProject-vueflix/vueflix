@@ -1,10 +1,19 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <label for="comment">comment: </label>
-    <input type="text" id="comment" v-model="content" required />
-    <!-- review 객체  확인하기 위해 객체 전체 리스트 -->
-    <!-- <p>{{ review }}</p> -->
-    <button>Comment</button>
+    <div class="d-flex align-items-baseline">
+      <!-- <label for="comment" class="col-form-label">comment: </label> -->
+      <input
+        type="text"
+        id="comment"
+        v-model="content"
+        required
+        class="form-control col-4 d-inline"
+        placeholder="comment"
+      />
+      <!-- review 객체  확인하기 위해 객체 전체 리스트 -->
+      <!-- <p>{{ review }}</p> -->
+      <button class="mx-2 btn btn-outline-light">Comment</button>
+    </div>
   </form>
 </template>
 

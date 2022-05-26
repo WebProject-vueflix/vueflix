@@ -1,51 +1,63 @@
 <template>
   <form @submit.prevent="onSubmit">
     <!-- <label for="review">한줄평: </label> -->
-    <div class="row mb-3">
-      <label for="title" class="col-form-label col-sm-2">
-        <h5>title:</h5>
-      </label>
-      <div class="col-sm-10">
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          v-model="newMovieReview.title"
-          required
-        />
+    <div class="d-grid justify-content-center">
+      <div class="row mt-5">
+        <label for="title" class="col-form-label col-2">
+          <p>title:</p>
+        </label>
+        <div class="col-10">
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            v-model="newMovieReview.title"
+            required
+          />
+        </div>
+        <!-- <div class="col-10">
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="title"
+            v-model="newMovieReview.title"
+            required
+          />
+        </div> -->
       </div>
-    </div>
-    <div class="row mb-3">
-      <label for="content" class="col-form-label col-sm-2">content:</label>
-      <div class="col-sm-10">
-        <input
-          type="text"
-          class="form-control"
-          id="content"
-          v-model="newMovieReview.content"
-          required
-        />
+      <div class="row">
+        <label for="content" class="col-form-label col-2"><p>text:</p></label>
+        <div class="col-10">
+          <input
+            type="text"
+            class="form-control"
+            id="content"
+            v-model="newMovieReview.content"
+            required
+          />
+        </div>
       </div>
-    </div>
-    <div class="row mb-3">
-      <label for="rank" class="col-form-label col-sm-2">rank:</label>
-      <!-- <input type="selectbox" id="rank" v-model="newMovieReview.rank" required /> -->
-      <div class="col-sm-10">
-        <select v-model="newMovieReview.rank" class="form-select">
-          <option disabled value="">평점을 선택하세요</option>
-          <option value="1">⭐</option>
-          <option value="2">⭐⭐</option>
-          <option value="3">⭐⭐⭐</option>
-          <option value="4">⭐⭐⭐⭐</option>
-          <option value="5">⭐⭐⭐⭐⭐</option>
-        </select>
+      <div class="row">
+        <label for="rank" class="col-form-label col-2"><p>rank:</p></label>
+        <!-- <input type="selectbox" id="rank" v-model="newMovieReview.rank" required /> -->
+        <div class="col-10">
+          <select v-model="newMovieReview.rank" class="form-select">
+            <option disabled value="">평점을 선택하세요</option>
+            <option value="1">⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+          </select>
+        </div>
+        <!-- <input type="text" id="rank" v-model="newMovieReview.rank" required /> -->
       </div>
-      <!-- <input type="text" id="rank" v-model="newMovieReview.rank" required /> -->
     </div>
     <!-- review 객체  확인하기 위해 객체 전체 리스트 -->
     <!-- <p>{{ review }}</p> -->
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button>Comment</button>
+      <button class="btn btn-outline-light">Comment</button>
     </div>
   </form>
 </template>
