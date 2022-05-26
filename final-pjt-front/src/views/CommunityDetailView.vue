@@ -1,9 +1,8 @@
 <template>
   <div>
-    {{ review.updated_at }}
-    <!-- <h1>{{ review.title }}</h1>
-
-    <p>
+    <!-- <h1>{{ review }}</h1> -->
+    <!-- {{ this.review.created_at }} -->
+    <!-- <p>
       {{ review.content }}
     </p> -->
     <div class="card">
@@ -17,11 +16,15 @@
           align-items-baseline
         "
       >
-        <h3 class="mb-0 ms-3 text-start">{{ review.title }}</h3>
+        <h3 class="mb-0 text-start">
+          {{ review.title }} <br />
+          <br />
+        </h3>
         <div v-if="isAuthor">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-0">
+            <span me-2>{{ review.user.username }}</span>
             <router-link :to="{ name: 'reviewEdit', params: { reviewPk } }">
-              <button class="btn btn-outline-light me-md-2" type="button">
+              <button class="btn btn-outline-light me-md-2 ms-2" type="button">
                 Edit
               </button>
             </router-link>
@@ -36,14 +39,19 @@
         </div>
       </h5>
       <hr />
-      <div class="card-title mb-3">
+      <div class="card-title mb-3 d-flex justify-content-between">
         <!-- <span class="text-ligth">{{ review.updated_at }}</span> -->
         <h5 class="card-text text-ligth ms-3 text-start">
           {{ review.content }}
         </h5>
+        <h6 class="mb-0 me-3 text-end">
+          created | {{ createdate }}
+          <br />
+          updated | {{ updatedate }}
+        </h6>
       </div>
     </div>
-    <div v-if="isAuthor">
+    <!-- <div v-if="isAuthor">
       <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
         <router-link :to="{ name: 'reviewEdit', params: { reviewPk } }">
           <button class="btn btn-outline-light me-md-2" type="button">
@@ -61,7 +69,7 @@
       <router-link :to="{ name: 'community' }">
         <button class="btn btn-outline-light">목록으로 돌아가기</button>
       </router-link>
-    </div>
+    </div> -->
 
     <!-- Review Like UI -->
     <!-- <div>
@@ -103,6 +111,17 @@ export default {
     // likeCount() {
     //   return this.review.like_users?.length
     // }
+
+    createdate() {
+      let a = this.review.created_at.substring(0, 10);
+      let b = this.review.created_at.substring(11, 19);
+      return a + " " + b;
+    },
+    updatedate() {
+      let c = this.review.updated_at.substring(0, 10);
+      let d = this.review.updated_at.substring(11, 19);
+      return c + " " + d;
+    },
   },
   methods: {
     ...mapActions([

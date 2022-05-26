@@ -21,7 +21,7 @@
       >
         <router-link
           :to="{ name: 'review', params: { reviewPk: review.pk } }"
-          class="text-decoration-none ms-2 me-3"
+          class="text-decoration-none text-dark ms-2 me-3"
         >
           {{ review.title }}
         </router-link>

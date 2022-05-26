@@ -16,6 +16,11 @@
           {{ review.user.username }}
         </router-link>
       </p>
+      <h6 class="mb-0 me-3 text-start">
+        created | {{ createdate }}
+        <br />
+        updated | {{ updatedate }}
+      </h6>
     </span>
 
     <span v-if="isEditing">
@@ -73,6 +78,16 @@ export default {
   },
   computed: {
     ...mapGetters(["currentUser"]),
+    createdate() {
+      let a = this.review.created_at.substring(0, 10);
+      let b = this.review.created_at.substring(11, 19);
+      return a + " " + b;
+    },
+    updatedate() {
+      let c = this.review.updated_at.substring(0, 10);
+      let d = this.review.updated_at.substring(11, 19);
+      return c + " " + d;
+    },
   },
   methods: {
     ...mapActions(["updateMovieReview", "deleteMovieReview"]),

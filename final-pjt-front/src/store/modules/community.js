@@ -89,7 +89,8 @@ export default {
         })
           .then(() => {
             commit('SET_REVIEW', {})
-            // router.push({ name: 'review' })
+            // console.log('sdfjdsklfjsdlf')
+            router.push({ name: 'community' })
           })
           .catch(err => console.error(err.response))
       }
