@@ -65,36 +65,45 @@
         </div>
       </div>
     </div>
-    <p>배우 :</p>
-    <div class="card-group" v-for="actor in movie.actors" :key="actor.id">
-      <div class="card" style="max-width:18rem" v-if="actor.profile_path != null">
-        <img :src="`https://image.tmdb.org/t/p/original/${actor.profile_path}`"
-          alt="사진" class="card-img-top">
-        <div class="card-body">
-          <p class="card-text">{{actor.name}}</p>
+    <div div class="card">
+      <div class="card-header">배우 정보
+        <div class="d-flex justify-content-center align-items-center mt-2">
+          <div v-for="actor in movie.actors" :key="actor.id">
+            <div v-if="actor.profile_path != null">
+              <img :src="`https://image.tmdb.org/t/p/w300/${actor.profile_path}`"
+                alt="사진" class="card-img-top mx-auto">
+              <div class="card-body">
+                <p class="card-text">{{actor.name}}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <div v-for="actor in movie.actors" :key="actor.id">
-      <div v-if="actor.profile_path != null">
-        <img
-          :src="`https://image.tmdb.org/t/p/w200/${actor.profile_path}`"
-          alt="사진"
-        />
-        <p>{{ actor.name }}({{ actor.character }} 역)</p>
-      </div>
-      <!-- <router-link :to="{ name: 'actor', params: { actorPk: actor.id } }">
-        <p>{{ actor.name }}({{ actor.character }} 역)</p>
-      </router-link> -->
-    </div>
-    <p>감독 : {{ movie.director[0].name }}</p>
+    </div>  
     <!-- {{ movie.director[0].id }} -->
-    <div v-if="movie.director[0].profile_path != null">
-      <img
-        :src="`https://image.tmdb.org/t/p/w200/${movie.director[0].profile_path}`"
-        alt="사진"
-      />
+    <hr>
+    <div v-if="movie.director[0].popular_movies.length >= 2">
+      <span><h3><b>{{ movie.director[0].name }} 감독님의 이 영화는 어때요?</b></h3></span>
+      <router-link :to="{ name: 'director', params: { directorPk: movie.director[0].id } }">
+        <div class="d-flex justify-content-end">
+          <span>더 보러가기</span>
+        </div>
+      </router-link>
+      <div div class="card">
+        <div class="d-flex justify-content-center align-items-center mt-2">
+          <div v-for="num in movie.director[0].popular_movies.length" :key="num">
+            <div v-if="num <= `${n}`">
+              <div v-if="movie.director[0].popular_movies[num-1].id != movie.id">
+                <img :src="`https://image.tmdb.org/t/p/w200/${movie.director[0].popular_movies[num-1].poster_path}`"
+                    alt="사진" class="card-img-top mx-auto">
+                <div class="card-body">
+                  <p>{{ movie.director[0].popular_movies[num-1].title }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- <router-link
       :to="{ name: 'director', params: { directorPk: movie.director[0].id } }"
@@ -112,49 +121,35 @@
     <!-- 공유하기 -->
     <hr />
     <div v-for="movieactor in movie.actors" :key="movieactor.name">
-      <div v-if="movieactor.popular_movies.length >= 2">  
-        <h3><b>{{ movieactor.name }} 배우님의 이 영화는 어때요?</b></h3>
+      <div v-if="movieactor.popular_movies.length >= 2">
+        <span><h3><b>{{ movieactor.name }} 배우님의 이 영화는 어때요?</b></h3></span>
         <router-link :to="{ name: 'actor', params: { actorPk: movieactor.id } }">
-          <p>더 보러가기</p>
+          <div class="d-flex justify-content-end">
+            <button>더 보러가기</button>
+          </div>
         </router-link>
-        <div v-for="num in movieactor.popular_movies.length" :key="num">
-          <div v-if="num <= `${n}`">
-            <!-- {{num}} -->
-          <!-- <div v-for="newmovie in movieactor.popular_movies" :key="newmovie.title"> -->
-            <div v-if="movieactor.popular_movies[num-1].id != movie.id">
-              <img
-                :src="`https://image.tmdb.org/t/p/w200/${movieactor.popular_movies[num-1].poster_path}`"
-                alt="사진"
-              />
-              <p>{{ movieactor.popular_movies[num-1].title }}</p>
+        <div div class="card">
+          <div class="d-flex justify-content-center align-items-center mt-4 ">
+            <div v-for="num in movieactor.popular_movies.length" :key="num">
+              <div v-if="num <= `${n}`">
+                <div v-if="movieactor.popular_movies[num-1].id != movie.id">
+                  <img :src="`https://image.tmdb.org/t/p/w200/${movieactor.popular_movies[num-1].poster_path}`"
+                      alt="사진" class="card-img-top mx-auto" style="height: 300px">
+                  <div class="card-body">
+                    <p>{{ movieactor.popular_movies[num-1].title }}</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <hr>
-    <div v-if="movie.director[0].popular_movies.length >= 2">  
-      <h3><b>{{ movie.director[0].name }} 감독님의 이 영화는 어때요?</b></h3>
-      <router-link :to="{ name: 'director', params: { directorPk: movie.director[0].id } }">
-        <p>더 보러가기</p>
-      </router-link>
-      <div v-for="num in movie.director[0].popular_movies.length" :key="num">
-        <div v-if="num <= `${n}`">
-        <!-- <div v-for="newmovie in movieactor.popular_movies" :key="newmovie.title"> -->
-          <div v-if="movie.director[0].popular_movies[num-1].id != movie.id">
-            <img
-              :src="`https://image.tmdb.org/t/p/w200/${movie.director[0].popular_movies[num-1].poster_path}`"
-              alt="사진"
-            />
-            <p>{{ movie.director[0].popular_movies[num-1].title }}</p>
-          </div>
-        </div>
+        <hr>
       </div>
     </div>
     <!-- <div v-for="review in movie.review_set" :key="review.id">
       {{ sum_rank }} : {{ review.rank }}
     </div> -->
-    <hr />
+
     <!-- <h2>한줄평</h2>
     <div v-for="review in movie.review_set" :key="review.id">
       <b>제목: {{ review.title }}</b>

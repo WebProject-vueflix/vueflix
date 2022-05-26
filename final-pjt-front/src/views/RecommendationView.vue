@@ -5,7 +5,7 @@
     <!-- {{ recommend }} -->
     <div class="container mb-5">
       <div
-        class="row row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-0"
+        class="d-flex justify-content-center row row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-0"
       >
         <div
           class="card text-white bg-dark mb-3"
@@ -19,7 +19,7 @@
                 :src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
                 class="card-img-top mt-2"
                 alt="..."
-                style="height: 260px"
+                style="height: 380px"
               />
             </router-link>
             <!-- <br /> -->

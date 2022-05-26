@@ -1,33 +1,44 @@
 <template>
   <nav class="navbar sticky-top justify-content-end navbar-expand-lg navbar-light mb-4">    
     <div class="container-fluid">
-      <img src="https://cdn.iconscout.com/icon/free/png-256/vue-282497.png" alt="Vueflix" width=35px>
+      <div class="mx-3">
+        <img src="https://cdn.iconscout.com/icon/free/png-256/vue-282497.png" alt="Vueflix" width=35px>
+        <span class="text-start mx-4">{{username}}님, 오늘도 뷰플릭스로 좋은 하루 되세요!</span>
+      </div>
         <div class="d-flex">
           <ul class="nav">
             <li class="nav-item">
               <div class="nav-link active">
-                <router-link :to="{ name: 'movies' }">🏠Home</router-link>
+                <router-link :to="{ name: 'movies' }">
+                  🏠Home
+                </router-link>
               </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isLoggedIn">
               <div class="nav-link active">
-                <router-link :to="{ name: 'recommend' }">🎥Recommendation</router-link>
+                <router-link :to="{ name: 'recommend' }">
+                  🎥Recommendation
+                </router-link>
               </div>
             </li>
             <li class="nav-item" v-if="!isLoggedIn">
               <div class="nav-link active">
-                <router-link :to="{ name: 'login' }">🔓Login</router-link>
+                <router-link :to="{ name: 'login' }">
+                  🔓Login
+                </router-link>
               </div>
             </li>
             <li class="nav-item" v-if="!isLoggedIn">
               <div class="nav-link active">
-                <router-link :to="{ name: 'signup' }">🐥Signup</router-link>
+                <router-link :to="{ name: 'signup' }">
+                  🐥Signup
+                </router-link>
               </div>
             </li>
             <li class="nav-item" v-if="isLoggedIn">
               <div class="nav-link active">
                 <router-link :to="{ name: 'profile', params: { username } }">
-                  👻{{ currentUser.username }}'s page
+                  👻{{ username }}'s page
                 </router-link>
               </div>
             </li>
@@ -40,12 +51,14 @@
             </li>
             <li class="nav-item" v-if="isLoggedIn">
               <div class="nav-link active">
-                <router-link :to="{ name: 'logout' }">🔒Logout</router-link>
+                <router-link :to="{ name: 'logout' }">
+                  🔒Logout
+                </router-link>
               </div>
             </li>
           </ul>
         </div>
-    </div>
+    </div>  
   </nav>
 </template>
 
@@ -78,7 +91,7 @@ nav a {
   /* font-weight: bold;
   color: #ccddff; */
   font-weight: bold;
-  color: #2c3e50;
+  color: black;
   text-decoration: none
 }
 

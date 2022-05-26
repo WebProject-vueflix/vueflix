@@ -2,6 +2,7 @@ const HOST = 'http://localhost:8000/api/v1/'
 
 const ACCOUNTS = 'accounts/'
 const MOVIES = 'movies/'
+const RECOMMEND = 'recommended/'
 const COMMUNITY = 'community/'
 const COMMENTS = 'comments/'
 const REVIEWS = 'reviews/'
@@ -24,7 +25,7 @@ export default {
   movies: {
     movies: () => HOST + MOVIES,
     movie: moviePk => HOST + MOVIES + `${moviePk}/`,
-    recommend: () => HOST + MOVIES + 'recommended/',
+    recommend: () => HOST + MOVIES + RECOMMEND,
     genres: () => HOST + MOVIES + GENRE,
     genre: genrePk => HOST + MOVIES + GENRE + `${genrePk}/`,
     unlikeGenre: genrePk => HOST + MOVIES + GENRE + `${genrePk}/` + UNLIKE,
