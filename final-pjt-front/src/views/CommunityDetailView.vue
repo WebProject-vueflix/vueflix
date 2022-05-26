@@ -66,10 +66,10 @@
           Delete
         </button>
       </div>
-      <router-link :to="{ name: 'community' }">
-        <button class="btn btn-outline-light">목록으로 돌아가기</button>
-      </router-link>
     </div> -->
+    <router-link :to="{ name: 'community' }">
+      <button class="btn btn-outline-light mt-3">목록으로 돌아가기</button>
+    </router-link>
 
     <!-- Review Like UI -->
     <!-- <div>
