@@ -327,7 +327,80 @@
   [Vue warn]: Duplicate keys detected: '11006'. This may cause an update error.
   ```
 
-  
+  --애리--
+
+
+
+0524 한 일
+
+```
+장고 admin 구현
+```
+
+0523 한 일
+
+```
+좋아요 기능 구현
+```
+
+
+
+0525 한 일
+
+```
+싫어요 백 구현
+recommendation algorithm 
+싫어요 장르 / 좋아요 영화 기반 추천 알고리즘 구현
+-> views.py 구현 / 알고리즘에 따른 모델 재정의
+```
+
+0525 오류
+
+```
+genre 테이블에 정의되지 않은 이름이 들어가 axios 통신을 못하는 오류 -> ERROR 500 -> serializer fields 삭제
+```
+
+
+
+0526 한 일 
+
+```
+CSS - signup / moviedetail_reviewform / community - form/list/item / genreselectform
+serializer - moviedetail serializer 중 reviewserializer 부분에서 review 정의 오류 부분 수정
+```
+
+0526 오류
+
+```
+$attrs is readonly.
+
+$listeners is readonly.
+
+==> 오류가 아닌 Vue warn 부분. 오류가 남에도 돌아가고 있지만 무엇이 문제인지 잘 모르겠다. 
+```
+
+
+
+```
+avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. instead, use a data or computed property based on the prop's value. prop being mutated: "to"
+
+the service worker navigation preload request was cancelled before 'preloadresponse' settled. if you intend to use 'preloadresponse', use waituntil() or respondwith() to wait for the promise to settle.
+
+vue.runtime.esm.js?c320:1897 typeerror: cannot read properties of undefined
+
+==> 비동기 처리 순서를 거치면서 오류가 생긴 듯 하다. 같은 반 오빠의 도움으로 vue의 router 링크 순서를 바꿔줬다 (moviedetail 부분에서 계속 오류가 났기 때문에, moviedetail <-> recommend 위치 변경)
+```
+
+
+
+```
+moviedetail에서 쓴 review의 작성자와 edit 버튼이 눌리지 않음 -> serializer오류로 username이 포함되지 않았음 
+vue에서 해당 데이터 확인 후 serializer 수정
+```
+
+```
+duplicated key error -> 키값에러가 났다. name으로 지정한 key값을 id로 변경 !
+```
 
 
 
@@ -335,6 +408,18 @@
 
 - 고승효 : 
 - 김애리 : 
+
+```
+처음에 기능별 구현을 제안했었는데, 진행하다보니 자연스럽게 백 쪽을 많이 구현하게 된 것 같습니다 ..
+맨 처음 프로젝트를 시작하면서 맨 땅에 헤딩하는 기분이었는데, 어느덧 완벽하게 기능을 구현하는 것을 보니 짧은 시간이지만 많은 성장을 했다고 생각합니다.
+serializer를 하면서 serializer 안에 새로운 serializer를 구현하는 방식들을 많이 접하면서 어떤 걸 보여주고, 어떻게 정의를 해야하는지 한 번 더 확인할 수 있는 계기가 되었습니다.
+또한 serializer에서 필드를 새로 만들어 views.py에서 계산값(annotate)을 넣어주는 작업을 다시 한 번 해보면서 serializer의 넓은 폭을 한 번 더 경험할 수 있었습니다.
+또한 Vue를 작업하면서 생각보다 프론트에서 신경을 쓸 부분이 많다는 것을 느꼈습니다. 받은 정보를 처리해서 사용자에게 보여주는 작업들이 많다보니 , 각각 어떤 결과를 가지고 와야할지 생각해야해서 많이 복잡했습니다.
+방학 동안 Vue와 Django를 좀 더 심화학습 (복습 필수)을 공부하며 2학기 프로젝트를 준비해야겠다고 생각했습니다. 
+일주일이라는 시간동안 좋은 페어를 만나서 많은 것을 배울 수 있던 좋은 경험이었습니다.
+```
+
+ 
 
 
 
