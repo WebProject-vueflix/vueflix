@@ -1,27 +1,47 @@
 <template>
   <div>
     <h1>GenreList</h1>
-    <!-- {{ genres }} -->
+    {{ genres[5].hate_users }}
+    {{ currentUser.username }}
+    <!-- {{ currentUser }} -->
     <ul class="list-group list-group-horizontal-2">
       <li
         class="list-group-item list-group-item-action list-group-item-dark"
         v-for="genre in genres"
         :key="genre.name"
       >
-        <div v-if="genre.unlike === true">
-          <input
-            @click="unlikeGenre(genre.id)"
-            type="checkbox"
-            id="genre"
-            name="genre"
-            checked
-            class="form-check-input me-1"
-            value=""
-            aria-label="..."
-          />
-          <label for="genre" class="text-dark">{{ genre.name }}</label>
+        {{ genre.hate_users }}
+        <div v-if="genre.hate_users.length >= 1">
+          <div v-for="hate_user in genre.hate_users" :key="hate_user.id">
+            <!-- {{ hate_user.username }} -->
+            <div v-if="hate_user.username === currentUser.username">
+              <input
+                @click="unlikeGenre(genre.id)"
+                type="checkbox"
+                id="genre"
+                name="genre"
+                checked
+                class="form-check-input me-1"
+                value=""
+                aria-label="..."
+              />
+              <label for="genre" class="text-dark">{{ genre.name }}</label>
+            </div>
+            <div v-else>
+              <input
+                @click="unlikeGenre(genre.id)"
+                type="checkbox"
+                id="genre"
+                name="genre"
+                class="form-check-input me-1"
+                value=""
+                aria-label="..."
+              />
+              <label for="genre" class="text-dark">{{ genre.name }}</label>
+            </div>
+          </div>
         </div>
-        <div v-if="genre.unlike === false">
+        <div v-else>
           <input
             @click="unlikeGenre(genre.id)"
             type="checkbox"

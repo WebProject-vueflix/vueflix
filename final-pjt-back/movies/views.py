@@ -16,6 +16,50 @@ API_KEY = '1084b2e96727cbe4bd9c2a0e2fd99168'
 GENRE_URL = 'https://api.themoviedb.org/3/genre/movie/list'
 POPULAR_MOVIE_URL = 'https://api.themoviedb.org/3/movie/popular'
 
+genre_dict_org = {
+    '모험': 0,
+    '판타지': 0,
+    '애니메이션': 0,
+    '드라마': 0,
+    '공포': 0,
+    '액션': 0,
+    '코미디':0,
+    '역사':0,
+    '서부':0,
+    '스릴러': 0,
+    '범죄': 0,
+    '다큐멘터리': 0,
+    'SF': 0,
+    '미스터리': 0,
+    '음악': 0,
+    '로맨스': 0,
+    '가족': 0,
+    '전쟁': 0,
+    'TV 영화': 0
+}
+
+genre_dict = {
+    '모험': 0,
+    '판타지': 0,
+    '애니메이션': 0,
+    '드라마': 0,
+    '공포': 0,
+    '액션': 0,
+    '코미디':0,
+    '역사':0,
+    '서부':0,
+    '스릴러': 0,
+    '범죄': 0,
+    '다큐멘터리': 0,
+    'SF': 0,
+    '미스터리': 0,
+    '음악': 0,
+    '로맨스': 0,
+    '가족': 0,
+    '전쟁': 0,
+    'TV 영화': 0
+}
+
 def genre_data():
     response = requests.get(
         GENRE_URL,
@@ -137,35 +181,116 @@ def tmdb(request):
     #         movie_data(i)
     return HttpResponse('OK')
 
+username = ''
 @api_view(['GET',])
 def movie_list(request):
-    # movies = get_list_or_404(PopularMovie)
+    global username
+    global genre_dict
+    global genre_dict_org
+    movie_list = get_list_or_404(PopularMovie)
+    #초기작업
+    # if username == request.user.username:
+    #     print('hello user')
+    if username != request.user.username:
+        genre_dict = genre_dict_org
+        print(genre_dict)
+        user = request.user
+        username = user.username
+        for movie1 in movie_list:
+            movie1.genre_score = 0
+            movie1.save()
+        for genre1 in user.hate_genres.all():
+        # print(genre)
+            genre_dict[genre1.name] = -5
+            # print(genre.popular_movies.all())
+            for movie2 in genre1.popular_movies.all():
+                movie2.genre_score -=5
+                movie2.save()
+        for in_movie in user.like_popular_movies.all():
+            for genre2 in in_movie.genres.all():
+                genre_dict[genre2.name] += 1
+                for genre_movie in genre2.popular_movies.all():
+                    genre_movie.genre_score += 1
+                    genre_movie.save()
+            print(in_movie)
+    print(genre_dict)
+
     movies = PopularMovie.objects.annotate(
             like_count=Count('like_users', distinct=True),
             review_count=Count('review', distinct=True)
         ).order_by('-popularity')[:20]
+    print(genre_dict)
+
+
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
-
+    
 @api_view(['GET',])
 def movie_detail(request,popularmovie_pk):
     movie = get_object_or_404(PopularMovie, pk=popularmovie_pk)
     serializer = MovieDetailSerializer(movie)
     return Response(serializer.data)
 
+
 @api_view(['GET',])
 def recommendation(request):
+    # global username
+    # global genre_dict
+    # if username == request.user.username:
+    #     print('hello user')
+    # else:
+    #     user = request.user
+    #     username = user.username
+    #     print('not hello user')
+    #     print(user)
+    #     genre_dict = genre_dict_org
+    #     # print(user.hate_genres.all())
+    #     for i in user.hate_genres.all():
+    #         print(genre_dict[i.name])
+    #         print(i)
+    #         genre_dict[i.name] = -5
+    #     for j in user.like_popular_movies.all():
+    #         print(j)
+    #         print(j.genres.all())
+    #         # for k in j.genres.all():
+    #         #     print(k)
+    #         #     # for l in k.popular_movies.all():
+    #         #     #     print(l)
+    #         #     # 해당 장르의 영화들 (나중에 -해줄 것)
+    #         #     print(k.popular_movies.all())
+    #     print(genre_dict)
+    # print(genre_dict)
+    # user = request.user
+    # username = request.user.username
+    # print(username)
+    # print(user)
+    # print(type(user.username))
+    # print(type(username))
+    # print(type(user))
+    # print(user.username)
+    # if user.username == username:
+    #     print('hello')
+    # else:
+    #     print('not hello')
+
     movie_list = PopularMovie.objects.annotate(
         like_count=Count('like_users', distinct=True),
         review_count=Count('review', distinct=True),
     ).order_by('-genre_score')[:20]
-    
+    print(genre_dict)
     serializer = MovieListSerializer(movie_list, many=True)
     return Response(serializer.data)
 
 @api_view(['GET',])
 def genre_list(request):
     genres = get_list_or_404(Genre)
+
+    # for genre in genres:
+    #     print(genre.score)
+    #     print(genre.unlike)
+    #     genre.score = 0
+    #     genre.unlike = False
+    #     genre.save()
     serializer = GenreListSerializer(genres, many=True)
     return Response(serializer.data)
 
@@ -177,22 +302,47 @@ def genre_detail(request,genre_pk):
 
 @api_view(['POST'])
 def unlike_genre(request, genre_pk):
+    global genre_dict
+    # global username
     genre = get_object_or_404(Genre, pk=genre_pk)
+    # if username != request.user.username:
+    #     user = request.user
+    #     username = user.username
+    #     genre_dict = genre_dict_org
+    #     for genre in user.hate_genres.all():
+    #         # print(genre)
+    #         genre_dict[genre.name] = -5
+    #         print(genre.popular_movies.all())
+    #         # for movie in genre.popular_movies.all():
+    #         #     movie.genre_score -=5
+    #         #     movie.save()
+    #     print(genre_dict)
+    # else: #username == request.user.username:
+    #     print('same user')
+        # print(genre_dict)
     user = request.user
     if genre.hate_users.filter(pk=user.pk).exists():
         genre.hate_users.remove(user)
-        genre.unlike = False
-        genre.score = 0
-        genre.save()
-        serializer = GenreDetailSerializer(genre)
-        return Response(serializer.data)
+        genre_dict[genre.name] = 0
+        print(genre.popular_movies.all())
+        for movie in genre.popular_movies.all():
+            movie.genre_score += 5
+            movie.save()
+        # serializer = GenreDetailSerializer(genre)
+        # return Response(serializer.data)
     else:
         genre.hate_users.add(user)
-        genre.unlike = True
-        genre.score = -5
-        genre.save()
-        serializer = GenreDetailSerializer(genre)
-        return Response(serializer.data)
+        # print(genre.name)
+        # print(type(genre.name))
+        genre_dict[genre.name] = -5
+        for movie in genre.popular_movies.all():
+            movie.genre_score -= 5
+            movie.save()
+        # print(user.hate_genres.all())
+        # print(genre_dict)
+    print(genre_dict)
+    serializer = GenreDetailSerializer(genre)
+    return Response(serializer.data)
 
 
 @api_view(['GET',])
@@ -215,26 +365,69 @@ def director_detail(request,director_pk):
 
 @api_view(['POST'])
 def like_movie(request, popularmovie_pk):
+    global genre_dict
+    # global username
+    # if username != request.user.username:
+    #     user = request.user
+    #     username = user.username
+    #     genre_dict = genre_dict_org
+    #     for in_movie in user.like_popular_movies.all():
+    #         for genre in in_movie.genres.all():
+    #             genre_dict[genre] += 1
+    #             for genre_movie in genre.popular_movies.all():
+    #                 genre_movie.genre_score += 1
+    #                 genre_movie.save()
+    #         print(in_movie)
+    #         # genre_dict[in_movie.genre_score] += 1
+    #     print(genre_dict)
+    # else:
+    #     print('hello')
+
     movie = get_object_or_404(PopularMovie, pk=popularmovie_pk)
     user = request.user
     if movie.like_users.filter(pk=user.pk).exists():
-        for genre in movie.genres.all():
-            if genre.score > 0:
-                genre.score = genre.score - 1
-                genre.save()
+        # print(movie.genres.all())
+        # print('remove')
+        # print(user.like_popular_movies.all())
+        # for genre in movie.genres.all():
+        #     if genre.score > 0:
+        #         genre.score = genre.score - 1
+        #         genre.save()
+        for genre1 in movie.genres.all():
+            if genre_dict[genre1.name] > 0:
+                genre_dict[genre1.name] -= 1
+                for movie1 in genre1.popular_movies.all():
+                    movie1.genre_score -= 1
+                    movie1.save()
+        # print(genre_dict)
         movie.like_users.remove(user)
 
     else:
         movie.like_users.add(user)
-        for genre in movie.genres.all():
-            if genre.score >= 0:
-                genre.score = genre.score + 1
-                genre.save()
-    b = 0
-    for genre in movie.genres.all():
-        b += genre.score
-    movie.genre_score = b
-    movie.save()
+        # print(movie.genres.all())
+        for genre2 in movie.genres.all():
+            # print(genre)
+            # print(type(genre.name))
+            if genre_dict[genre2.name] >= 0:
+                genre_dict[genre2.name] += 1
+                for movie2 in genre2.popular_movies.all():
+                    movie2.genre_score += 1
+                    movie2.save()
+        #     print(genre_dict[genre.name])
+        # print('add')
+        # print(genre_dict)
+        # for genre in movie.genres.all():
+        #     if genre.score >= 0:
+        #         genre.score = genre.score + 1
+        #         genre.save()
+    # b = 0
+    # for genre in movie.genres.all():
+    #     b += 0
+    # movie.genre_score = b
+    # movie.save()
+    # for genre in movie.genres.all():
+    #     print(genre)
+
     serializer = MovieDetailSerializer(movie)
     return Response(serializer.data)
 

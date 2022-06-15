@@ -15,7 +15,7 @@ def review_list_or_create(request):
 
         reviewlist = Review.objects.annotate(
             comment_count = Count('community_review', distinct=True)
-        ).order_by('pk')
+        )
 
         serealizer = ReviewListSerializer(reviewlist, many=True)
         return Response(serealizer.data)

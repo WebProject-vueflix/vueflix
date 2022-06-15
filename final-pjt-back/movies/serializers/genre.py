@@ -3,9 +3,16 @@ from ..models import Genre,PopularMovie
 from accounts.models import User
 
 class GenreListSerializer(serializers.ModelSerializer):
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('id', 'username',)
+    
+    hate_users = UserSerializer(read_only=True, many=True)
+
     class Meta:
         model = Genre
-        fields = ('id', 'name','unlike', 'score')
+        fields = ('id', 'name','unlike', 'score','hate_users')
 
 class GenreDetailSerializer(serializers.ModelSerializer):
     class GenreMovieSerializer(serializers.ModelSerializer):
