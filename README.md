@@ -130,7 +130,7 @@
 - requirment.txt 설치
 
   ```bash
-  $ pip install -r requirment.txt
+  $ pip install -r requirements.txt
   ```
 
 - 모델 생성 및 migration & migrate
